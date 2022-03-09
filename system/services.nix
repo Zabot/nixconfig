@@ -16,8 +16,11 @@
     enable = true;
     xkbOptions = "caps:escape";
 
-    displayManager.lightdm.background = ../resources/wallpaper/wallpaper.png;
     desktopManager.xterm.enable = true;
+    displayManager.autoLogin = {
+      enable = true;
+      user = "zach";
+    };
 
     layout = "us";
     libinput = {
