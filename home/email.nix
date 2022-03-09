@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
-
-{
+let
+  email = import ../secrets/email.nix;
+in {
   accounts.email.accounts = {
     Replit = {
       address = "zabot@repl.it";
@@ -9,7 +10,7 @@
       realName = "Zach Anderson";
 
       userName = "zabot@repl.it";
-      passwordCommand = "echo REDACTED";
+      passwordCommand = "echo ${email.replit.password}";
 
       neomutt.enable = true;
       imapnotify.enable = true;

@@ -14,5 +14,5 @@ in
     shell = pkgs.zsh;
   };
 
-  home-manager.users.zach = import ./home/home.nix;
+  home-manager.users.zach = import ./home.nix;
 }

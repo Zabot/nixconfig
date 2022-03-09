@@ -63,6 +63,5 @@
   services.polybar.package = pkgs.polybarFull;
 
   services.random-background.enable = true;
-  services.random-background.imageDirectory = "/etc/nixos/wallpaper";
-
+  services.random-background.imageDirectory = "${../resources/wallpaper}";
 }
