@@ -3,11 +3,8 @@
 {
   imports = [
     ./email.nix
-    ./desktop/i3.nix
-    ./desktop/alacritty.nix
-    ./tools/vim/vim.nix
-    ./tools/git.nix
-    ./tools/zsh.nix
+    ./desktop
+    ./tools
   ];
   #fonts.fontconfig.enable = true;
 
