@@ -1,9 +1,9 @@
 { config, pkgs, ... }:
 let
-  secrets = import ./secrets.nix;
+  wifi = import ./secrets/wifi.nix;
 in {
   networking.wireless.enable = true;
-  networking.wireless.networks = secrets.wifi;
+  networking.wireless.networks = wifi;
 
   networking.useDHCP = false;
   security.pki.certificateFiles = [
