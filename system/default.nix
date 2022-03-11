@@ -34,4 +34,5 @@
     pulseaudio.enable = true;
     acpilight.enable = true;
   };
+  powerManagement.powertop.enable = true;
 }
