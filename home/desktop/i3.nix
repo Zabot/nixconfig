@@ -3,7 +3,7 @@ let
   mod = "Mod1";
 in with (import ./solarized.nix); {
   imports = [
-    ./polybar.nix
+    ./polybar
     ./autorandr.nix
     ./dunst.nix
   ];
