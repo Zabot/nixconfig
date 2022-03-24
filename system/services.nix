@@ -19,7 +19,7 @@
     desktopManager.xterm.enable = true;
     displayManager.autoLogin = {
       enable = true;
-      user = "zach";
+      user = config.global.user.unixname;
     };
 
     layout = "us";

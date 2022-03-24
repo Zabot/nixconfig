@@ -1,9 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, global, ... }:
 {
   programs.git = {
     enable = true;
-	  userEmail = "zach.inbox@gmail.com";
-	  userName = "Zach Anderson";
+    userEmail = global.user.email;
+    userName = global.user.name;
 
     aliases = {
       sl = "!git --no-pager log --graph --decorate --oneline --all -20";

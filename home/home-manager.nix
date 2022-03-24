@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, global, ... }:
 
 {
   imports = [
@@ -10,8 +10,8 @@
 
   home = {
     stateVersion = "21.05";
-    username = "zach";
-    homeDirectory = "/home/zach";
+    username = global.user.unixname;
+    homeDirectory = "/home/${global.user.unixname}";
     packages = with pkgs; [
       htop
       keepassxc
