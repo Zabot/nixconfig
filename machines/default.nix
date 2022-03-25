@@ -38,5 +38,5 @@ in
   # We can't conditionally import modules, so instead we import all of the
   # modules and conditionally define their config values to accomplish a similar
   # effect.
-  imports = builtins.map wrap machines;
+  imports = (builtins.map wrap machines) ++ [ ./hardware.nix ];
 }

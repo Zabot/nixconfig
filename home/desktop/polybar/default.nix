@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, system, ... }:
 with (import ../solarized.nix); {
   services.polybar.config = {
 		"bar/top" = {
@@ -42,6 +42,6 @@ with (import ../solarized.nix); {
 
       cursor-click = "pointer";
     };
-	} // import ./modules.nix;
+	} // import ./modules.nix {system = system;};
 }
 

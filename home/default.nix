@@ -20,6 +20,6 @@ in
 
   home-manager.users = builtins.listToAttrs [ { inherit name; value = import ./home-manager.nix; } ];
   home-manager.extraSpecialArgs = {
-    global = config.global;
+    system = config;
   };
 }

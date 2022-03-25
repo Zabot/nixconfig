@@ -1,3 +1,4 @@
+{system, ...}:
 with (import ../solarized.nix); {
   "module/date" = {
     type = "internal/date";
@@ -13,8 +14,7 @@ with (import ../solarized.nix); {
 
     # full-at = 99
     # low-at = 5
-    battery = "BAT1";
-    adapter = "ACAD";
+    inherit (system.hardware.power);
     poll-interval = 5;
   };
 
@@ -34,7 +34,7 @@ with (import ../solarized.nix); {
 
   "module/wifi" = {
     type = "internal/network";
-    interface = "wlp170s0";
+    interface = system.hardware.defaultWifi;
     label-connected = " %essid%";
     label-connected-underline = colors.green;
 

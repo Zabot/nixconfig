@@ -16,4 +16,10 @@
 
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
+
+  hardware.defaultWifi = "wlp170s0";
+  hardware.power = {
+    battery = "BAT1";
+    adapter = "ACAD";
+  };
 }
