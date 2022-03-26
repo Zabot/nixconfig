@@ -1,12 +1,12 @@
 {system, ...}:
-with (import ../solarized.nix); {
+{
   "module/date" = {
     type = "internal/date";
     internal = 5;
     date = "%d.%m.%y";
     time = "%H:%M";
     label = "%time% %date%";
-    label-underline = colors.yellow;
+    label-underline = system.colors.ok;
   };
 
   "module/battery" = {
@@ -25,7 +25,7 @@ with (import ../solarized.nix); {
 
     format = "<label>: <bar>";
     label = "%percentage%%";
-    format-underline = colors.yellow;
+    format-underline = system.colors.ok;
     bar-width = 7;
     bar-indicator = "|";
     bar-fill = "#";
@@ -36,11 +36,11 @@ with (import ../solarized.nix); {
     type = "internal/network";
     interface = system.hardware.defaultWifi;
     label-connected = " %essid%";
-    label-connected-underline = colors.green;
+    label-connected-underline = system.colors.ok;
 
-    format-disconnected-foreground = semantic.secondary;
+    format-disconnected-foreground = system.colors.secondary;
     label-disconnected = "Wifi not connected";
-    label-disconnected-underline = colors.red;
+    label-disconnected-underline = system.colors.urgent;
   };
 
   "module/i3" = {
@@ -53,16 +53,16 @@ with (import ../solarized.nix); {
     pin-workspaces = true;
 
     label-mode-padding = 2;
-    label-mode-foreground = semantic.foreground;
-    label-mode-background = colors.yellow;
+    label-mode-foreground = system.colors.foreground;
+    label-mode-background = system.colors.ok;
 
     label-focused = "%name%";
-    label-focused-background = semantic.background-hl;
-    label-focused-underline= colors.yellow;
+    label-focused-background = system.colors.background-hl;
+    label-focused-underline= system.colors.ok;
     label-focused-padding = 2;
 
     label-unfocused = "%name%";
-    label-unfocused-background = semantic.background;
+    label-unfocused-background = system.colors.background;
     label-unfocused-padding = 2;
 
     # visible = Active workspace on unfocused monitor
@@ -73,8 +73,8 @@ with (import ../solarized.nix); {
 
     #; urgent = Workspace with urgency hint set
     label-urgent = "%name%";
-    label-urgent-underline = colors.red;
-    label-urgent-background = semantic.background;
+    label-urgent-underline = system.colors.urgent;
+    label-urgent-background = system.colors.background;
     label-urgent-padding = 2;
   };
 }

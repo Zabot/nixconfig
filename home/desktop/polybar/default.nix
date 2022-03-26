@@ -1,5 +1,5 @@
 { config, lib, pkgs, system, ... }:
-with (import ../solarized.nix); {
+{
   services.polybar.config = {
 		"bar/top" = {
 			width = "100%";
@@ -8,11 +8,11 @@ with (import ../solarized.nix); {
       fixed-center = true;
       bottom = true;
 
-      background = colors.base03;
-      foreground = colors.base0;
+      background = system.colors.background;
+      foreground = system.colors.foreground;
 
       line-size = 3;
-      line-color = colors.red;
+      line-color = system.colors.ok;
 
       padding-left = 0;
       padding-right = 2;
@@ -33,7 +33,7 @@ with (import ../solarized.nix); {
 
       tray-position = "right";
       tray-padding = 2;
-      tray-background = colors.green;
+      tray-background = system.colors.background-hl;
 
       wm-restack = "i3";
 

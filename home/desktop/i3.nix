@@ -1,7 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, system, ... }:
 let
   mod = "Mod1";
-in with (import ./solarized.nix); {
+in
+{
   imports = [
     ./polybar
     ./autorandr.nix
@@ -57,48 +58,45 @@ in with (import ./solarized.nix); {
         ];
       };
 
-      colors = {
+      colors = let common = {
+          border = system.colors.background-hl;
+          text = system.colors.foreground;
+          background = system.colors.background;
+        }; in {
+        # Border: Color of the border between the titlebar and the window
+        # Background: Color of the titlebar background
+        # Text: Color of foreground text in the titlebar
+        # ChildBorder: Color of the border around the window
+        # Indicator: The border of the window where a new child will be placed.
         focused = {
-          border = colors.debug;
-          background = colors.base02;
-          text = colors.base0;
-          indicator = colors.green;
-          childBorder = colors.yellow;
-        };
+          indicator = system.colors.focus-accent;
+          childBorder = system.colors.focus;
+        } // common;
 
+        # Windows that have focus not in the active container
         focusedInactive = {
-          border = colors.debug;
-          background = colors.base03;
-          text = colors.base0;
-          indicator = colors.green;
-          childBorder = colors.base01;
-        };
+          indicator = system.colors.foreground;
+          childBorder = system.colors.foreground;
+        } // common;
 
+        # All other unfocused windows
         unfocused = {
-          border = colors.debug;
-          background = colors.debug;
-          text = colors.base01;
-          indicator = colors.debug;
-          childBorder = colors.base01;
-        };
+          indicator = system.colors.secondary;
+          childBorder = system.colors.secondary;
+        } // common;
 
         urgent = {
-          border = colors.debug;
-          background = colors.base03;
-          text = colors.red;
-          indicator = colors.debug;
-          childBorder = colors.red;
-        };
+          text = system.colors.urgent;
+          indicator = system.colors.urgent;
+          childBorder = system.colors.urgent;
+        } // common;
 
         placeholder = {
-          border = colors.debug;
-          background = colors.debug;
-          text = colors.base0;
-          indicator = colors.debug;
-          childBorder = colors.debug;
-        };
+          indicator = system.colors.secondary;
+          childBorder = system.colors.secondary;
+        } // common;
 
-        background = colors.debug;
+        background = system.colors.background;
       };
     };
   };

@@ -1,5 +1,5 @@
-{ config, lib, pkgs, ... }:
-with (import ./solarized.nix); {
+{ config, lib, pkgs, system, ... }:
+{
 
   services.dunst = {
     enable = true;
@@ -19,23 +19,23 @@ with (import ./solarized.nix); {
         timeout = 10;
 			};
 
-			urgency_normal = {
-        background = semantic.background-hl;
-        foreground = semantic.foreground;
-				frame_color = colors.yellow;
-			};
+      urgency_normal = {
+        background = system.colors.background-hl;
+        foreground = system.colors.foreground;
+        frame_color = system.colors.notice;
+      };
 
-			urgency_low = {
-        background = semantic.background-hl;
-        foreground = semantic.foreground;
-				frame_color = semantic.secondary;
-			};
+      urgency_low = {
+        background = system.colors.background-hl;
+        foreground = system.colors.foreground;
+        frame_color = system.colors.secondary;
+      };
 
-			urgency_critical = {
-        background = semantic.background-hl;
-        foreground = semantic.foreground;
-				frame_color = colors.red;
-			};
+      urgency_critical = {
+        background = system.colors.background-hl;
+        foreground = system.colors.foreground;
+        frame_color = system.colors.urgent;
+      };
     };
   };
 
