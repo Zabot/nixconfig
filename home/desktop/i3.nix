@@ -9,6 +9,12 @@ in
     ./dunst.nix
   ];
   programs.rofi.enable = true;
+  programs.rofi.extraConfig = {
+    combi-modi = "window,run";
+    font = "Inconsolata-g for Powerline 12";
+    # TODO Make a proper custom theme using the global colors
+    theme = "solarized";
+  };
 
   xsession.enable = true;
   xsession.windowManager.i3 = {
@@ -46,7 +52,7 @@ in
         "${mod}+w" = "workspace WWW";
         "${mod}+Shift+w" = "move container to workspace WWW";
 
-        "${mod}+d" = "exec rofi -show run";
+        "${mod}+d" = "exec rofi -show combi";
 
         XF86MonBrightnessUp = "exec --no-startup-id xbacklight -inc 10";
         XF86MonBrightnessDown = "exec --no-startup-id xbacklight -dec 10";
