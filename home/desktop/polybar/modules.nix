@@ -14,9 +14,8 @@
 
     # full-at = 99
     # low-at = 5
-    inherit (system.hardware.power);
     poll-interval = 5;
-  };
+  } // system.hardware.power;
 
   "module/backlight" = {
     type = "internal/backlight";
