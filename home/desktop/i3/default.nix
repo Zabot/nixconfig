@@ -3,11 +3,6 @@ let
   mod = "Mod1";
 in
 {
-  imports = [
-    ./polybar
-    ./autorandr.nix
-    ./dunst.nix
-  ];
   programs.rofi.enable = true;
   programs.rofi.extraConfig = {
     combi-modi = "window,run";
