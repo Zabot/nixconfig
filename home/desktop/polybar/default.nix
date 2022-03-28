@@ -1,5 +1,11 @@
 { config, lib, pkgs, system, ... }:
 {
+  # Make sure that the i3 socket is open before trying to start polybar
+  systemd.user.services.polybar = {
+    Unit.After = [ "i3-session.target" ];
+    Install.WantedBy = lib.mkForce [ "i3-session.target" ];
+  };
+
   services.polybar.config = {
 		"bar/top" = {
 			width = "100%";

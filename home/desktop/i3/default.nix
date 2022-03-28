@@ -52,6 +52,10 @@ let
   mod = "Mod1";
 in
 {
+  imports = [
+    ./target.nix
+  ];
+
   programs.rofi.enable = true;
   programs.rofi.extraConfig = {
     combi-modi = "window,run";
