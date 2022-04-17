@@ -5,7 +5,7 @@
     internal = 5;
     date = "%d.%m.%y";
     time = "%H:%M";
-    label = "%time% %date%";
+    label = "${system.icons.set.mdi-clock.char} %time% %date%";
     label-underline = system.colors.ok;
   };
 
@@ -34,7 +34,7 @@
   "module/wifi" = {
     type = "internal/network";
     interface = system.hardware.defaultWifi;
-    label-connected = " %essid%";
+    label-connected = "${system.icons.set.mdi-wifi.char} %essid%";
     label-connected-underline = system.colors.ok;
 
     format-disconnected-foreground = system.colors.secondary;
