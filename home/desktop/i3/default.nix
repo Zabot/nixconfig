@@ -6,6 +6,7 @@ in
   imports = [
     ./target.nix
     ./lock
+    ./brightvol
   ];
 
   programs.rofi.enable = true;
@@ -56,8 +57,11 @@ in
 
         "Mod4+l" = "exec ${config.lock.cmd}";
 
-        XF86MonBrightnessUp = "exec --no-startup-id xbacklight -inc 10";
-        XF86MonBrightnessDown = "exec --no-startup-id xbacklight -dec 10";
+        XF86MonBrightnessUp = "exec --no-startup-id ${config.brightness.up}";
+        XF86MonBrightnessDown = "exec --no-startup-id ${config.brightness.down}";
+        XF86AudioRaiseVolume = "exec --no-startup-id ${config.volume.up}";
+        XF86AudioLowerVolume = "exec --no-startup-id ${config.volume.down}";
+        XF86AudioMute = "exec --no-startup-id ${config.volume.mute}";
       };
 
       assigns = {
