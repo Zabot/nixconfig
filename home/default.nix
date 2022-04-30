@@ -13,7 +13,7 @@ in
     inherit name;
     value = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "adbusers" "video" "docker" "plugdev" ];
+      extraGroups = [ "wheel" "adbusers" "video" "docker" "plugdev" "networkmanager" ];
       shell = pkgs.zsh;
     };
   } ];
