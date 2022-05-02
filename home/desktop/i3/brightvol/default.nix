@@ -1,9 +1,8 @@
 { config, lib, pkgs, system, ... }:
 let
-  wrap = pkgs.callPackage ./wrap.nix {};
   svg = system.icons.svg system.colors.foreground;
 
-  volume = wrap {
+  volume = pkgs.wrap {
     src = ./volume.sh;
     env = with system.icons.set; {
       ICON_MUTED = svg mdi-volume_mute;
@@ -14,7 +13,7 @@ let
     };
   };
 
-  brightness = wrap {
+  brightness = pkgs.wrap {
     src = ./brightness.sh;
     env = with system.icons.set; {
       ICON_LOW = svg mdi-brightness_5;

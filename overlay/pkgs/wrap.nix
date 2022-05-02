@@ -1,5 +1,11 @@
-# TODO Move this into an overlay so we can use it everywhere
-{ stdenvNoCC, makeWrapper }: {src, env ? {}, args ? ""}:
+# Utility derivation that turns an attribute set into an executable
+{ stdenvNoCC
+, makeWrapper
+}:
+{ src
+, env ? {}
+, args ? ""
+}:
 let
   toSet = name: value: "--set '${name}' '${value}'";
 in stdenvNoCC.mkDerivation {

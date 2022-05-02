@@ -8,6 +8,10 @@
   ];
   #fonts.fontconfig.enable = true;
 
+  nixpkgs.overlays = [
+    (import ../overlay)
+  ];
+
   home = {
     stateVersion = "21.05";
     username = system.global.user.unixname;

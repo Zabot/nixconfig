@@ -16,6 +16,9 @@
     # Home manager config
     ./home
   ];
+  config.nixpkgs.overlays = [
+    (import ./overlay)
+  ];
 
 
   # These should be modified on each machine

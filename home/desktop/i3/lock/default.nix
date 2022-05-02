@@ -5,11 +5,10 @@
 , ...
 }:
 let
-  i3lock-color = (pkgs.callPackage ./lock-color.nix) {};
   stripHex = name: color: (builtins.substring 1 6 color);
   colors = builtins.mapAttrs stripHex system.colors;
   lock = builtins.concatStringsSep " " [
-    "${i3lock-color}/bin/i3lock-color"
+    "${pkgs.i3lock-color}/bin/i3lock-color"
     "-e -k --force-clock --pass-screen-keys"
     "-c ${colors.background}"
     "-C -i ${../../../../resources/lock.png}"
