@@ -35,4 +35,9 @@
     acpilight.enable = true;
   };
   powerManagement.powertop.enable = true;
+
+  hardware.opengl.driSupport = true;
+  hardware.opengl.extraPackages = [
+    pkgs.intel-compute-runtime
+  ];
 }
