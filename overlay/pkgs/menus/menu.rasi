@@ -1,0 +1,63 @@
+* {
+  font: "@font 34";
+  expand: false;
+
+	text-color: @foreground@;
+	background-color: @background@;
+	highlight: @emph@;
+}
+
+window {
+	anchor: center;
+	location: center;
+	padding: 20px;
+	width: @width@%;
+  border: 2px;
+  border-color: @foreground@;
+
+  children: [ mainbox ];
+}
+
+mainbox {
+  orientation: vertical;
+  children: [ prompt, listview, message ];
+}
+
+textbox {
+	vertical-align: 0.5;
+	horizontal-align: 0.5;
+}
+
+listview {
+	layout:  vertical;
+	fixed-height: true;
+	fixed-columns: true;
+	dynamic: false;
+	columns: @columns@;
+	lines:	 1;
+	cycle:   true;
+  spacing: 10px;
+}
+
+element {
+	orientation: vertical;
+  children: [ element-icon ];
+}
+
+element-icon {
+	padding: 10px;
+	size: 3em;
+	vertical-align: 0.5;
+	horizontal-align: 0.5;
+}
+
+element-icon selected {
+	background-color: @background_hl@;
+}
+element-text selected {
+	background-color: @background_hl@;
+}
+element selected {
+	background-color: @background_hl@;
+}
+

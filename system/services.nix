@@ -11,6 +11,9 @@
   services.udev.packages = with pkgs; [
     yubikey-personalization
   ];
+  services.logind.extraConfig = ''
+    HandlePowerKey=ignore
+  '';
 
   services.xserver = {
     enable = true;

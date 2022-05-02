@@ -1,6 +1,39 @@
 { config, lib, pkgs, system, ... }:
 let
   mod = "Mod1";
+
+  svg = system.icons.svg system.colors.foreground;
+  powerMenu = {
+    prompt = "System power menu";
+    colors = system.colors;
+    options = with system.icons.set; [
+      {
+        label = "Lock";
+        icon = svg mdi-lock;
+        command = "${config.lock.cmd}";
+      }
+      {
+        label = "Sleep";
+        icon = svg mdi-sleep;
+        command = "systemctl suspend";
+      }
+      {
+        label = "Hibernate";
+        icon = svg mdi-snowflake;
+        command = "systemctl hibernate";
+      }
+      {
+        label = "Restart";
+        icon = svg mdi-restart;
+        command = "systemctl restart";
+      }
+      {
+        label = "Shutdown";
+        icon = svg mdi-power;
+        command = "systemctl poweroff";
+      }
+    ];
+  };
 in
 {
   imports = [
@@ -62,6 +95,7 @@ in
         XF86AudioRaiseVolume = "exec --no-startup-id ${config.volume.up}";
         XF86AudioLowerVolume = "exec --no-startup-id ${config.volume.down}";
         XF86AudioMute = "exec --no-startup-id ${config.volume.mute}";
+        XF86PowerOff = "exec --no-startup-id ${pkgs.mkMenu powerMenu}/bin/display";
       };
 
       assigns = {
