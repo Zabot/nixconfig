@@ -42,12 +42,14 @@ in
     ./brightvol
   ];
 
-  programs.rofi.enable = true;
-  programs.rofi.extraConfig = {
-    combi-modi = "window,run";
-    font = "Inconsolata-g for Powerline 12";
+  programs.rofi = {
+    enable = true;
     # TODO Make a proper custom theme using the global colors
     theme = "solarized";
+    extraConfig = {
+      combi-modi = "window,run";
+      font = "Inconsolata-g for Powerline 12";
+    };
   };
 
   xsession.enable = true;
