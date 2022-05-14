@@ -6,6 +6,7 @@
     ./polybar
     ./autorandr.nix
     ./dunst.nix
+    ./jackrabbit
   ];
 
   services.picom = {

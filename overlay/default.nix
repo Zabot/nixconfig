@@ -2,6 +2,7 @@ self: super:
 {
   wrap = self.callPackage ./pkgs/wrap.nix {};
   mkMenu = self.callPackage ./pkgs/menus {};
+  jackrabbit = self.callPackage ./pkgs/jackrabbit.nix {};
 
   rofi-unwrapped = super.rofi-unwrapped.overrideAttrs (old: rec {
     version = "2f41bf89acb6f2e479a43deef7027d622da0a0f5";
