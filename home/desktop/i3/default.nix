@@ -34,6 +34,27 @@ let
       }
     ];
   };
+  displayMenu = {
+    prompt = "External display";
+    colors = system.colors;
+    options = with system.icons.set; [
+      {
+        label = "Laptop";
+        icon = svg mdi-laptop;
+        command = "autorandr default";
+      }
+      {
+        label = "Extend";
+        icon = svg mdi-panorama_horizontal;
+        command = "autorandr horizontal";
+      }
+      {
+        label = "Clone";
+        icon = svg mdi-monitor_multiple;
+        command = "autorandr common";
+      }
+    ];
+  };
 in
 {
   imports = [
@@ -101,6 +122,7 @@ in
         XF86AudioNext = "exec --no-startup-id ${pkgs.mpc_cli}/bin/mpc next";
         XF86MonBrightnessDown = "exec --no-startup-id ${config.brightness.down}";
         XF86MonBrightnessUp = "exec --no-startup-id ${config.brightness.up}";
+        "Mod4+p" = "exec --no-startup-id ${pkgs.mkMenu displayMenu}/bin/display";
 
         Print = "exec --no-startup-id ${pkgs.maim}/bin/maim -s ~/maim-$(date +%s).png";
 
