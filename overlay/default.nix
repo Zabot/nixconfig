@@ -24,4 +24,14 @@ self: super:
       sha256 = "1fn2cj0j28g0rb19qv42lpzhyin7kzv5j1mqsvcdlr2mqd8q5pkm";
     };
   });
+
+  dunst = super.dunst.overrideAttrs (old: rec {
+    version = "v1.8.1";
+    src = self.fetchFromGitHub {
+      owner = "dunst-project";
+      repo = "dunst";
+      rev = version;
+      sha256 = "19bh5789whlc0n5wbyx3yx8px93hccn42f1p6i1dz96hdkk5mjb8";
+    };
+  });
 }
