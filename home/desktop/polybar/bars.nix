@@ -26,7 +26,7 @@
       ];
 
       modules.left = "i3";
-      #modules-center = mpd
+      modules-center = "mpd";
       modules.right = "backlight pulseaudio wifi battery date";
 
       tray.position = "right";

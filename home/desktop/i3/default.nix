@@ -92,11 +92,15 @@ in
 
         "Mod4+l" = "exec ${config.lock.cmd}";
 
-        XF86MonBrightnessUp = "exec --no-startup-id ${config.brightness.up}";
-        XF86MonBrightnessDown = "exec --no-startup-id ${config.brightness.down}";
-        XF86AudioRaiseVolume = "exec --no-startup-id ${config.volume.up}";
-        XF86AudioLowerVolume = "exec --no-startup-id ${config.volume.down}";
         XF86AudioMute = "exec --no-startup-id ${config.volume.mute}";
+        XF86AudioLowerVolume = "exec --no-startup-id ${config.volume.down}";
+        XF86AudioRaiseVolume = "exec --no-startup-id ${config.volume.up}";
+        XF86AudioPrev = "exec --no-startup-id ${pkgs.mpc_cli}/bin/mpc prev";
+        XF86AudioPlay = "exec --no-startup-id ${pkgs.mpc_cli}/bin/mpc toggle";
+        XF86AudioNext = "exec --no-startup-id ${pkgs.mpc_cli}/bin/mpc next";
+        XF86MonBrightnessDown = "exec --no-startup-id ${config.brightness.down}";
+        XF86MonBrightnessUp = "exec --no-startup-id ${config.brightness.up}";
+
         XF86PowerOff = "exec --no-startup-id ${pkgs.mkMenu powerMenu}/bin/display";
       };
 

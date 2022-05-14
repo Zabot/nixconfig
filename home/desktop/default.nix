@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   imports = [
     ./i3
@@ -20,4 +20,13 @@
     vSync = true;
   };
   services.poweralertd.enable = true;
+
+  services.mopidy = {
+    enable = true;
+    extensionPackages = with pkgs; [
+      mopidy-mpd
+      mopidy-somafm
+      mopidy-tunein
+    ];
+  };
 }

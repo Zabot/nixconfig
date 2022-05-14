@@ -121,5 +121,20 @@
       label.urgent.background = system.colors.background;
       label.urgent.padding = 2;
     };
+
+    "module/mpd" = with system.icons.set; {
+      type = "internal/mpd";
+
+      host = "127.0.0.1";
+      port = "6600";
+
+      interval = 2;
+      format-online = "<toggle>  <label-song>";
+      format-online-underline = system.colors.ok;
+      label-song = "%title%";
+
+      icon-play = mdi-music_off.char;
+      icon-pause = mdi-music.char;
+    };
   };
 }
