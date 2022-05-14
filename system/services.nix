@@ -14,6 +14,7 @@
   services.logind.extraConfig = ''
     HandlePowerKey=ignore
   '';
+  services.logind.lidSwitch = "hibernate";
 
   services.xserver = {
     enable = true;
