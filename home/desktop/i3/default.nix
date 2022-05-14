@@ -102,6 +102,8 @@ in
         XF86MonBrightnessDown = "exec --no-startup-id ${config.brightness.down}";
         XF86MonBrightnessUp = "exec --no-startup-id ${config.brightness.up}";
 
+        Print = "exec --no-startup-id ${pkgs.maim}/bin/maim -s ~/maim-$(date +%s).png";
+
         XF86PowerOff = "exec --no-startup-id ${pkgs.mkMenu powerMenu}/bin/display";
       };
 
