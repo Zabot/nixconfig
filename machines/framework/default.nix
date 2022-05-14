@@ -17,6 +17,15 @@
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
+  # Enable fingerprint auth
+  services.fprintd.enable = true;
+  security.pam.services= builtins.listToAttrs[ {
+    name = config.global.user.unixname;
+    value = {
+      fprintAuth = true;
+    };
+  } ];
+
   hardware.defaultWifi = "wlp170s0";
   hardware.power = {
     battery = "BAT1";
