@@ -4,5 +4,6 @@
     ./git.nix
     ./zsh.nix
     ./vim
+    ./gpg
   ];
 }
