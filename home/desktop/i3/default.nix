@@ -72,6 +72,7 @@ in
       };
 
       window.titlebar = false;
+      window.border = 2;
 
       keybindings = lib.mkOptionDefault {
         "${mod}+F4" = "kill";
