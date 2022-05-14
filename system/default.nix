@@ -34,7 +34,12 @@
     pulseaudio.enable = true;
     acpilight.enable = true;
   };
-  powerManagement.powertop.enable = true;
+  powerManagement = {
+    enable = true;
+    cpuFreqGovernor = "ondemand";
+    powertop.enable = true;
+  };
+  services.upower.enable = true;
 
   hardware.opengl.driSupport = true;
   hardware.opengl.extraPackages = [
