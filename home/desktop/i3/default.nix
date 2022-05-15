@@ -95,6 +95,30 @@ in
       window.titlebar = false;
       window.border = 2;
 
+      defaultWorkspace = "workspace number 1";
+      workspaceOutputAssign = [
+        {
+          output = "primary";
+          workspace = "1";
+        }
+        {
+          output = "primary";
+          workspace = "2";
+        }
+        {
+          output = "primary";
+          workspace = "3";
+        }
+        {
+          output = "primary";
+          workspace = "4";
+        }
+        {
+          output = "primary";
+          workspace = "5";
+        }
+      ];
+
       keybindings = lib.mkOptionDefault {
         "${mod}+F4" = "kill";
 
