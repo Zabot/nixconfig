@@ -17,9 +17,23 @@
     onChange = "systemctl --user restart polybar";
   };
 
-  services.polybar.settings = {
+  services.polybar = {
+    enable = true;
+    script = ''
+      echo "Starting polybar on all displays..."
+      for m in $(polybar -m | ${pkgs.coreutils}/bin/tr ' ' '/')
+      do
+        bar=$(echo $m | ${pkgs.gnugrep}/bin/grep primary > /dev/null && echo primary || echo secondary)
+        export MONITOR=$(echo $m | ${pkgs.gnused}/bin/sed -e 's/:.*$//g')
+        echo $bar on $MONITOR
+        polybar $bar &
+      done
+      '';
+    package = pkgs.polybarFull;
     settings = {
-      screenchange-reload = true;
+      settings = {
+        screenchange-reload = true;
+      };
     };
   };
 }

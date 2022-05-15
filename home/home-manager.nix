@@ -42,10 +42,6 @@
   services.udiskie.automount = true;
   services.imapnotify.enable = true;
 
-  services.polybar.enable = true;
-  services.polybar.script = "polybar top &";
-  services.polybar.package = pkgs.polybarFull;
-
   services.random-background.enable = true;
   services.random-background.imageDirectory = "${../resources/wallpaper}";
 }

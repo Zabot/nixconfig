@@ -110,10 +110,10 @@
       label.unfocused.padding = 2;
 
       # visible = Active workspace on unfocused monitor
-      label.visible = "%name%";
-      #label-visible-background = ${self.label-focused-background}
-      #label-visible-underline  = ${self.label-focused-underline }
-      #label-visible-padding = ${self.label-focused-padding}
+      label.visible.text = "%name% %icon%";
+      label.visible.underline = system.colors.ok;
+      label.visible.background = system.colors.background-hl;
+      label.visible.padding = 2;
 
       #; urgent = Workspace with urgency hint set
       label.urgent.text = "%name%";
