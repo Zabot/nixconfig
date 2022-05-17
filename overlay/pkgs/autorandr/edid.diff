@@ -1,0 +1,13 @@
+diff --git a/contrib/systemd/autorandr.service b/contrib/systemd/autorandr.service
+index 7094e72..a7bf88a 100644
+--- a/contrib/systemd/autorandr.service
++++ b/contrib/systemd/autorandr.service
+@@ -5,7 +5,7 @@ StartLimitIntervalSec=5
+ StartLimitBurst=1
+
+ [Service]
+-ExecStart=/usr/bin/autorandr --batch --change --default default
++ExecStart=/usr/bin/autorandr --batch --change --default default --match-edid
+ Type=oneshot
+ RemainAfterExit=false
+ KillMode=process

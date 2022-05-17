@@ -34,4 +34,15 @@ self: super:
       sha256 = "19bh5789whlc0n5wbyx3yx8px93hccn42f1p6i1dz96hdkk5mjb8";
     };
   });
+
+  autorandr = super.autorandr.overrideAttrs (old: rec {
+    version = "1.12.1";
+    src = self.fetchFromGitHub {
+      owner = "phillipberndt";
+      repo = "autorandr";
+      rev = version;
+      sha256 = "04w624c4iz99j7jrj3lmc8pwxrr08hlpdc1y0hgfngbs0mp6f8zd";
+    };
+    patches = [ pkgs/autorandr/edid.diff ];
+  });
 }
