@@ -31,6 +31,7 @@ let
   # is matched against global.host to determine which module to include.
   machines = [
     ./framework
+    ./xps
   ];
 
 in
