@@ -1,6 +1,6 @@
 self: super:
 {
-  wrap = self.callPackage ./pkgs/wrap.nix {};
+  wrap = self.callPackage ./lib/wrap.nix {};
   mkMenu = self.callPackage ./pkgs/menus {};
   jackrabbit = self.callPackage ./pkgs/jackrabbit.nix {};
 
