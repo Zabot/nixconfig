@@ -2,6 +2,7 @@
 {
   imports = [
     ./boot.nix
+    ./displays.nix
   ];
 
   networking.wireless.interfaces = [ "wlp0s20f3" ];
