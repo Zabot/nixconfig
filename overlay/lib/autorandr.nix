@@ -53,6 +53,8 @@ in {
     };
   });
 
+  primary = monitor: monitor // { primary = true; };
+
   config = virtual: let
     dump_displays = display:
       if display ? displays then
