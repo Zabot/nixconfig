@@ -4,6 +4,8 @@ self: super:
   mkMenu = self.callPackage ./pkgs/menus {};
   jackrabbit = self.callPackage ./pkgs/jackrabbit.nix {};
 
+  lib-autorandr = (import ./lib/autorandr.nix);
+
   rofi-unwrapped = super.rofi-unwrapped.overrideAttrs (old: rec {
     version = "2f41bf89acb6f2e479a43deef7027d622da0a0f5";
     src = self.fetchFromGitHub {
