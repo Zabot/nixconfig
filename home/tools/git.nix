@@ -9,6 +9,9 @@
       sl = "!git --no-pager log --graph --decorate --oneline --all -20";
     };
 
+    signing.signByDefault = true;
+    signing.key = null;
+
     extraConfig = {
       push.default = "matching";
       pull = {

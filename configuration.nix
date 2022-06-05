@@ -27,7 +27,7 @@
     # NOTE: This configuration is aggressively specific to a single user.
     unixname = "zach";
     name = "Zach Anderson";
-    email = "zach.inbox@gmail.com";
+    email = "zach@zabot.dev";
   };
 
   config.colors = (import ./colors/solarized.nix).dark;
