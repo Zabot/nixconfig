@@ -1,6 +1,6 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nixosVersion, ... }:
 let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-21.11.tar.gz";
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-22.05.tar.gz";
   name = config.global.user.unixname;
 in
 {

@@ -14,7 +14,7 @@
   ];
 
   home = {
-    stateVersion = "21.11";
+    stateVersion = system.system.stateVersion;
     username = system.global.user.unixname;
     homeDirectory = "/home/${system.global.user.unixname}";
     packages = with pkgs; [
