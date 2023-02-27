@@ -34,6 +34,9 @@
 
   programs.home-manager.enable = true;
   programs.firefox.enable = true;
+  home.sessionVariables = {
+    MOZ_USE_XINPUT2=1;
+  };
   programs.rofi.enable = true;
   programs.neomutt.enable = true;
 
