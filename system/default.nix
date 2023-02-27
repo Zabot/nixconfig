@@ -3,6 +3,7 @@
   imports = [
     ./boot.nix
     ./networking.nix
+    ./nix.nix
     ./services.nix
   ];
 
@@ -14,12 +15,6 @@
     # Inherit the console keymap from the xserver
     useXkbConfig = true;
   };
-
-  # Allow nix without sudo
-  nix.trustedUsers = [
-    "root"
-    "@wheel"
-  ];
 
   fonts.fonts = [
     pkgs.overpass
