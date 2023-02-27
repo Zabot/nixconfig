@@ -22,7 +22,7 @@
 
 
   # These should be modified on each machine
-  config.global.host = "framework";
+  config.global.host = "xps";
   config.global.user = {
     # NOTE: This configuration is aggressively specific to a single user.
     unixname = "zach";
