@@ -150,6 +150,7 @@ in
 
         Print = "exec --no-startup-id ${pkgs.maim}/bin/maim -s ~/maim-$(date +%s).png";
 
+        XF86Sleep = "exec --no-startup-id ${pkgs.mkMenu powerMenu}/bin/display";
         XF86PowerOff = "exec --no-startup-id ${pkgs.mkMenu powerMenu}/bin/display";
       };
 
