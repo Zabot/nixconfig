@@ -17,11 +17,15 @@ let
 		mode = "1920x1200";
 		rate = "59.95";
 	};
+
+  primary = display: display // {
+    primary = true;
+  };
 in
 {
   hardware.displays = with pkgs.lib-autorandr; {
-    default = hstack [ integrated ];
-    docked = hstack [ left right ];
-    open = hstack [ (vstack [ left integrated ]) right ];
+    default = hstack [ (primary integrated) ];
+    docked = hstack [ left (primary right ) ];
+    open = hstack [ left (vstack [ right (primary integrated) ]) ];
   };
 }
