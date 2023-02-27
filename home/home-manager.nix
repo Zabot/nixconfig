@@ -3,7 +3,6 @@
 {
   imports = [
     ./modules
-    ./email.nix
     ./desktop
     ./tools
   ];
