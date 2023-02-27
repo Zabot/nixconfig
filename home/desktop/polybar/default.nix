@@ -13,7 +13,7 @@
   };
 
   # Restart polybar when the config changes
-  xdg.configFile."polybar/config" = {
+  xdg.configFile."polybar/config.ini" = {
     onChange = "systemctl --user restart polybar";
   };
 

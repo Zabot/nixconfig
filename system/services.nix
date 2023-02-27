@@ -31,6 +31,8 @@
       enable = true;
       touchpad = {
         naturalScrolling = true;
+        clickMethod = "clickfinger";
+        tapping = false;
       };
     };
   };

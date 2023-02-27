@@ -7,6 +7,7 @@
 
     aliases = {
       sl = "!git --no-pager log --graph --decorate --oneline --all -20";
+      b = "for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:short)%(color:reset))'";
     };
 
     signing.signByDefault = true;

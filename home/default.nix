@@ -1,11 +1,10 @@
-{ config, pkgs, nixosVersion, ... }:
+{ config, pkgs, nixosVersion, home-manager, ... }:
 let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-22.05.tar.gz";
   name = config.global.user.unixname;
 in
 {
   imports = [
-    (import "${home-manager}/nixos")
+    home-manager.nixosModule
   ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.

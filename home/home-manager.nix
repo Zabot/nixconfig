@@ -3,7 +3,6 @@
 {
   imports = [
     ./modules
-    ./email.nix
     ./desktop
     ./tools
   ];
@@ -25,7 +24,7 @@
       weechat
       weechatScripts.wee-slack
       python38
-      python38Packages.poetry
+      poetry
       ledger
       kicad
       pavucontrol

@@ -18,6 +18,10 @@ in {
       vim-go
       vim-nix
       vim-ledger
+      vim-terraform
+      vim-jinja
+      coc-rust-analyzer
+      coc-nvim
     ];
     extraConfig = builtins.readFile ./vimrc;
   };
