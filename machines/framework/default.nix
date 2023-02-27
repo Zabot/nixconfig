@@ -3,6 +3,7 @@
   imports = [
     ./boot.nix
     ./displays.nix
+    ./hardware-configuration.nix
   ];
 
   networking.wireless.interfaces = [ "wlp170s0" ];
