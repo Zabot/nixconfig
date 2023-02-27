@@ -120,7 +120,7 @@ in
       ];
 
       keybindings = lib.mkOptionDefault {
-        "${mod}+F4" = "kill";
+        "${mod}+q" = "kill";
 
         "${mod}+h" = "focus left";
         "${mod}+j" = "focus down";
