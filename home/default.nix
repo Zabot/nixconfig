@@ -17,8 +17,14 @@ in
     };
   } ];
 
-  home-manager.users = builtins.listToAttrs [ { inherit name; value = import ./home-manager.nix; } ];
+  home-manager.users = builtins.listToAttrs [ {
+    inherit name;
+    value = import ./home-manager.nix;
+  } ];
   home-manager.extraSpecialArgs = {
     system = config;
+    extraConfig = {
+      desktop.useWayland = config.desktop.useWayland;
+    };
   };
 }

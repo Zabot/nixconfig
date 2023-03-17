@@ -55,116 +55,94 @@ let
       }
     ];
   };
-in
-{
-  imports = [
-    ./target.nix
-    ./lock
-    ./brightvol
-  ];
+  wm_config = {
+    modifier = mod;
+    terminal = "${pkgs.alacritty}/bin/alacritty";
+    bars = [ ];
 
-  programs.rofi = {
-    enable = true;
-    # TODO Make a proper custom theme using the global colors
-    theme = "solarized";
-    extraConfig = {
-      combi-modi = "window,run";
-      font = "Inconsolata-g for Powerline 12";
+    gaps = {
+      inner = 10;
+      outer = 10;
     };
-  };
 
-  xsession.enable = true;
-  xsession.windowManager.i3 = {
-    enable = true;
-    package = pkgs.i3-gaps;
+    focus = {
+      followMouse = false;
+    };
 
-    config = {
-      modifier = mod;
-      terminal = "${pkgs.alacritty}/bin/alacritty";
-      bars = [];
+    window.titlebar = false;
+    window.border = 2;
 
-      gaps = {
-        inner = 10;
-        outer = 10;
-      };
+    defaultWorkspace = "workspace number 1";
+    workspaceOutputAssign = [
+      {
+        output = "primary";
+        workspace = "1";
+      }
+      {
+        output = "primary";
+        workspace = "2";
+      }
+      {
+        output = "primary";
+        workspace = "3";
+      }
+      {
+        output = "primary";
+        workspace = "4";
+      }
+      {
+        output = "primary";
+        workspace = "5";
+      }
+    ];
 
-      focus = {
-        followMouse = false;
-      };
+    keybindings = lib.mkOptionDefault {
+      "${mod}+q" = "kill";
 
-      window.titlebar = false;
-      window.border = 2;
+      "${mod}+h" = "focus left";
+      "${mod}+j" = "focus down";
+      "${mod}+k" = "focus up";
+      "${mod}+l" = "focus right";
 
-      defaultWorkspace = "workspace number 1";
-      workspaceOutputAssign = [
-        {
-          output = "primary";
-          workspace = "1";
-        }
-        {
-          output = "primary";
-          workspace = "2";
-        }
-        {
-          output = "primary";
-          workspace = "3";
-        }
-        {
-          output = "primary";
-          workspace = "4";
-        }
-        {
-          output = "primary";
-          workspace = "5";
-        }
+      "${mod}+Shift+h" = "move left";
+      "${mod}+Shift+j" = "move down";
+      "${mod}+Shift+k" = "move up";
+      "${mod}+Shift+l" = "move right";
+      "${mod}+w" = "workspace WWW";
+      "${mod}+Shift+w" = "move container to workspace WWW";
+
+      "${mod}+d" = "exec rofi -show combi";
+
+      "Mod4+l" = "exec ${config.lock.cmd}";
+
+      XF86AudioMute = "exec --no-startup-id ${config.volume.mute}";
+      XF86AudioLowerVolume = "exec --no-startup-id ${config.volume.down}";
+      XF86AudioRaiseVolume = "exec --no-startup-id ${config.volume.up}";
+      XF86AudioPrev = "exec --no-startup-id ${pkgs.mpc_cli}/bin/mpc prev";
+      XF86AudioPlay = "exec --no-startup-id ${pkgs.mpc_cli}/bin/mpc toggle";
+      XF86AudioNext = "exec --no-startup-id ${pkgs.mpc_cli}/bin/mpc next";
+      XF86MonBrightnessDown = "exec --no-startup-id ${config.brightness.down}";
+      XF86MonBrightnessUp = "exec --no-startup-id ${config.brightness.up}";
+      "Mod4+p" = "exec --no-startup-id ${pkgs.mkMenu displayMenu}/bin/display";
+
+      Print = "exec --no-startup-id ${pkgs.maim}/bin/maim -s ~/maim-$(date +%s).png";
+
+      XF86Sleep = "exec --no-startup-id ${pkgs.mkMenu powerMenu}/bin/display";
+      XF86PowerOff = "exec --no-startup-id ${pkgs.mkMenu powerMenu}/bin/display";
+    };
+
+    assigns = {
+      "WWW" = [
+        { class = "(?i)firefox"; }
       ];
+    };
 
-      keybindings = lib.mkOptionDefault {
-        "${mod}+q" = "kill";
-
-        "${mod}+h" = "focus left";
-        "${mod}+j" = "focus down";
-        "${mod}+k" = "focus up";
-        "${mod}+l" = "focus right";
-
-        "${mod}+Shift+h" = "move left";
-        "${mod}+Shift+j" = "move down";
-        "${mod}+Shift+k" = "move up";
-        "${mod}+Shift+l" = "move right";
-        "${mod}+w" = "workspace WWW";
-        "${mod}+Shift+w" = "move container to workspace WWW";
-
-        "${mod}+d" = "exec rofi -show combi";
-
-        "Mod4+l" = "exec ${config.lock.cmd}";
-
-        XF86AudioMute = "exec --no-startup-id ${config.volume.mute}";
-        XF86AudioLowerVolume = "exec --no-startup-id ${config.volume.down}";
-        XF86AudioRaiseVolume = "exec --no-startup-id ${config.volume.up}";
-        XF86AudioPrev = "exec --no-startup-id ${pkgs.mpc_cli}/bin/mpc prev";
-        XF86AudioPlay = "exec --no-startup-id ${pkgs.mpc_cli}/bin/mpc toggle";
-        XF86AudioNext = "exec --no-startup-id ${pkgs.mpc_cli}/bin/mpc next";
-        XF86MonBrightnessDown = "exec --no-startup-id ${config.brightness.down}";
-        XF86MonBrightnessUp = "exec --no-startup-id ${config.brightness.up}";
-        "Mod4+p" = "exec --no-startup-id ${pkgs.mkMenu displayMenu}/bin/display";
-
-        Print = "exec --no-startup-id ${pkgs.maim}/bin/maim -s ~/maim-$(date +%s).png";
-
-        XF86Sleep = "exec --no-startup-id ${pkgs.mkMenu powerMenu}/bin/display";
-        XF86PowerOff = "exec --no-startup-id ${pkgs.mkMenu powerMenu}/bin/display";
-      };
-
-      assigns = {
-        "WWW" = [
-          {class = "(?i)firefox";}
-        ];
-      };
-
-      colors = let common = {
-          border = system.colors.background-hl;
-          text = system.colors.foreground;
-          background = system.colors.background;
-        }; in {
+    colors = let common = {
+      border = system.colors.background-hl;
+      text = system.colors.foreground;
+      background = system.colors.background;
+    }; in
+      {
         # Border: Color of the border between the titlebar and the window
         # Background: Color of the titlebar background
         # Text: Color of foreground text in the titlebar
@@ -200,6 +178,56 @@ in
 
         background = system.colors.background;
       };
+  };
+in
+{
+  imports = [
+    ./target.nix
+    ./lock
+    ./brightvol
+  ];
+
+  programs.rofi = {
+    enable = true;
+    # TODO Make a proper custom theme using the global colors
+    theme = "solarized";
+    extraConfig = {
+      combi-modi = "window,run";
+      font = "Inconsolata-g for Powerline 12";
     };
+  };
+
+  xsession = lib.mkIf (!config.desktop.useWayland) {
+    enable = true;
+    windowManager.i3 = {
+      enable = true;
+      package = pkgs.i3-gaps;
+      config = wm_config // { };
+    };
+  };
+
+  wayland.windowManager.sway = lib.mkIf config.desktop.useWayland {
+    enable = true;
+    config = wm_config // {
+      input = {
+        "type:touchpad" = {
+          natural_scroll = "enabled";
+          tap = "disabled";
+          click_method = "clickfinger";
+        };
+        "type:keyboard" = {
+          xkb_options = "caps:escape";
+        };
+      };
+      output = {
+        "*" = {
+          bg = "${../../../resources/wallpaper/wallpaper.png} fill";
+        };
+      };
+    };
+    extraConfig = ''
+      bindswitch lid:on output eDP-1 disable
+      bindswitch lid:off output eDP-1 enable
+    '';
   };
 }

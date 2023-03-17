@@ -5,6 +5,8 @@
     ./networking.nix
     ./nix.nix
     ./services.nix
+    ./wayland.nix
+    ./xserver.nix
   ];
 
   system.stateVersion = "21.11";
@@ -26,7 +28,7 @@
   sound.enable = true;
   hardware = {
     rtl-sdr.enable = true;
-    pulseaudio.enable = true;
+    pulseaudio.enable = false;
     acpilight.enable = true;
   };
   powerManagement = {
@@ -35,6 +37,12 @@
     powertop.enable = true;
   };
   services.upower.enable = true;
+
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    pulse.enable = true;
+  };
 
   hardware.opengl.driSupport = true;
   hardware.opengl.extraPackages = [

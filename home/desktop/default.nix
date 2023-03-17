@@ -4,6 +4,7 @@
     ./i3
     ./alacritty.nix
     ./polybar
+    ./wayland
     ./autorandr.nix
     ./dunst.nix
     ./jackrabbit

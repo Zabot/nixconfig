@@ -6,7 +6,6 @@
 
   virtualisation.docker.enable = true;
 
-  services.autorandr.enable = true;
   services.printing.enable = true;
   services.udev.packages = with pkgs; [
     yubikey-personalization
@@ -16,24 +15,5 @@
   '';
   services.logind.lidSwitch = "hibernate";
 
-  services.xserver = {
-    enable = true;
-    xkbOptions = "caps:escape";
-
-    desktopManager.xterm.enable = true;
-    displayManager.autoLogin = {
-      enable = true;
-      user = config.global.user.unixname;
-    };
-
-    layout = "us";
-    libinput = {
-      enable = true;
-      touchpad = {
-        naturalScrolling = true;
-        clickMethod = "clickfinger";
-        tapping = false;
-      };
-    };
-  };
+  security.polkit.enable = true;
 }
