@@ -9,7 +9,7 @@
     ./xserver.nix
   ];
 
-  system.stateVersion = "21.11";
+  system.stateVersion = "22.11";
   time.timeZone = "America/Chicago";
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
@@ -44,6 +44,7 @@
     pulse.enable = true;
   };
 
+  hardware.opengl.enable = true;
   hardware.opengl.driSupport = true;
   hardware.opengl.extraPackages = [
     pkgs.intel-compute-runtime

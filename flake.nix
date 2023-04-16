@@ -1,5 +1,6 @@
 {
   inputs = {
+    nixpkgs.url = "nixpkgs/nixos-22.11";
     home-manager.url = "github:nix-community/home-manager";
   };
 
