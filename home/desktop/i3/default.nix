@@ -222,8 +222,18 @@ in
       output = {
         "*" = {
           bg = "${../../../resources/wallpaper/wallpaper.png} fill";
+          scale = "1.25";
         };
       };
+      seat = {
+        seat0 = {
+          xcursor_theme = "default 52";
+        };
+      };
+    };
+    wrapperFeatures = {
+      gtk = true;
+      base = true;
     };
     extraConfig = ''
       bindswitch lid:on output eDP-1 disable
