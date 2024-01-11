@@ -32,6 +32,7 @@
         };
       };
     };
+    homeConfigurations.default = import ./home/home-manager.nix;
   };
 }
 
