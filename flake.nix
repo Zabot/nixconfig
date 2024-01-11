@@ -34,8 +34,7 @@
           };
         };
       };
-      homeConfigurations.default = home-manager.lib.homeManagerConfiguration
-        import ./home/home-manager.nix;
+      homeConfigurations.default = home-manager.lib.homeManagerConfiguration (import ./home/home-manager.nix);
     };
 }
 
