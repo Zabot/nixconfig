@@ -16,6 +16,7 @@ in
       shell = pkgs.zsh;
     };
   } ];
+  programs.zsh.enable=true;
 
   home-manager.users = builtins.listToAttrs [ {
     inherit name;
