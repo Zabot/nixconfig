@@ -23,5 +23,5 @@
     adapter = "AC";
   };
 
-  desktop.useWayland = true;
+  desktop.useWayland = false;
 }
