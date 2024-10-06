@@ -13,10 +13,9 @@ in
     value = {
       isNormalUser = true;
       extraGroups = [ "wheel" "adbusers" "video" "docker" "plugdev" "networkmanager" ];
-      shell = pkgs.zsh;
+      shell = pkgs.nushell;
     };
   } ];
-  programs.zsh.enable=true;
 
   home-manager.users = builtins.listToAttrs [ {
     inherit name;

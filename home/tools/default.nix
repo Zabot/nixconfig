@@ -3,7 +3,7 @@
   imports = [
     ./direnv.nix
     ./git.nix
-    ./zsh.nix
+    ./shell
     ./vim
     ./gpg
   ];

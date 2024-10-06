@@ -1,11 +1,8 @@
 { config, lib, pkgs, ... }:
 {
-  programs.nix-index.enable = true;
-  programs.nix-index.enableZshIntegration = true;
-
   programs.zsh = {
 
-		plugins = [
+                plugins = [
       {
         name = "zsh-nix-shell";
         file = "nix-shell.plugin.zsh";
@@ -18,7 +15,7 @@
       }
     ];
 
-    enable = true;
+    enable = false;
     enableAutosuggestions = false;
     enableCompletion = false;
     prezto = {
@@ -52,5 +49,4 @@
       share = false;
     };
   };
-
 }
