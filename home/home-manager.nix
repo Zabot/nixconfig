@@ -1,4 +1,4 @@
-{ config, pkgs, extraConfig, system, ... }:
+{ config, pkgs, extraConfig, system, fel, ... }:
 
 {
   imports = [
@@ -31,6 +31,7 @@
         ledger
         kicad
         pavucontrol
+        fel.packages.x86_64-linux.fel
       ];
     };
 

@@ -2,9 +2,10 @@
   inputs = {
     home-manager.url = "github:nix-community/home-manager";
     goval.url = "git+file:/home/zach/replit/goval";
+    fel.url = "github:zabot/fel";
   };
 
-  outputs = { self, nixpkgs, home-manager, goval }:
+  outputs = { self, nixpkgs, home-manager, goval, fel }:
     let
       user = {
         unixname = "zach";
@@ -20,7 +21,7 @@
           ./configuration.nix
         ];
         specialArgs = {
-          inherit home-manager;
+          inherit home-manager fel;
           global = {
             inherit user;
             host = "xps";
@@ -31,7 +32,7 @@
         system = "x86_64-linux";
         modules = [ ./configuration.nix ];
         specialArgs = {
-          inherit home-manager;
+          inherit home-manager fel;
           global = {
             inherit user;
             host = "framework";

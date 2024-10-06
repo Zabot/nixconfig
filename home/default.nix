@@ -1,4 +1,4 @@
-{ config, pkgs, nixosVersion, home-manager, ... }:
+{ config, pkgs, nixosVersion, home-manager, fel, ... }:
 let
   name = config.global.user.unixname;
 in
@@ -23,6 +23,7 @@ in
     value = import ./home-manager.nix;
   } ];
   home-manager.extraSpecialArgs = {
+    inherit fel;
     system = config;
     extraConfig = {
       desktop.useWayland = config.desktop.useWayland;
