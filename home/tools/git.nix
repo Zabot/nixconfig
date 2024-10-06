@@ -6,7 +6,7 @@
     userName = system.global.user.name;
 
     aliases = {
-      sl = "!git --no-pager log --graph --decorate --oneline --all -20";
+      sl = "!git --no-pager log --graph --decorate --oneline --exclude='refs/notes/*' --all -20";
       b = "for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:short)%(color:reset))'";
     };
 
@@ -21,6 +21,9 @@
       };
       init.defaultBranch = "master";
       advice.detachedHead = false;
+      notes.rewriteRef = [
+        "refs/notes/fel"
+      ];
     };
   };
 }
