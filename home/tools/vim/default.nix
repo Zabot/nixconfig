@@ -24,6 +24,7 @@ in
       vim-crates
       vim-toml
       vim-nix
+      vim-terraform
 
       # LSP
       nvim-lspconfig
@@ -39,6 +40,8 @@ in
 
       (nvim-treesitter.withAllGrammars)
       nvim-treesitter-context
+
+      go-nvim
     ];
     extraLuaConfig = builtins.concatStringsSep " " (builtins.map builtins.readFile [ ./init.lua ./lsp.lua ]);
     extraPackages = with pkgs; [
@@ -47,7 +50,6 @@ in
       nodePackages.pyright
       nodePackages.typescript-language-server
       gopls
-      rnix-lsp
     ];
   };
 }

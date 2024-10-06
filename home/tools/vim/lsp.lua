@@ -52,8 +52,9 @@ local langs = {
   },
 }
 
+local lspconfig = require('lspconfig')
 for lang, settings in pairs(langs) do
-  require('lspconfig')[lang].setup({
+  lspconfig[lang].setup({
     on_attach = on_attach,
     capabilities = capabilities,
     settings = settings,
@@ -69,7 +70,7 @@ cmp.setup {
     end,
   },
   mapping = cmp.mapping.preset.insert({
-    ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
+    ['<C-u>'] = cmp.mapping.scroll_docs( -4), -- Up
     ['<C-d>'] = cmp.mapping.scroll_docs(4), -- Down
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<CR>'] = cmp.mapping.confirm {
@@ -95,3 +96,9 @@ cmp.setup {
     { name = 'nvim_lsp' },
   },
 }
+
+-- Autoformat on exit
+--vim.api.nvim_create_autocmd({'BufWritePre'}, {
+--pattern = '*.go', '*.rs',
+--command = vim.lsp.buf.formatting_sync,
+--})
