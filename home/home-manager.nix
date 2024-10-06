@@ -26,7 +26,7 @@
         libnotify
         weechat
         weechatScripts.wee-slack
-        python38
+        python3
         poetry
         ledger
         kicad
