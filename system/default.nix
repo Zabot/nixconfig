@@ -16,6 +16,12 @@
     font = "Lat2-Terminus16";
     # Inherit the console keymap from the xserver
     useXkbConfig = true;
+    packages = [
+      pkgs.overpass
+      pkgs.inconsolata-nerdfont
+      pkgs.fantasque-sans-mono
+      pkgs.powerline-fonts
+    ];
   };
 
   fonts.fonts = [
