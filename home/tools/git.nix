@@ -10,7 +10,7 @@
       b = "for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:short)%(color:reset))'";
     };
 
-    signing.signByDefault = true;
+    signing.signByDefault = false;
     signing.key = null;
 
     extraConfig = {
