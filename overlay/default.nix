@@ -1,8 +1,7 @@
-self: super:
-{
-  wrap = self.callPackage ./lib/wrap.nix {};
-  mkMenu = self.callPackage ./pkgs/menus {};
-  jackrabbit = self.callPackage ./pkgs/jackrabbit.nix {};
+self: super: {
+  wrap = self.callPackage ./lib/wrap.nix { };
+  mkMenu = self.callPackage ./pkgs/menus { };
+  jackrabbit = self.callPackage ./pkgs/jackrabbit.nix { };
 
   lib-autorandr = (import ./lib/autorandr.nix);
 

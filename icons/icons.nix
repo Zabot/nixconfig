@@ -1,7 +1,8 @@
-{ stdenv
-, python3
-, fetchurl
-, fontforge
+{
+  stdenv,
+  python3,
+  fetchurl,
+  fontforge,
 }:
 let
   font = fetchurl {
@@ -14,7 +15,8 @@ let
     name = "nerd.css";
     sha256 = "1qhgssv28ck12am1hmxld8vwccfxfjzsgjdh6jr9vivgra182y1m";
   };
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   name = "nerd-icons";
 
   src = [

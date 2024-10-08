@@ -1,4 +1,10 @@
-{ config, lib, pkgs, system, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  system,
+  ...
+}:
 {
   programs.git = {
     enable = true;
@@ -21,9 +27,7 @@
       };
       init.defaultBranch = "master";
       advice.detachedHead = false;
-      notes.rewriteRef = [
-        "refs/notes/fel"
-      ];
+      notes.rewriteRef = [ "refs/notes/fel" ];
     };
   };
 }

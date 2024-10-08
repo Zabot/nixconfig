@@ -1,8 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   programs.zsh = {
 
-                plugins = [
+    plugins = [
       {
         name = "zsh-nix-shell";
         file = "nix-shell.plugin.zsh";

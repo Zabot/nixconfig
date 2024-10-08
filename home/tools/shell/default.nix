@@ -1,8 +1,11 @@
-{ config, lib, pkgs, ... }:
 {
-  imports = [
-    ./starship.nix
-  ];
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  imports = [ ./starship.nix ];
 
   programs.nix-index.enable = true;
   #programs.nix-index.enableZshIntegration = true;

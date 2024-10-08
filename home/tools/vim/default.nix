@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   plugins = import ./vim-plugins.nix { pkgs = pkgs; };
 in
@@ -43,7 +48,12 @@ in
 
       go-nvim
     ];
-    extraLuaConfig = builtins.concatStringsSep " " (builtins.map builtins.readFile [ ./init.lua ./lsp.lua ]);
+    extraLuaConfig = builtins.concatStringsSep " " (
+      builtins.map builtins.readFile [
+        ./init.lua
+        ./lsp.lua
+      ]
+    );
     extraPackages = with pkgs; [
       rust-analyzer
       sumneko-lua-language-server

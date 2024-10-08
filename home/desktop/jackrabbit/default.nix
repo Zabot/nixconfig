@@ -1,8 +1,6 @@
 { ... }:
 {
-  imports = [
-    ./module.nix
-  ];
+  imports = [ ./module.nix ];
 
   services.jackrabbit = {
     enable = true;
@@ -17,4 +15,3 @@
     };
   };
 }
-

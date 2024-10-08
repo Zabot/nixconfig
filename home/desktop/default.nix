@@ -17,7 +17,10 @@
 
     fade = true;
     fadeDelta = 4;
-    fadeSteps = [0.05 0.05];
+    fadeSteps = [
+      5.0e-2
+      5.0e-2
+    ];
     vSync = true;
   };
   services.poweralertd.enable = true;

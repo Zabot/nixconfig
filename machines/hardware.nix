@@ -5,23 +5,17 @@
   # Monitor configuration (What about docking)
   # Default network
   options.hardware = with lib; {
-    defaultWifi = mkOption {
-      type = types.str;
-    };
+    defaultWifi = mkOption { type = types.str; };
 
     power = mkOption {
       type = types.submodule {
         options = {
-          battery = mkOption {
-            type = types.str;
-          };
-          adapter = mkOption {
-            type = types.str;
-          };
+          battery = mkOption { type = types.str; };
+          adapter = mkOption { type = types.str; };
         };
       };
     };
 
-    displays = mkOption {};
+    displays = mkOption { };
   };
 }

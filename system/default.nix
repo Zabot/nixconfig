@@ -51,7 +51,5 @@
   };
 
   hardware.opengl.driSupport = true;
-  hardware.opengl.extraPackages = [
-    pkgs.intel-compute-runtime
-  ];
+  hardware.opengl.extraPackages = [ pkgs.intel-compute-runtime ];
 }

@@ -7,9 +7,7 @@
   virtualisation.docker.enable = true;
 
   services.printing.enable = true;
-  services.udev.packages = with pkgs; [
-    yubikey-personalization
-  ];
+  services.udev.packages = with pkgs; [ yubikey-personalization ];
   services.logind.extraConfig = ''
     HandlePowerKey=ignore
   '';

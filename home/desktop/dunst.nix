@@ -1,4 +1,10 @@
-{ config, lib, pkgs, system, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  system,
+  ...
+}:
 {
 
   services.dunst = {

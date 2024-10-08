@@ -7,7 +7,14 @@
     fel.url = "github:zabot/fel";
   };
 
-  outputs = { self, nixpkgs, home-manager, goval, fel }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      goval,
+      fel,
+    }@inputs:
     let
       user = {
         unixname = "zach";
@@ -44,4 +51,3 @@
       homeConfigurations.default = home-manager.lib.homeManagerConfiguration (import ./home/home-manager.nix);
     };
 }
-

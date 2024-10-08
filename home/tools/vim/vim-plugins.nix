@@ -1,4 +1,4 @@
-{ pkgs,  ... }:
+{ pkgs, ... }:
 {
   vim-gas = pkgs.vimUtils.buildVimPlugin {
     name = "vim-gas";

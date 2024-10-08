@@ -1,4 +1,10 @@
-{ config, lib, pkgs, system, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  system,
+  ...
+}:
 {
 
   imports = [
@@ -28,7 +34,7 @@
         echo $bar on $MONITOR
         polybar $bar &
       done
-      '';
+    '';
     package = pkgs.polybarFull;
     settings = {
       settings = {
@@ -37,4 +43,3 @@
     };
   };
 }
-

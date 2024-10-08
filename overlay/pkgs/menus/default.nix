@@ -1,32 +1,47 @@
-{ substituteAll
-, writeShellScriptBin
-, rofi
+{
+  substituteAll,
+  writeShellScriptBin,
+  rofi,
 }:
 
-{ options
-, colors
-, prompt ? ""
-, width ? 11
+{
+  options,
+  colors,
+  prompt ? "",
+  width ? 11,
 }:
 let
-  print_option = {label, icon, command}:
+  print_option =
+    {
+      label,
+      icon,
+      command,
+    }:
     ''echo -en "${label}\0icon\x1f${icon}\x1finfo\x1f${label}\n"'';
-  print_action = {label, icon, command}: ''  ${label})
-    ${command}
-    exit
-    ;;
-  '';
+  print_action =
+    {
+      label,
+      icon,
+      command,
+    }:
+    ''
+      ${label})
+        ${command}
+        exit
+        ;;
+    '';
 
-  print_script = ''#!/bin/sh
-  case $ROFI_INFO in
-    ${builtins.concatStringsSep "\n" (builtins.map print_action options)}
-  *)
-    ${builtins.concatStringsSep "\n" (builtins.map print_option options)}
-    echo -en "\0prompt\x1f${prompt}\n"
-    echo -en "\0use-info-message\x1ftrue\n"
-    exit
-    ;;
-  esac
+  print_script = ''
+    #!/bin/sh
+      case $ROFI_INFO in
+        ${builtins.concatStringsSep "\n" (builtins.map print_action options)}
+      *)
+        ${builtins.concatStringsSep "\n" (builtins.map print_option options)}
+        echo -en "\0prompt\x1f${prompt}\n"
+        echo -en "\0use-info-message\x1ftrue\n"
+        exit
+        ;;
+      esac
   '';
 
   layout = substituteAll ({
@@ -38,7 +53,7 @@ let
     background_hl = colors.background-hl;
     emph = colors.secondary;
   });
-	script = writeShellScriptBin "menu" (print_script);
+  script = writeShellScriptBin "menu" (print_script);
   display = [
     "${rofi}/bin/rofi"
     "-theme ${layout}"
@@ -51,5 +66,5 @@ let
     "-kb-move-char-forward ''"
   ];
 
-in writeShellScriptBin "display" (builtins.concatStringsSep " " display)
-
+in
+writeShellScriptBin "display" (builtins.concatStringsSep " " display)

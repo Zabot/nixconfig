@@ -1,4 +1,10 @@
-{ config, lib, pkgs, system, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  system,
+  ...
+}:
 let
   svg = system.icons.svg system.colors.foreground;
 
@@ -21,7 +27,8 @@ let
       ICON_HIGH = svg mdi-brightness_7;
     };
   };
-in {
+in
+{
   config.volume = {
     up = "${volume} up";
     down = "${volume} down";
@@ -34,23 +41,13 @@ in {
   };
 
   options.volume = {
-    up = pkgs.lib.mkOption {
-      type = pkgs.lib.types.str;
-    };
-    down = pkgs.lib.mkOption {
-      type = pkgs.lib.types.str;
-    };
-    mute = pkgs.lib.mkOption {
-      type = pkgs.lib.types.str;
-    };
+    up = pkgs.lib.mkOption { type = pkgs.lib.types.str; };
+    down = pkgs.lib.mkOption { type = pkgs.lib.types.str; };
+    mute = pkgs.lib.mkOption { type = pkgs.lib.types.str; };
   };
 
   options.brightness = {
-    up = pkgs.lib.mkOption {
-      type = pkgs.lib.types.str;
-    };
-    down = pkgs.lib.mkOption {
-      type = pkgs.lib.types.str;
-    };
+    up = pkgs.lib.mkOption { type = pkgs.lib.types.str; };
+    down = pkgs.lib.mkOption { type = pkgs.lib.types.str; };
   };
 }

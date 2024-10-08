@@ -1,7 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   email = import ../secrets/email.nix;
-in {
+in
+{
   accounts.email.accounts = {
     Replit = {
       address = "zabot@repl.it";
@@ -18,8 +24,8 @@ in {
       imapnotify.onNotifyPost = "${pkgs.libnotify}/bin/notify-send 'New mail arrived'";
 
       #gpg = {
-        #encryptByDefault = true;
-        #signByDefault = true;
+      #encryptByDefault = true;
+      #signByDefault = true;
       #};
 
       imap = {

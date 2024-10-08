@@ -1,4 +1,10 @@
-{ config, lib, pkgs, system, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  system,
+  ...
+}:
 {
   programs.waybar = lib.mkIf config.desktop.useWayland {
     enable = true;
@@ -12,7 +18,12 @@
 
         modules-left = [ "sway/workspaces" ];
         modules-center = [ "mpd" ];
-        modules-right = [ "pulseaudio" "network" "battery" "clock" ];
+        modules-right = [
+          "pulseaudio"
+          "network"
+          "battery"
+          "clock"
+        ];
       };
     };
   };

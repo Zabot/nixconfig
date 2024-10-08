@@ -1,4 +1,10 @@
-{ config, lib, pkgs, system, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  system,
+  ...
+}:
 {
   services.polybar.settings = with system.icons.set; {
     "module/date" = {
@@ -117,7 +123,7 @@
 
       #; urgent = Workspace with urgency hint set
       label.urgent.text = "%name%";
-      label.urgent.underline  = system.colors.urgent;
+      label.urgent.underline = system.colors.urgent;
       label.urgent.background = system.colors.background;
       label.urgent.padding = 2;
     };
