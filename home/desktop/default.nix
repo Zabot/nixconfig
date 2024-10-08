@@ -21,6 +21,12 @@
     vSync = true;
   };
   services.poweralertd.enable = true;
+  services.redshift = {
+    enable = true;
+    provider = "manual";
+    latitude = 35.0;
+    longitude = -100.0;
+  };
 
   services.mopidy = {
     enable = true;
