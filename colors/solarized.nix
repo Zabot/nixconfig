@@ -34,7 +34,7 @@ termcolors = {
   };
 
   bright = {
-    black =   solarized.base03;
+    black =   solarized.base00;
     green =   solarized.base01;
     yellow =  solarized.base00;
     blue =    solarized.base0;
