@@ -1,0 +1,7 @@
+total 0
+lrwxrwxrwx 1 root root 10 Jan  1  2023 1234-5678 -> ../../sda2
+lrwxrwxrwx 1 root root 10 Dec  6  2023 1980-01-01-00-00-00-00 -> ../../sda1
+lrwxrwxrwx 1 root root 15 Dec  6  2023 86f7b671-9f0d-4008-8e26-cd891f9525ef -> ../../nvme0n1p2
+lrwxrwxrwx 1 root root 10 Dec  6  2023 8abcf739-52fe-4b34-a50e-2559ad6cb1ba -> ../../dm-2
+lrwxrwxrwx 1 root root 15 Dec  6  2023 DA4B-60E9 -> ../../nvme0n1p1
+lrwxrwxrwx 1 root root 10 Dec  6  2023 f9e4337f-c0b2-450a-8902-154435a69a64 -> ../../dm-1

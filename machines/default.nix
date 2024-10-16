@@ -35,6 +35,7 @@ let
   # List of nix modules containing machine specific configuration. This list
   # is matched against global.host to determine which module to include.
   machines = [
+    ./replit-framework
     ./framework
     ./xps
   ];

@@ -48,6 +48,19 @@
           };
         };
       };
+      nixosConfigurations.zach-replit-framework = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./configuration.nix
+        ];
+        specialArgs = {
+          inherit home-manager fel inputs;
+          global = {
+            inherit user;
+            host = "replit-framework";
+          };
+        };
+      };
       homeConfigurations.default = home-manager.lib.homeManagerConfiguration (import ./home/home-manager.nix);
     };
 }
