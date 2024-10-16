@@ -8,15 +8,13 @@
   imports = [ ./starship.nix ];
 
   programs.nix-index.enable = true;
-  #programs.nix-index.enableZshIntegration = true;
+  programs.nix-index.enableFishIntegration = true;
 
   programs.atuin = {
     enable = true;
-    enableNushellIntegration = true;
+    enableFishIntegration = true;
   };
-
-  programs.nushell = {
+  programs.fish = {
     enable = true;
-    configFile.source = ./config.nu;
   };
 }

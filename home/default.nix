@@ -26,10 +26,12 @@ in
           "plugdev"
           "networkmanager"
         ];
-        shell = pkgs.nushell;
+        shell = pkgs.fish;
       };
     }
   ];
+  programs.fish.enable = true;
+
 
   home-manager.users = builtins.listToAttrs [
     {
