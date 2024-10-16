@@ -4,6 +4,7 @@
   extraConfig,
   system,
   fel,
+  nur,
   ...
 }:
 
@@ -17,7 +18,10 @@
   config = extraConfig // {
     #fonts.fontconfig.enable = true;
 
-    nixpkgs.overlays = [ (import ../overlay) ];
+    nixpkgs.overlays = [
+      (import ../overlay)
+      nur.overlay
+    ];
 
     home = {
       stateVersion = system.system.stateVersion;

@@ -5,6 +5,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     goval.url = "git+file:/home/zach/replit/goval";
     fel.url = "github:zabot/fel";
+    nur.url = github:nix-community/NUR;
   };
 
   outputs =
@@ -14,6 +15,7 @@
       home-manager,
       goval,
       fel,
+      nur,
     }@inputs:
     let
       user = {
@@ -27,6 +29,7 @@
         system = "x86_64-linux";
         modules = [
           goval.nixosModules.default
+          nur.nixosModules.nur
           ./configuration.nix
         ];
         specialArgs = {
@@ -51,10 +54,11 @@
       nixosConfigurations.zach-replit-framework = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          nur.nixosModules.nur
           ./configuration.nix
         ];
         specialArgs = {
-          inherit home-manager fel inputs;
+          inherit home-manager fel inputs nur;
           global = {
             inherit user;
             host = "replit-framework";

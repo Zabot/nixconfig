@@ -4,6 +4,7 @@
   nixosVersion,
   home-manager,
   fel,
+  nur,
   ...
 }:
 let
@@ -40,7 +41,7 @@ in
     }
   ];
   home-manager.extraSpecialArgs = {
-    inherit fel;
+    inherit fel nur;
     system = config;
     extraConfig = {
       desktop.useWayland = config.desktop.useWayland;

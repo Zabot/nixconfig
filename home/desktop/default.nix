@@ -8,6 +8,7 @@
     ./autorandr.nix
     ./dunst.nix
     ./jackrabbit
+    ./firefox
   ];
 
   services.picom = {
