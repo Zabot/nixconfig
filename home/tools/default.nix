@@ -6,5 +6,6 @@
     ./shell
     ./vim
     ./gpg
+    ./ssh
   ];
 }
