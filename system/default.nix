@@ -2,12 +2,14 @@
 {
   imports = [
     ./boot.nix
+    ./kernel.nix
     ./networking.nix
     ./nix.nix
     ./services.nix
     ./wayland.nix
     ./xserver.nix
   ];
+  boot.supportedFilesystems = [ "ntfs" ];
 
   system.stateVersion = "21.11";
   time.timeZone = "America/Chicago";
