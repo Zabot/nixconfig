@@ -39,4 +39,5 @@
     battery = "BAT1";
     adapter = "ACAD";
   };
+  desktop.useWayland = false;
 }
