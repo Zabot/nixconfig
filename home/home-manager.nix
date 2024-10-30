@@ -1,4 +1,12 @@
-{ config, pkgs, extraConfig, system, ... }:
+{
+  config,
+  pkgs,
+  extraConfig,
+  system,
+  fel,
+  nur,
+  ...
+}:
 
 {
   imports = [
@@ -12,8 +20,8 @@
 
     nixpkgs.overlays = [
       (import ../overlay)
+      nur.overlay
     ];
-
 
     home = {
       stateVersion = system.system.stateVersion;
@@ -26,19 +34,19 @@
         libnotify
         weechat
         weechatScripts.wee-slack
-        python38
+        python3
         poetry
         ledger
         kicad
         pavucontrol
+        fel.packages.x86_64-linux.fel
       ];
     };
-
 
     programs.home-manager.enable = true;
     programs.firefox.enable = true;
     home.sessionVariables = {
-      MOZ_USE_XINPUT2=1;
+      MOZ_USE_XINPUT2 = 1;
     };
     programs.rofi.enable = true;
     programs.neomutt.enable = true;

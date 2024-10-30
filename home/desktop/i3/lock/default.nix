@@ -1,8 +1,9 @@
-{ pkgs
-, system
-, config
-, options
-, ...
+{
+  pkgs,
+  system,
+  config,
+  options,
+  ...
 }:
 let
   stripHex = name: color: (builtins.substring 1 6 color);
@@ -52,14 +53,13 @@ let
     "--polygon-sides=6"
     "--polygon-highlight=2"
   ];
-in {
+in
+{
   config.lock = {
     cmd = lock;
   };
 
   options.lock = {
-    cmd = pkgs.lib.mkOption {
-      type = pkgs.lib.types.str;
-    };
+    cmd = pkgs.lib.mkOption { type = pkgs.lib.types.str; };
   };
 }

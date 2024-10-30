@@ -1,4 +1,10 @@
-{ config, lib, pkgs, system, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  system,
+  ...
+}:
 let
   mod = "Mod1";
 
@@ -112,6 +118,7 @@ let
       "${mod}+Shift+w" = "move container to workspace WWW";
 
       "${mod}+d" = "exec rofi -show combi";
+      "${mod}+Shift+f" = "fullscreen toggle global";
 
       "Mod4+l" = "exec ${config.lock.cmd}";
 
@@ -132,16 +139,17 @@ let
     };
 
     assigns = {
-      "WWW" = [
-        { class = "(?i)firefox"; }
-      ];
+      "WWW" = [ { class = "(?i)firefox"; } ];
     };
 
-    colors = let common = {
-      border = system.colors.background-hl;
-      text = system.colors.foreground;
-      background = system.colors.background;
-    }; in
+    colors =
+      let
+        common = {
+          border = system.colors.background-hl;
+          text = system.colors.foreground;
+          background = system.colors.background;
+        };
+      in
       {
         # Border: Color of the border between the titlebar and the window
         # Background: Color of the titlebar background

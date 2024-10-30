@@ -1,4 +1,9 @@
-{ config, pkgs, global, ... }:
+{
+  config,
+  pkgs,
+  global,
+  ...
+}:
 {
   imports = [
     # Import color schemes
@@ -14,9 +19,7 @@
     # Home manager config
     ./home
   ];
-  config.nixpkgs.overlays = [
-    (import ./overlay)
-  ];
+  config.nixpkgs.overlays = [ (import ./overlay) ];
 
   config.global = global;
   config.colors = (import ./colors/solarized.nix).dark;

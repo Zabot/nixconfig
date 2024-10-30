@@ -1,4 +1,4 @@
-{ pkgs,  ... }:
+{ pkgs, ... }:
 {
   vim-gas = pkgs.vimUtils.buildVimPlugin {
     name = "vim-gas";
@@ -20,7 +20,7 @@
     };
   };
 
-  go-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
+  go-nvim = pkgs.vimUtils.buildVimPlugin {
     name = "go-nvim";
     src = pkgs.fetchFromGitHub {
       owner = "ray-x";
@@ -30,7 +30,7 @@
     };
   };
 
-  solarized = pkgs.vimUtils.buildVimPluginFrom2Nix {
+  solarized = pkgs.vimUtils.buildVimPlugin {
     name = "solarized";
     src = pkgs.fetchFromGitHub {
       owner = "maxmx03";

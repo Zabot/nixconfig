@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   # Nix doesn't start i3 as a systemd unit, its run by the display manager as
   # a child. Additionally, the hm-graphical-session target is started before

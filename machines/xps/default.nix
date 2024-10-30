@@ -11,7 +11,11 @@
 
   # Slight perf boost and save some SSD write cycles by not updating atime
   # Send TRIM commands to the ssd when blocks are freed
-  fileSystems."/".options = ["noatime" "nodiratime" "discard" ];
+  fileSystems."/".options = [
+    "noatime"
+    "nodiratime"
+    "discard"
+  ];
 
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
@@ -23,5 +27,5 @@
     adapter = "AC";
   };
 
-  desktop.useWayland = true;
+  desktop.useWayland = false;
 }

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   plugins = import ./vim-plugins.nix { pkgs = pkgs; };
 in
@@ -24,6 +29,7 @@ in
       vim-crates
       vim-toml
       vim-nix
+      vim-terraform
 
       # LSP
       nvim-lspconfig
@@ -39,15 +45,21 @@ in
 
       (nvim-treesitter.withAllGrammars)
       nvim-treesitter-context
+
+      go-nvim
     ];
-    extraLuaConfig = builtins.concatStringsSep " " (builtins.map builtins.readFile [ ./init.lua ./lsp.lua ]);
+    extraLuaConfig = builtins.concatStringsSep " " (
+      builtins.map builtins.readFile [
+        ./init.lua
+        ./lsp.lua
+      ]
+    );
     extraPackages = with pkgs; [
       rust-analyzer
       sumneko-lua-language-server
       nodePackages.pyright
       nodePackages.typescript-language-server
       gopls
-      rnix-lsp
     ];
   };
 }

@@ -1,18 +1,17 @@
 { ... }:
 {
-  imports = [
-    ./module.nix
-  ];
+  imports = [ ./module.nix ];
 
   services.jackrabbit = {
     enable = true;
+    default = "https://kagi.com/search?q={}";
     bookmarks = {
-      g = "https://duckduckgo.com/?q={}";
+      g = "https://kagi.com/search?q={}";
+      gpt = "https://kagi.com/fastgpt?query={}";
       nix = "https://search.nixos.org/packages?query={}";
       go = "https://pkg.go.dev/search?q={}";
-      rust = "https://docs.rs/releases/search?query={}";
+      cargo = "https://docs.rs/releases/search?query={}";
       std = "https://www.cplusplus.com/search.do?q={}";
     };
   };
 }
-

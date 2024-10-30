@@ -1,17 +1,23 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.services.jackrabbit;
   tomlFormat = pkgs.formats.toml { };
 
-	jackrabbitConfig = {
+  jackrabbitConfig = {
     interface = cfg.interface;
     default = cfg.default;
-		bookmarks = cfg.bookmarks;
-	};
+    bookmarks = cfg.bookmarks;
+  };
 
-	configFile = tomlFormat.generate "jackrabbit.toml" jackrabbitConfig;
-in {
-	options = {
+  configFile = tomlFormat.generate "jackrabbit.toml" jackrabbitConfig;
+in
+{
+  options = {
     services.jackrabbit = {
       enable = lib.mkEnableOption "Jackrabbit search bookmarks";
 
@@ -50,13 +56,17 @@ in {
 
     systemd.user.services.jackrabbit = {
       Unit = {
-				Description = "Jackrabbit search bookmarks";
+        Description = "Jackrabbit search bookmarks";
         After = [ "graphical-session-pre.target" ];
         PartOf = [ "graphical-session.target" ];
       };
 
-      Service = { ExecStart = "${pkgs.jackrabbit}/bin/jackrabbit --config ${config.xdg.configHome}/jackrabbit/config.toml"; };
-      Install = { WantedBy = [ "graphical-session.target" ]; };
-		};
-	};
+      Service = {
+        ExecStart = "${pkgs.jackrabbit}/bin/jackrabbit --config ${config.xdg.configHome}/jackrabbit/config.toml";
+      };
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
+    };
+  };
 }

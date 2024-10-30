@@ -1,4 +1,10 @@
-{ stdenv, pkgs, fetchFromGitHub, rustPlatform, ... }:
+{
+  stdenv,
+  pkgs,
+  fetchFromGitHub,
+  rustPlatform,
+  ...
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "jackrabbit";
@@ -14,4 +20,3 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "1hsi65a13adk0yppghiknqzm50g7a8vq4g5rf0y6lby99c9fnff3";
   verifyCargoDeps = true;
 }
-

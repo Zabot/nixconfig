@@ -1,6 +1,12 @@
-{ config, lib, pkgs, system, ... }:
 {
-	programs.autorandr = {
+  config,
+  lib,
+  pkgs,
+  system,
+  ...
+}:
+{
+  programs.autorandr = {
     hooks = {
       postswitch = {
         "restart-polybar" = "systemctl --user restart polybar";

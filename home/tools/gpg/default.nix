@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   programs.gpg = {
     enable = true;
@@ -15,6 +15,6 @@
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
-    pinentryFlavor = "tty";
+    pinentryPackage = pkgs.pinentry-tty;
   };
 }

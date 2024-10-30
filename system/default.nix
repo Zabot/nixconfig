@@ -2,12 +2,14 @@
 {
   imports = [
     ./boot.nix
+    ./kernel.nix
     ./networking.nix
     ./nix.nix
     ./services.nix
     ./wayland.nix
     ./xserver.nix
   ];
+  boot.supportedFilesystems = [ "ntfs" ];
 
   system.stateVersion = "21.11";
   time.timeZone = "America/Chicago";
@@ -16,6 +18,12 @@
     font = "Lat2-Terminus16";
     # Inherit the console keymap from the xserver
     useXkbConfig = true;
+    packages = [
+      pkgs.overpass
+      pkgs.inconsolata-nerdfont
+      pkgs.fantasque-sans-mono
+      pkgs.powerline-fonts
+    ];
   };
 
   fonts.fonts = [
@@ -45,7 +53,5 @@
   };
 
   hardware.opengl.driSupport = true;
-  hardware.opengl.extraPackages = [
-    pkgs.intel-compute-runtime
-  ];
+  hardware.opengl.extraPackages = [ pkgs.intel-compute-runtime ];
 }
