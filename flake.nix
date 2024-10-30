@@ -62,6 +62,17 @@
           };
         };
       };
+      nixosConfigurations.zach-desktop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [ ./configuration.nix ];
+        specialArgs = {
+          inherit home-manager;
+          global = {
+            inherit user;
+            host = "desktop";
+          };
+        };
+      };
       homeConfigurations.default = home-manager.lib.homeManagerConfiguration (import ./home/home-manager.nix);
     };
 }

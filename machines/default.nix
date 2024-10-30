@@ -38,6 +38,7 @@ let
     ./replit-framework
     ./framework
     ./xps
+    ./desktop
   ];
 
 in
