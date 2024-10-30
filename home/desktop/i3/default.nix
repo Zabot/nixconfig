@@ -118,6 +118,7 @@ let
       "${mod}+Shift+w" = "move container to workspace WWW";
 
       "${mod}+d" = "exec rofi -show combi";
+      "${mod}+Shift+f" = "fullscreen toggle global";
 
       "Mod4+l" = "exec ${config.lock.cmd}";
 
