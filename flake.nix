@@ -30,7 +30,7 @@
           ./configuration.nix
         ];
         specialArgs = {
-          inherit home-manager fel inputs;
+          inherit home-manager fel inputs nur;
           global = {
             inherit user;
             host = "xps";
@@ -41,7 +41,7 @@
         system = "x86_64-linux";
         modules = [ ./configuration.nix ];
         specialArgs = {
-          inherit home-manager fel inputs;
+          inherit home-manager fel inputs nur;
           global = {
             inherit user;
             host = "framework";
@@ -66,7 +66,7 @@
         system = "x86_64-linux";
         modules = [ ./configuration.nix ];
         specialArgs = {
-          inherit home-manager;
+          inherit home-manager fel inputs nur;
           global = {
             inherit user;
             host = "desktop";
