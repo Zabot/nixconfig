@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, nur-pkgs, ... }:
 {
   programs.firefox = {
     enable = true;
@@ -48,7 +48,7 @@
         };
       };
 
-      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+      extensions = with nur-pkgs.repos.rycee.firefox-addons; [
         ublock-origin
         tree-style-tab
       ];

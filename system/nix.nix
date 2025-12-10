@@ -7,15 +7,16 @@
 }:
 {
   # Allow nix without sudo
-  nix.trustedUsers = [
-    "root"
-    "@wheel"
-  ];
-
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix.settings = {
+    trusted-users = [
+      "root"
+      "@wheel"
+    ];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+  };
 
   nix = {
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;

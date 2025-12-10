@@ -11,7 +11,6 @@
   ];
   boot.supportedFilesystems = [ "ntfs" ];
 
-  system.stateVersion = "21.11";
   time.timeZone = "America/Chicago";
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
@@ -26,7 +25,7 @@
     ];
   };
 
-  fonts.fonts = [
+  fonts.packages = [
     pkgs.overpass
     pkgs.inconsolata-nerdfont
     pkgs.fantasque-sans-mono

@@ -230,6 +230,7 @@ in
       output = {
         "*" = {
           bg = "${../../../resources/wallpaper/wallpaper.png} fill";
+          scale = "1.45";
         };
       };
     };

@@ -1,50 +1,59 @@
 {
   config,
   pkgs,
-  nixosVersion,
-  home-manager,
+  extraConfig,
+  system,
   fel,
-  nur,
   ...
 }:
-let
-  name = config.global.user.unixname;
-in
+
 {
-  imports = [ home-manager.nixosModule ];
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users = builtins.listToAttrs [
-    {
-      inherit name;
-      value = {
-        isNormalUser = true;
-        extraGroups = [
-          "wheel"
-          "adbusers"
-          "video"
-          "docker"
-          "plugdev"
-          "networkmanager"
-        ];
-        shell = pkgs.fish;
-      };
-    }
+  imports = [
+    ./modules
+    ./desktop
+    ./tools
   ];
-  programs.fish.enable = true;
 
+  config = extraConfig // {
+    #fonts.fontconfig.enable = true;
 
-  home-manager.users = builtins.listToAttrs [
-    {
-      inherit name;
-      value = import ./home-manager.nix;
-    }
-  ];
-  home-manager.extraSpecialArgs = {
-    inherit fel nur;
-    system = config;
-    extraConfig = {
-      desktop.useWayland = config.desktop.useWayland;
+    nixpkgs.overlays = [
+      (import ../overlay)
+    ];
+
+    home = {
+      stateVersion = system.system.stateVersion;
+      username = system.global.user.unixname;
+      homeDirectory = "/home/${system.global.user.unixname}";
+      packages = with pkgs; [
+        htop
+        keepassxc
+        ripgrep
+        libnotify
+        weechat
+        weechatScripts.wee-slack
+        python3
+        poetry
+        ledger
+        kicad
+        pavucontrol
+        fel.packages.x86_64-linux.fel
+      ];
     };
+
+    programs.home-manager.enable = true;
+    programs.firefox.enable = true;
+    home.sessionVariables = {
+      MOZ_USE_XINPUT2 = 1;
+    };
+    programs.rofi.enable = true;
+    programs.neomutt.enable = true;
+
+    services.udiskie.enable = true;
+    services.udiskie.automount = true;
+    services.imapnotify.enable = true;
+
+    services.random-background.enable = true;
+    services.random-background.imageDirectory = "${../resources/wallpaper}";
   };
 }

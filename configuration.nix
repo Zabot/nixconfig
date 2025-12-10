@@ -17,10 +17,11 @@
     # Override common config with machine specific config
     ./machines
     # Home manager config
-    ./home
+    ./home.nix
   ];
   config.nixpkgs.overlays = [ (import ./overlay) ];
 
   config.global = global;
   config.colors = (import ./colors/solarized.nix).dark;
+  config.system.stateVersion = "24.05";
 }

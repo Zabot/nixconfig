@@ -37,7 +37,7 @@ let
     "--time-size=128"
     "--time-align=1"
     "--time-pos=\"30:h-90-30\""
-    "--time-str=\"%H:%M %p\""
+    "--time-str=\"%-I:%M %p\""
 
     "--date-color=${colors.secondary}"
     "--date-font=Overpass"

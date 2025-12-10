@@ -19,6 +19,7 @@
 
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
+  services.fwupd.enable = true;
 
   # Enable fingerprint auth
   hardware.defaultWifi = "wlp1s0";
@@ -27,5 +28,5 @@
     adapter = "AC";
   };
 
-  desktop.useWayland = false;
+  desktop.useWayland = true;
 }
