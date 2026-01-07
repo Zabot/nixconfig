@@ -13,5 +13,6 @@
       cargo = "https://docs.rs/releases/search?query={}";
       std = "https://www.cplusplus.com/search.do?q={}";
     };
+    interface = "127.0.0.1:10125";
   };
 }

@@ -1,5 +1,6 @@
 -- Solarized colorscheme
 vim.o.background = 'dark'
+vim.cmd("colorscheme vim")
 vim.cmd("colorscheme solarized")
 
 -- Show line numbers
@@ -21,7 +22,7 @@ vim.bo.tabstop = tab_width
 vim.bo.softtabstop = tab_width
 vim.bo.shiftwidth = tab_width
 vim.bo.expandtab = true
-vim.wo.cc = 80
+-- vim.wo.cc = 80
 
 -- Setup lualine
 require('lualine').setup({

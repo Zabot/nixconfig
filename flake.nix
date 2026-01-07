@@ -1,14 +1,13 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
-    home-manager.url = "github:nix-community/home-manager/release-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     fel.url = "github:zabot/fel";
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    goval.url = "git+file:/home/zach/p/goval-main";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
@@ -19,7 +18,6 @@
       home-manager,
       fel,
       nur,
-      goval,
       nixos-hardware,
     }@inputs:
     let
@@ -60,7 +58,6 @@
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
-          goval.nixosModules.default
           nixos-hardware.nixosModules.framework-13-7040-amd
         ];
         specialArgs = {

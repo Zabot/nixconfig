@@ -11,7 +11,7 @@ let
   name = config.global.user.unixname;
 in
 {
-  imports = [ home-manager.nixosModule ];
+  imports = [ home-manager.nixosModules.home-manager ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users = builtins.listToAttrs [

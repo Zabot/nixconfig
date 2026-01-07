@@ -19,7 +19,7 @@
     useXkbConfig = true;
     packages = [
       pkgs.overpass
-      pkgs.inconsolata-nerdfont
+      pkgs.nerd-fonts.inconsolata
       pkgs.fantasque-sans-mono
       pkgs.powerline-fonts
     ];
@@ -27,12 +27,11 @@
 
   fonts.packages = [
     pkgs.overpass
-    pkgs.inconsolata-nerdfont
+    pkgs.nerd-fonts.inconsolata
     pkgs.fantasque-sans-mono
     pkgs.powerline-fonts
   ];
 
-  sound.enable = true;
   hardware = {
     rtl-sdr.enable = true;
     pulseaudio.enable = false;
@@ -50,7 +49,4 @@
     alsa.enable = true;
     pulse.enable = true;
   };
-
-  hardware.opengl.driSupport = true;
-  hardware.opengl.extraPackages = [ pkgs.intel-compute-runtime ];
 }

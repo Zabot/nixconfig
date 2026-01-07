@@ -23,5 +23,5 @@
 
   config.global = global;
   config.colors = (import ./colors/solarized.nix).dark;
-  config.system.stateVersion = "24.05";
+  config.system.stateVersion = "25.11";
 }

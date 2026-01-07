@@ -56,8 +56,8 @@ in
     );
     extraPackages = with pkgs; [
       rust-analyzer
-      sumneko-lua-language-server
-      nodePackages.pyright
+      lua-language-server
+      pyright
       nodePackages.typescript-language-server
       gopls
     ];

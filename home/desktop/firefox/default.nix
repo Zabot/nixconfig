@@ -1,4 +1,4 @@
-{ pkgs, nur-pkgs, ... }:
+{ pkgs, nur-pkgs, system, config, ... }:
 {
   programs.firefox = {
     enable = true;
@@ -6,7 +6,12 @@
       name = "zach";
       isDefault = true;
 
-      userChrome = builtins.readFile ./userChrome.css;
+      userChrome = pkgs.replaceVars ./userChrome.css {
+        background = system.colors.background;
+        background-hl = system.colors.background-hl;
+        foreground = system.colors.foreground;
+        accent = system.colors.focus;
+      };
       settings = {
         "app.normandy.enabled" = false;
 
@@ -24,6 +29,19 @@
 
         # Enable userChrome.css
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+
+        # Disable AI junk
+        "browser.ml.enable" = false;
+        "browser.ml.chat.enabled" = false;
+        "browser.ml.chat.menu" = false;
+        "browser.ml.chat.page" = false;
+        "extensions.ml.enabled" = false;
+        "browser.ml.linkPreview.enabled" = false;
+        "browser.tabs.groups.smart.enabled" = false;
+        "browser.tabs.groups.smart.userEnabled" = false;
+
+        "browser.toolbars.bookmars.visibility" = "never";
+        "sidebar.verticalTabs" = true;
       };
 
       search = {
@@ -31,7 +49,7 @@
         default = "Jackrabbit";
         engines = {
           # Setup Jackrabbit
-          Jackrabbit = let server = "http://localhost:8080"; in {
+          Jackrabbit = let server = "http://${config.services.jackrabbit.interface}"; in {
             iconUpdateURL = "${server}/jackrabbit.png";
             urls = [{
               template = "${server}/search?q={searchTerms}";
@@ -48,9 +66,9 @@
         };
       };
 
-      extensions = with nur-pkgs.repos.rycee.firefox-addons; [
+      extensions.packages = with nur-pkgs.repos.rycee.firefox-addons; [
         ublock-origin
-        tree-style-tab
+        #tree-style-tab
       ];
     };
   };
