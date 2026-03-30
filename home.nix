@@ -2,16 +2,16 @@
   config,
   pkgs,
   nixosVersion,
-  home-manager,
-  fel,
-  nur-pkgs,
+  inputs,
   ...
 }:
 let
   name = config.global.user.unixname;
 in
 {
-  imports = [ home-manager.nixosModules.home-manager ];
+  imports = [
+    inputs.home-manager.nixosModules.home-manager
+  ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users = builtins.listToAttrs [
@@ -27,6 +27,7 @@ in
           "plugdev"
           "networkmanager"
           "dialout"
+          "tss"
         ];
         shell = pkgs.fish;
       };
@@ -42,10 +43,7 @@ in
     }
   ];
   home-manager.extraSpecialArgs = {
-    inherit fel nur-pkgs;
+    inherit inputs;
     system = config;
-    extraConfig = {
-      desktop.useWayland = config.desktop.useWayland;
-    };
   };
 }

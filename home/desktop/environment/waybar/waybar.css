@@ -1,0 +1,70 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: @font@;
+    font-size: 16;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: @background@;
+    color: @foreground@;
+    border-top: 2px solid @background-hl@;
+}
+
+tooltip {
+  color: @foreground@;
+  background-color: @background-hl@;
+  text-shadow: none;
+}
+
+tooltip * {
+  color: @foreground@;
+  text-shadow: none;
+}
+
+#workspaces button.focused {
+  border-bottom-color: @focus@;
+}
+
+#workspaces button.urgent {
+  border-bottom-color: @urgent@;
+}
+
+#workspaces button:not(.focused):hover {
+  background-color: @background-hl@;
+}
+
+/* Unset the default hover behavior */
+#workspaces button:hover {
+  background: unset;
+}
+
+#workspaces button:hover {
+  box-shadow: none;
+  text-shadow: none;
+}
+
+#clock, #battery, #backlight, #wireplumber, #network, #workspaces button, #mpd, #cpu {
+    border-bottom: 3px solid @secondary@;
+    color: @foreground@;
+    padding: 1px 5px;
+    margin: 3px 3px;
+}
+
+#wireplumber.muted {
+    border-bottom-color: @urgent@;
+    color: @secondary@;
+}
+
+#battery.charging {
+    border-bottom-color: @ok@;
+}
+
+#network.disconnected {
+    border-bottom-color: @urgent@;
+}
+
+#battery.critical:not(.charging) {
+    border-bottom-color: @urgent@;
+}

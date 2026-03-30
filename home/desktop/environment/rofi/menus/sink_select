@@ -1,0 +1,26 @@
+#!/usr/bin/env sh
+set -e
+
+if [ ! -z "$@" ]
+then
+  wpctl set-default $ROFI_INFO
+  exit 0
+fi
+
+echo -en "\0prompt\x1fDefault pipewire sink\n"
+
+sinks=$(pw-dump | jq '.[].info.props | {"node.description", "object.id", "media.class", "node.name"} | select(."media.class" == "Audio/Sink")' | jq -s)
+
+active_node=$(pw-dump | jq -r '.[].metadata | select(. != null) | .[] | select(.key == "default.audio.sink") | .value.name')
+
+for (( i = 1; i < $(echo $sinks | jq length); ++i ))
+do
+  title=$(echo $sinks | jq -r ".[$i].\"node.description\"")
+  id=$(echo $sinks | jq -r ".[$i].\"object.id\"")
+  name=$(echo $sinks | jq -r ".[$i].\"node.name\"")
+  if [ "$name" = "$active_node" ]; then
+    echo -en "$title\0info\x1f$id\x1factive\x1ftrue\x1fpermanent\x1ftrue\x1fnonselectable\x1ftrue\n"
+  else
+    echo -en "$title\0info\x1f$id\n"
+  fi
+done

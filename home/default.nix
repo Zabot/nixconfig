@@ -1,22 +1,30 @@
 {
   config,
   pkgs,
-  extraConfig,
   system,
-  fel,
+  inputs,
   ...
 }:
 
 {
   imports = [
-    ./modules
+    # Home configuration that is useful on a system that
+    # may be used over ssh, but is not the local system
+    # (e.g. vim)
+    ./remote
+
+    # Configuration that is useful on a local system that
+    # does not have a display server.
+    # (e.g. mutt, udiskie, taskwarrior)
+    ./local
+
+    # Full graphical environment
     ./desktop
-    ./tools
+
+    inputs.nur.modules.homeManager.default
   ];
 
-  config = extraConfig // {
-    #fonts.fontconfig.enable = true;
-
+  config = {
     nixpkgs.overlays = [
       (import ../overlay)
     ];
@@ -25,35 +33,8 @@
       stateVersion = system.system.stateVersion;
       username = system.global.user.unixname;
       homeDirectory = "/home/${system.global.user.unixname}";
-      packages = with pkgs; [
-        htop
-        keepassxc
-        ripgrep
-        libnotify
-        weechat
-        weechatScripts.wee-slack
-        python3
-        poetry
-        ledger
-        kicad
-        pavucontrol
-        fel.packages.x86_64-linux.fel
-      ];
     };
 
     programs.home-manager.enable = true;
-    programs.firefox.enable = true;
-    home.sessionVariables = {
-      MOZ_USE_XINPUT2 = 1;
-    };
-    programs.rofi.enable = true;
-    programs.neomutt.enable = true;
-
-    services.udiskie.enable = true;
-    services.udiskie.automount = true;
-    services.imapnotify.enable = true;
-
-    services.random-background.enable = true;
-    services.random-background.imageDirectory = "${../resources/wallpaper}";
   };
 }

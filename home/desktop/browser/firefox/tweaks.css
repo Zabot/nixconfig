@@ -1,0 +1,13 @@
+/* Disable the drop shadow around the content */
+#tabbrowser-tabbox {
+	outline: none !important;
+	box-shadow: none !important;
+	border-radius: 0px !important;
+	border: 1px solid var(--tabpanel-border-color) !important;
+}
+
+/* Hide the search engine switcher */
+#urlbar-searchmode-switcher {
+	visibility: collapse !important;
+}
+

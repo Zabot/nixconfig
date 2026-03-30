@@ -1,0 +1,195 @@
+diff --git a/include/swaylock.h b/include/swaylock.h
+index cd4e73e..818e237 100644
+--- a/include/swaylock.h
++++ b/include/swaylock.h
+@@ -69,6 +69,8 @@ struct swaylock_args {
+ 	bool daemonize;
+ 	int ready_fd;
+ 	bool indicator_idle_visible;
++	uint32_t polygon_sides;
++	double polygon_offset;
+ };
+ 
+ struct swaylock_password {
+diff --git a/main.c b/main.c
+index 07e6667..536d4ee 100644
+--- a/main.c
++++ b/main.c
+@@ -447,6 +447,7 @@ enum line_mode {
+ 
+ static int parse_options(int argc, char **argv, struct swaylock_state *state,
+ 		enum line_mode *line_mode, char **config_path) {
++
+ 	enum long_option_codes {
+ 		LO_BS_HL_COLOR = 256,
+ 		LO_CAPS_LOCK_BS_HL_COLOR,
+@@ -949,6 +950,11 @@ static int parse_options(int argc, char **argv, struct swaylock_state *state,
+ 		}
+ 	}
+ 
++	if (state) {
++		state->args.polygon_sides = 6;
++		state->args.polygon_offset = 0.0;
++	}
++
+ 	return 0;
+ }
+ 
+diff --git a/password.c b/password.c
+index 59f28c7..e214e97 100644
+--- a/password.c
++++ b/password.c
+@@ -130,8 +130,11 @@ static void submit_password(struct swaylock_state *state) {
+ 
+ static void update_highlight(struct swaylock_state *state) {
+ 	// Advance a random amount between 1/4 and 3/4 of a full turn
+-	state->highlight_start =
+-		(state->highlight_start + (rand() % 1024) + 512) % 2048;
++	if (state-> input_state == INPUT_STATE_BACKSPACE) {
++		state->highlight_start = (state->highlight_start - 1);
++	} else {
++		state->highlight_start = (state->highlight_start + 1);
++	}
+ }
+ 
+ void swaylock_handle_key(struct swaylock_state *state,
+diff --git a/render.c b/render.c
+index 9d67241..80df162 100644
+--- a/render.c
++++ b/render.c
+@@ -131,6 +131,32 @@ static void configure_font_drawing(cairo_t *cairo, struct swaylock_state *state,
+ 	cairo_font_options_destroy(fo);
+ }
+ 
++
++static void draw_polygon(
++		cairo_t *ctx,
++		double center_x,
++		double center_y,
++		double radius,
++		int points,
++		int start,
++		int end,
++		double offset
++	) {
++    int count = end - start;
++
++    for (int v = 0; v < count + 1; v++) {
++        double theta = (start + v)  * ((M_PI * 2) / points) + offset;
++
++        int x = radius * cos(theta);
++        int y = radius * sin(theta);
++
++        if (v == 0)
++            cairo_move_to(ctx, center_x + x, center_y + y);
++        else
++            cairo_line_to(ctx, center_x + x, center_y + y);
++    }
++}
++
+ static bool render_frame(struct swaylock_surface *surface) {
+ 	struct swaylock_state *state = surface->state;
+ 
+@@ -264,16 +290,32 @@ static bool render_frame(struct swaylock_surface *surface) {
+ 	if (draw_indicator) {
+ 		// Fill inner circle
+ 		cairo_set_line_width(cairo, 0);
+-		cairo_arc(cairo, buffer_width / 2, buffer_diameter / 2,
+-				arc_radius - arc_thickness / 2, 0, 2 * M_PI);
++		draw_polygon(
++			cairo,
++			buffer_width / 2,
++			buffer_diameter / 2,
++			arc_radius - arc_thickness / 2,
++			state->args.polygon_sides,
++			0,
++			state->args.polygon_sides,
++			state->args.polygon_offset
++		);
+ 		set_color_for_state(cairo, state, &state->args.colors.inside);
+ 		cairo_fill_preserve(cairo);
+ 		cairo_stroke(cairo);
+ 
+ 		// Draw ring
+ 		cairo_set_line_width(cairo, arc_thickness);
+-		cairo_arc(cairo, buffer_width / 2, buffer_diameter / 2, arc_radius,
+-				0, 2 * M_PI);
++		draw_polygon(
++			cairo,
++			buffer_width / 2,
++			buffer_diameter / 2,
++			arc_radius,
++			state->args.polygon_sides,
++			0,
++			state->args.polygon_sides,
++			state->args.polygon_offset
++		);
+ 		set_color_for_state(cairo, state, &state->args.colors.ring);
+ 		cairo_stroke(cairo);
+ 
+@@ -301,10 +343,16 @@ static bool render_frame(struct swaylock_surface *surface) {
+ 		// Typing indicator: Highlight random part on keypress
+ 		if (state->input_state == INPUT_STATE_LETTER ||
+ 				state->input_state == INPUT_STATE_BACKSPACE) {
+-			double highlight_start = state->highlight_start * (M_PI / 1024.0);
+-			cairo_arc(cairo, buffer_width / 2, buffer_diameter / 2,
+-					arc_radius, highlight_start,
+-					highlight_start + TYPE_INDICATOR_RANGE);
++			    draw_polygon(
++					cairo,
++					buffer_width / 2,
++					buffer_diameter / 2,
++					arc_radius,
++					state->args.polygon_sides,
++					state->highlight_start,
++					state->highlight_start+2,
++					state->args.polygon_offset
++				);
+ 			if (state->input_state == INPUT_STATE_LETTER) {
+ 				if (state->xkb.caps_lock && state->args.show_caps_lock_indicator) {
+ 					cairo_set_source_u32(cairo, state->args.colors.caps_lock_key_highlight);
+@@ -319,44 +367,8 @@ static bool render_frame(struct swaylock_surface *surface) {
+ 				}
+ 			}
+ 			cairo_stroke(cairo);
+-
+-			// Draw borders
+-			double inner_radius = buffer_diameter / 2.0 - arc_thickness * 1.5;
+-			double outer_radius = buffer_diameter / 2.0 - arc_thickness / 2.0;
+-
+-			cairo_set_line_width(cairo, 2.0 * surface->scale);
+-			cairo_set_source_u32(cairo, state->args.colors.separator);
+-			cairo_move_to(cairo,
+-				buffer_width / 2.0 + cos(highlight_start) * inner_radius,
+-				buffer_diameter / 2.0 + sin(highlight_start) * inner_radius
+-			);
+-			cairo_line_to(cairo,
+-				buffer_width / 2.0 + cos(highlight_start) * outer_radius,
+-				buffer_diameter / 2.0 + sin(highlight_start) * outer_radius
+-			);
+-			cairo_stroke(cairo);
+-
+-			cairo_move_to(cairo,
+-				buffer_width / 2.0 + cos(highlight_start + TYPE_INDICATOR_RANGE) * inner_radius,
+-				buffer_diameter / 2.0 + sin(highlight_start + TYPE_INDICATOR_RANGE) * inner_radius
+-			);
+-			cairo_line_to(cairo,
+-				buffer_width / 2.0 + cos(highlight_start + TYPE_INDICATOR_RANGE) * outer_radius,
+-				buffer_diameter / 2.0 + sin(highlight_start + TYPE_INDICATOR_RANGE) * outer_radius
+-			);
+-			cairo_stroke(cairo);
+ 		}
+ 
+-		// Draw inner + outer border of the circle
+-		set_color_for_state(cairo, state, &state->args.colors.line);
+-		cairo_set_line_width(cairo, 2.0 * surface->scale);
+-		cairo_arc(cairo, buffer_width / 2, buffer_diameter / 2,
+-				arc_radius - arc_thickness / 2, 0, 2 * M_PI);
+-		cairo_stroke(cairo);
+-		cairo_arc(cairo, buffer_width / 2, buffer_diameter / 2,
+-				arc_radius + arc_thickness / 2, 0, 2 * M_PI);
+-		cairo_stroke(cairo);
+-
+ 		// display layout text separately
+ 		if (layout_text) {
+ 			cairo_text_extents_t extents;

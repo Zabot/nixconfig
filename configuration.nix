@@ -6,8 +6,6 @@
 }:
 {
   imports = [
-    # Import color schemes
-    ./colors
     # Import icon set
     ./icons
     # Import definition of global options
@@ -22,6 +20,5 @@
   config.nixpkgs.overlays = [ (import ./overlay) ];
 
   config.global = global;
-  config.colors = (import ./colors/solarized.nix).dark;
   config.system.stateVersion = "25.11";
 }

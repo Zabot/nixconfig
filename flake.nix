@@ -34,7 +34,7 @@
           ./configuration.nix
         ];
         specialArgs = {
-          inherit home-manager fel inputs nur;
+          inherit inputs;
           global = {
             inherit user;
             host = "xps";
@@ -47,7 +47,7 @@
           ./configuration.nix
         ];
         specialArgs = {
-          inherit home-manager fel inputs nur;
+          inherit inputs;
           global = {
             inherit user;
             host = "framework";
@@ -61,12 +61,11 @@
           nixos-hardware.nixosModules.framework-13-7040-amd
         ];
         specialArgs = {
-          inherit home-manager fel inputs;
+          inherit inputs;
           global = {
             inherit user;
             host = "replit-framework";
           };
-          nur-pkgs = nur.legacyPackages."x86_64-linux";
         };
       };
       nixosConfigurations.zach-desktop = nixpkgs.lib.nixosSystem {
@@ -75,7 +74,7 @@
           ./configuration.nix
         ];
         specialArgs = {
-          inherit home-manager fel inputs;
+          inherit inputs;
           global = {
             inherit user;
             host = "desktop";

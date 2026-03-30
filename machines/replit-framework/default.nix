@@ -27,6 +27,4 @@
     battery = "BAT1";
     adapter = "AC";
   };
-
-  desktop.useWayland = true;
 }
