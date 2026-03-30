@@ -31,7 +31,7 @@
         email = "zach@zabot.dev";
       };
     in
-    {
+    rec {
       nixosConfigurations.zach-xps = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -86,5 +86,15 @@
         };
       };
       homeConfigurations.default = home-manager.lib.homeManagerConfiguration (import ./home);
+      nixosConfigurations.installer = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./installer
+        ];
+        specialArgs = {
+          configuration = nixosConfigurations.zach-replit-framework;
+          inherit self;
+        };
+      };
     };
 }
