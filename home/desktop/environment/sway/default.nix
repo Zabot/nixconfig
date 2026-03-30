@@ -78,7 +78,6 @@ let
     window.titlebar = false;
     window.border = config.style.stroke-width;
 
-    defaultWorkspace = "workspace number 1";
     workspaceOutputAssign = [
       {
         output = "primary";
@@ -233,6 +232,7 @@ in
     extraConfig = ''
       bindswitch lid:on output eDP-1 disable
       bindswitch lid:off output eDP-1 enable
+      workspace 1
     '';
   };
 }
