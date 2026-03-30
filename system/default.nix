@@ -7,6 +7,7 @@
     ./kernel.nix
     ./nix.nix
     ./services.nix
+    ./disks.nix
   ];
 
   time.timeZone = "America/Chicago";

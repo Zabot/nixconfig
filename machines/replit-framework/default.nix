@@ -27,4 +27,7 @@
     battery = "BAT1";
     adapter = "AC";
   };
+
+  disko.enable = true;
+  disko.rootDisk = "/dev/nvme0n1";
 }

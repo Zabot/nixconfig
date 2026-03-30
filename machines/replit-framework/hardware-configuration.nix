@@ -17,17 +17,5 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-label/root";
-    fsType = "btrfs";
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/F957-2442";
-    fsType = "vfat";
-  };
-
-  swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
-
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }
