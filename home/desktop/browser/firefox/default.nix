@@ -39,6 +39,13 @@ let
     color-accent-primary = focus;
     arrow-panel-border-color = focus;
     toolbar-field-focus-border-color = focus;
+
+    vertical-tabs-scrollbar-color = focus;
+
+    toolbox-textcolor = foreground;
+    toolbox-textcolor-inactive = secondary;
+    toolbox-bgcolor = background;
+    toolbox-bgcolor-inactive = background;
   };
 
   contentTheme = with config.colors; {
