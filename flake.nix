@@ -1,19 +1,26 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    fel.url = "github:zabot/fel";
+
+    home-manager = {
+      url = "github:nix-community/home-manager/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     disko = {
       url = "github:nix-community/disko/latest";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    fel.url = "github:zabot/fel";
+
   };
 
   outputs =
@@ -32,69 +39,57 @@
       };
     in
     rec {
-      nixosConfigurations.zach-xps = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./configuration.nix
-        ];
-        specialArgs = {
-          inherit inputs;
-          global = {
-            inherit user;
+      packages.x86_64-linux = {
+        offline-installer-iso = nixosConfigurations.installer.config.system.build.isoImage;
+      };
+
+      homeConfigurations.default = home-manager.lib.homeManagerConfiguration (import ./home);
+
+      nixosConfigurations = let
+        common = { host, modules ? [] }: nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./configuration.nix
+          ] ++ modules;
+          specialArgs = {
+            inherit inputs;
+            global = {
+              inherit user host;
+            };
+          };
+        };
+
+        systems = {
+          zach-xps = common {
             host = "xps";
           };
-        };
-      };
-      nixosConfigurations.zach-framework = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./configuration.nix
-        ];
-        specialArgs = {
-          inherit inputs;
-          global = {
-            inherit user;
+
+          zach-framework = common {
             host = "framework";
           };
-        };
-      };
-      nixosConfigurations.zach-replit-framework = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./configuration.nix
-          nixos-hardware.nixosModules.framework-13-7040-amd
-        ];
-        specialArgs = {
-          inherit inputs;
-          global = {
-            inherit user;
+
+          zach-replit-framework = common {
             host = "replit-framework";
+            modules = [
+              nixos-hardware.nixosModules.framework-13-7040-amd
+            ];
           };
-        };
-      };
-      nixosConfigurations.zach-desktop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./configuration.nix
-        ];
-        specialArgs = {
-          inherit inputs;
-          global = {
-            inherit user;
+
+          zach-desktop = nixpkgs.lib.nixosSystem {
             host = "desktop";
           };
         };
-      };
-      homeConfigurations.default = home-manager.lib.homeManagerConfiguration (import ./home);
-      nixosConfigurations.installer = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./installer
-        ];
-        specialArgs = {
-          configuration = nixosConfigurations.zach-replit-framework;
-          inherit self;
+      in {
+        installer = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./installer
+          ];
+          specialArgs = {
+            configuration = nixosConfigurations.zach-replit-framework;
+            inherit self;
+          };
         };
-      };
+      } // systems;
     };
 }
