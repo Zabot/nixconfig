@@ -1,6 +1,41 @@
-{ config, pkgs, lib, modulesPath, configuration, self, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  modulesPath,
+  configurations,
+  ...
+}:
 let
-  system = configuration.config.system.build.toplevel;
+  installScript = configuration: with configuration.config.system.build; (pkgs.writeShellScriptBin "install" ''
+    set -eux
+    ${destroyFormatMount}/bin/disko-destroy-format-mount
+    ${nixos-install}/bin/nixos-install \
+      --system ${toplevel} \
+      --no-root-passwd \
+      --no-substitute \
+      --cores 0
+  '');
+
+  postInstall = configuration: (pkgs.writeShellScriptBin "post-install" ''
+    set -eux
+    ${
+      builtins.concatStringsSep
+      "\n"
+      (
+        builtins.map
+        (name: "passwd ${name}")
+        (
+          builtins.attrNames
+          (
+            lib.filterAttrs
+            (name: value: value.isNormalUser)
+            configuration.config.users.users
+          )
+        )
+      )
+    }
+  '');
 in {
   imports = [
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
@@ -9,32 +44,44 @@ in {
   isoImage.compressImage = false;
   isoImage.makeEfiBootable = true;
   isoImage.makeUsbBootable = true;
-  #isoImage.storeContents = dependencies;
-
-  environment.etc = {
-    "nixconfig".source = self.outPath;
-    "system".source = system;
-  };
 
   environment.systemPackages = [
     pkgs.disko
+    (
+      pkgs.writeShellScriptBin
+      "install-nixos-from-flake"
+      ''
+        set -eux
+        export PS3="Select system to install"
 
-    (pkgs.runCommand "disko-scripts" {} ''
-      mkdir $out
-      cp ${configuration.config.system.build.diskoScript} $out
-      cp ${configuration.config.system.build.formatScript} $out
-      cp ${configuration.config.system.build.mountScript} $out
-      cp ${configuration.config.system.build.destroyScript} $out
-    '')
+        select host in ${builtins.concatStringsSep "\n" (builtins.attrNames configurations)}; do
+        case $1 in
+          ${(
+            builtins.concatStringsSep
+            "\n"
+            (
+              builtins.attrValues
+              (
+                builtins.mapAttrs
+                (
+                  name: config: ''
+                    ${name})
+                      ${installScript config}/bin/install
+                      ${pkgs.nixos-enter}/bin/nixos-enter --root /mnt -- ${postInstall config}/bin/post-install
+                      break
+                      ;;
+                  ''
+                )
+                configurations
+              )
+            )
+          )}
+        esac
+        done
 
-    configuration.config.system.build.destroyFormatMount
-    configuration.config.system.build.formatMount
-
-    (pkgs.writeShellScriptBin "install-nixos-from-flake" ''
-      set -eux
-      exec ${config.system.build.nixos-install}/bin/nixos-install \
-        --system ${system} \
-        --cores 0
-    '')
+        read -p "Installation finished, press enter to reboot..."
+        echo ${pkgs.systemd}bin/reboot
+      ''
+    )
   ];
 }

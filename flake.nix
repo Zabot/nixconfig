@@ -59,24 +59,12 @@
           };
         };
 
-        systems = {
-          zach-xps = common {
-            host = "xps";
-          };
-
-          zach-framework = common {
-            host = "framework";
-          };
-
+        diskoSystems = {
           zach-replit-framework = common {
             host = "replit-framework";
             modules = [
               nixos-hardware.nixosModules.framework-13-7040-amd
             ];
-          };
-
-          zach-desktop = nixpkgs.lib.nixosSystem {
-            host = "desktop";
           };
         };
       in {
@@ -86,10 +74,21 @@
             ./installer
           ];
           specialArgs = {
-            configuration = nixosConfigurations.zach-replit-framework;
-            inherit self;
+            configurations = diskoSystems;
           };
         };
-      } // systems;
+
+        zach-xps = common {
+          host = "xps";
+        };
+
+        zach-framework = common {
+          host = "framework";
+        };
+
+        zach-desktop = common {
+          host = "desktop";
+        };
+      } // diskoSystems;
     };
 }
