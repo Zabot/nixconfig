@@ -77,7 +77,7 @@ in {
                   in ''
                     ${name})
                       ${installScript config}/bin/install
-                      nix copy --to /mnt ${post}
+                      ${pkgs.nix}/bin/nix --extra-experimental-features nix-command copy --to /mnt ${post} --no-require-sigs
                       ${pkgs.nixos-enter}/bin/nixos-enter --root /mnt -- ${post}/bin/post-install
                       break
                       ;;
