@@ -13,7 +13,8 @@ let
     ${nixos-install}/bin/nixos-install \
       --system ${toplevel} \
       --no-root-passwd \
-      --no-substitute \
+      --no-channel-copy \
+      --option substituters \'\' \
       --cores 0
   '');
 
@@ -36,6 +37,7 @@ let
       )
     }
   '');
+
 in {
   imports = [
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
@@ -52,10 +54,16 @@ in {
       "install-nixos-from-flake"
       ''
         set -eux
-        export PS3="Select system to install"
+
+        if [ $(id -u) -ne 0 ]; then
+          echo "Installer must be run as root"
+          exit
+        fi
+
+        export PS3="Select system to install: "
 
         select host in ${builtins.concatStringsSep "\n" (builtins.attrNames configurations)}; do
-        case $1 in
+        case $host in
           ${(
             builtins.concatStringsSep
             "\n"
@@ -64,10 +72,13 @@ in {
               (
                 builtins.mapAttrs
                 (
-                  name: config: ''
+                  name: config: let
+                    post = postInstall config;
+                  in ''
                     ${name})
                       ${installScript config}/bin/install
-                      ${pkgs.nixos-enter}/bin/nixos-enter --root /mnt -- ${postInstall config}/bin/post-install
+                      nix copy --to /mnt ${post}
+                      ${pkgs.nixos-enter}/bin/nixos-enter --root /mnt -- ${post}/bin/post-install
                       break
                       ;;
                   ''
@@ -80,7 +91,7 @@ in {
         done
 
         read -p "Installation finished, press enter to reboot..."
-        echo ${pkgs.systemd}bin/reboot
+        ${pkgs.systemd}/bin/reboot
       ''
     )
   ];
