@@ -1,10 +1,10 @@
-{ pkgs, inputs, config, ... }:
+{ pkgs, config, ... }:
 let
   firefoxCSS = pkgs.fetchFromGitHub {
     owner = "MrOtherGuy";
     repo = "firefox-csshacks";
-    rev = "875a83e8b83f8fdb273a8b21c0d6f558f9019eae";
-    hash = "sha256-iFXjGtsyF840uFGbWgc4qnBOy+4dEIF2sIuJ3x7fMKw=";
+    rev = "d02c1a92fa86777f3ae52f19e0c338a67eabe908";
+    hash = "sha256-TCbdj6ZedgPSDQWJWFBPzDlLdgRcnsby3DWNHxmQ+b4=";
   };
 
   chromeTheme = with config.colors; {
@@ -69,6 +69,41 @@ let
 in {
   programs.firefox = {
     enable = true;
+      policies = {
+        DefaultDownloadDirectory = "\${home}/Downloads";
+
+        PasswordManagerEnabled = false;
+        ExtensionSettings = {
+          # Ublock Origin
+          "uBlock0@raymondhill.net" = {
+            default_area = "menupanel";
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+            installation_mode = "force_installed";
+            private_browsing = true;
+          };
+          # Bitwarden
+          "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
+            default_area = "navbar";
+            installation_mode = "force_installed";
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
+          };
+        };
+
+        Containers = {
+          Default = [
+            {
+              name = "General";
+              icon = "pet";
+              color = "blue";
+            }
+            {
+              name = "Banking";
+              icon = "pet";
+              color = "green";
+            }
+          ];
+        };
+      };
     profiles.zach = {
       name = "zach";
       isDefault = true;
@@ -174,10 +209,6 @@ in {
         };
       };
 
-      extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
-        ublock-origin
-        bitwarden
-      ];
     };
   };
 }
