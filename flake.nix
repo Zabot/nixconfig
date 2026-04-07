@@ -57,6 +57,7 @@
           age-plugin-tpm
           age-plugin-yubikey
           inputs.agenix.packages.x86_64-linux.default
+          nil
         ];
       };
 

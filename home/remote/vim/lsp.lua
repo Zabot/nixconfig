@@ -33,7 +33,7 @@ local langs = {
   tsserver = {},
   rust_analyzer = {},
   gopls = {},
-  rnix = {},
+  nil_ls = {},
   lua_ls = {
     Lua = {
       runtime = {
@@ -52,13 +52,13 @@ local langs = {
   },
 }
 
-local lspconfig = require('lspconfig')
 for lang, settings in pairs(langs) do
-  lspconfig[lang].setup({
+  vim.lsp.config[lang] = {
     on_attach = on_attach,
     capabilities = capabilities,
     settings = settings,
-  })
+  }
+  vim.lsp.enable(lang)
 end
 
 
