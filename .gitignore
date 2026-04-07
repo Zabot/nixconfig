@@ -1,8 +1,7 @@
-; Ignore any secrets
-secrets/
-
 ; Ignore build symlinks
 result
 
 ; Ignore swapfiles
 *.sw[lmnop]
+
+.direnv

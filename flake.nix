@@ -20,7 +20,7 @@
     };
 
     fel.url = "github:zabot/fel";
-
+    agenix.url = "github:ryantm/agenix";
   };
 
   outputs =
@@ -37,6 +37,10 @@
         name = "Zach Anderson";
         email = "zach@zabot.dev";
       };
+
+      pkgs = (import nixpkgs) {
+        system = "x86_64-linux";
+      };
     in
     rec {
       packages.x86_64-linux = {
@@ -44,6 +48,17 @@
       };
 
       homeConfigurations.default = home-manager.lib.homeManagerConfiguration (import ./home);
+      devShells.x86_64-linux.default = pkgs.mkShellNoCC {
+        packages = with pkgs; [
+          git-annex
+          nixfmt
+          yubikey-manager
+          age
+          age-plugin-tpm
+          age-plugin-yubikey
+          inputs.agenix.packages.x86_64-linux.default
+        ];
+      };
 
       nixosConfigurations = let
         common = { host, modules ? [] }: nixpkgs.lib.nixosSystem {

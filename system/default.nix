@@ -8,12 +8,12 @@
     ./nix.nix
     ./services.nix
     ./disks.nix
+    ./network.nix
   ];
 
   time.timeZone = "America/Chicago";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  services.pcscd.enable = true;
   security.tpm2.enable = true;
   security.tpm2.pkcs11.enable = true;
   security.tpm2.tctiEnvironment.enable = true;

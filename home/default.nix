@@ -22,6 +22,8 @@
     ./desktop
 
     inputs.nur.modules.homeManager.default
+
+    ./secrets/home.nix
   ];
 
   config = {

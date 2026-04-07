@@ -16,6 +16,7 @@
     ./machines
     # Home manager config
     ./home.nix
+    ./secrets
   ];
   config.nixpkgs.overlays = [ (import ./overlay) ];
 

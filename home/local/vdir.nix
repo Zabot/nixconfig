@@ -36,7 +36,10 @@
           type = "caldav";
           url = "https://caldav.fastmail.com/";
           userName = "zabot@fastmail.com";
-          passwordCommand = ["${pkgs.coreutils}/bin/echo" "335y7p3m4t9e653r"];
+          passwordCommand = [
+            "${pkgs.coreutils}/bin/cat"
+            config.age.secrets.fastmail-pass.path
+          ];
         };
       };
     };
@@ -65,7 +68,10 @@
           type = "carddav";
           url = "https://carddav.fastmail.com/";
           userName = "zabot@fastmail.com";
-          passwordCommand = ["${pkgs.coreutils}/bin/echo" "335y7p3m4t9e653r"];
+          passwordCommand = [
+            "${pkgs.coreutils}/bin/cat"
+            config.age.secrets.fastmail-pass.path
+          ];
         };
       };
     };

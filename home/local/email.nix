@@ -26,7 +26,10 @@ in
         realName = "Zach Anderson";
 
         userName = "zabot@fastmail.com";
-        passwordCommand = "echo 335y7p3m4t9e653r";
+        passwordCommand = [
+          "${pkgs.coreutils}/bin/cat"
+          config.age.secrets.fastmail-pass.path
+        ];
 
         # neomutt directly access the imap server. It may be worth setting up maildir
         # and something to sync instead.

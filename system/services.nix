@@ -67,11 +67,6 @@
     avahi.enable = true;
   };
 
-  networking = {
-    hostName = "${config.global.user.unixname}-${config.global.host}";
-    networkmanager.enable = true;
-  };
-
   hardware = {
     # Enable backlight brightness control from userspace
     acpilight.enable = true;
