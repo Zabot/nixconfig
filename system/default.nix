@@ -1,57 +1,25 @@
 { config, pkgs, ... }:
 {
+  # This is the barest of bones config, it only exists to bootstrap
+  # an environment. As much config is possible is moved into home
+  # manager.
   imports = [
-    ./boot.nix
     ./kernel.nix
-    ./networking.nix
     ./nix.nix
     ./services.nix
-    ./wayland.nix
-    ./xserver.nix
+    ./disks.nix
+    ./network.nix
   ];
-  boot.supportedFilesystems = [ "ntfs" ];
 
-  system.stateVersion = "21.11";
   time.timeZone = "America/Chicago";
   i18n.defaultLocale = "en_US.UTF-8";
-  console = {
-    font = "Lat2-Terminus16";
-    # Inherit the console keymap from the xserver
-    useXkbConfig = true;
-    packages = [
-      pkgs.overpass
-      pkgs.inconsolata-nerdfont
-      pkgs.fantasque-sans-mono
-      pkgs.powerline-fonts
-    ];
-  };
 
-  fonts.fonts = [
-    pkgs.overpass
-    pkgs.inconsolata-nerdfont
-    pkgs.fantasque-sans-mono
-    pkgs.powerline-fonts
-  ];
+  security.tpm2.enable = true;
+  security.tpm2.pkcs11.enable = true;
+  security.tpm2.tctiEnvironment.enable = true;
+  security.rtkit.enable = true;
+  security.polkit.enable = true;
 
-  sound.enable = true;
-  hardware = {
-    rtl-sdr.enable = true;
-    pulseaudio.enable = false;
-    acpilight.enable = true;
-  };
-  powerManagement = {
-    enable = true;
-    cpuFreqGovernor = "ondemand";
-    powertop.enable = true;
-  };
-  services.upower.enable = true;
-
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    pulse.enable = true;
-  };
-
-  hardware.opengl.driSupport = true;
-  hardware.opengl.extraPackages = [ pkgs.intel-compute-runtime ];
+  # This can only be configured globally
+  security.pam.services.swaylock = { };
 }

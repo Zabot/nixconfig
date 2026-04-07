@@ -1,10 +1,13 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
-    home-manager.url = "github:nix-community/home-manager/release-24.05";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
+
+    agenix.url = "github:ryantm/agenix";
+    disko.url = "github:nix-community/disko/latest";
     fel.url = "github:zabot/fel";
-    nur.url = github:nix-community/NUR;
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nur.url = "github:nix-community/NUR";
   };
 
   outputs =
@@ -12,8 +15,8 @@
       self,
       nixpkgs,
       home-manager,
-      fel,
-      nur,
+      nixos-hardware,
+      ...
     }@inputs:
     let
       user = {
@@ -21,58 +24,84 @@
         name = "Zach Anderson";
         email = "zach@zabot.dev";
       };
-    in
-    {
-      nixosConfigurations.zach-xps = nixpkgs.lib.nixosSystem {
+
+      pkgs = (import nixpkgs) {
         system = "x86_64-linux";
-        modules = [
-          nur.nixosModules.nur
-          ./configuration.nix
+      };
+    in
+    rec {
+      packages.x86_64-linux = {
+        offline-installer-iso = nixosConfigurations.installer.config.system.build.isoImage;
+      };
+
+      homeConfigurations.default = home-manager.lib.homeManagerConfiguration (import ./home);
+      devShells.x86_64-linux.default = pkgs.mkShellNoCC {
+        packages = with pkgs; [
+          git-annex
+          nixfmt
+          nixfmt-tree
+          yubikey-manager
+          age
+          age-plugin-tpm
+          age-plugin-yubikey
+          inputs.agenix.packages.x86_64-linux.default
+          nil
         ];
-        specialArgs = {
-          inherit home-manager fel inputs nur;
-          global = {
-            inherit user;
+      };
+
+      nixosConfigurations =
+        let
+          common =
+            {
+              host,
+              modules ? [ ],
+            }:
+            nixpkgs.lib.nixosSystem {
+              system = "x86_64-linux";
+              modules = [
+                ./configuration.nix
+              ]
+              ++ modules;
+              specialArgs = {
+                inherit inputs;
+                global = {
+                  inherit user host;
+                };
+              };
+            };
+
+          diskoSystems = {
+            zach-replit-framework = common {
+              host = "replit-framework";
+              modules = [
+                nixos-hardware.nixosModules.framework-13-7040-amd
+              ];
+            };
+          };
+        in
+        {
+          installer = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [
+              ./installer
+            ];
+            specialArgs = {
+              configurations = diskoSystems;
+            };
+          };
+
+          zach-xps = common {
             host = "xps";
           };
-        };
-      };
-      nixosConfigurations.zach-framework = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [ ./configuration.nix ];
-        specialArgs = {
-          inherit home-manager fel inputs nur;
-          global = {
-            inherit user;
+
+          zach-framework = common {
             host = "framework";
           };
-        };
-      };
-      nixosConfigurations.zach-replit-framework = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          nur.nixosModules.nur
-          ./configuration.nix
-        ];
-        specialArgs = {
-          inherit home-manager fel inputs nur;
-          global = {
-            inherit user;
-            host = "replit-framework";
-          };
-        };
-      };
-      nixosConfigurations.zach-desktop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [ ./configuration.nix ];
-        specialArgs = {
-          inherit home-manager fel inputs nur;
-          global = {
-            inherit user;
+
+          zach-desktop = common {
             host = "desktop";
           };
-        };
-      };
-      homeConfigurations.default = home-manager.lib.homeManagerConfiguration (import ./home/home-manager.nix);
+        }
+        // diskoSystems;
     };
 }

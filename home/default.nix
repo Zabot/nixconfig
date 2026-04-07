@@ -1,50 +1,42 @@
 {
   config,
   pkgs,
-  nixosVersion,
-  home-manager,
-  fel,
-  nur,
+  system,
+  inputs,
   ...
 }:
-let
-  name = config.global.user.unixname;
-in
+
 {
-  imports = [ home-manager.nixosModule ];
+  imports = [
+    # Home configuration that is useful on a system that
+    # may be used over ssh, but is not the local system
+    # (e.g. vim)
+    ./remote
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users = builtins.listToAttrs [
-    {
-      inherit name;
-      value = {
-        isNormalUser = true;
-        extraGroups = [
-          "wheel"
-          "adbusers"
-          "video"
-          "docker"
-          "plugdev"
-          "networkmanager"
-        ];
-        shell = pkgs.fish;
-      };
-    }
+    # Configuration that is useful on a local system that
+    # does not have a display server.
+    # (e.g. mutt, udiskie, taskwarrior)
+    ./local
+
+    # Full graphical environment
+    ./desktop
+
+    inputs.nur.modules.homeManager.default
+
+    ./secrets/home.nix
   ];
-  programs.fish.enable = true;
 
+  config = {
+    nixpkgs.overlays = [
+      (import ../overlay)
+    ];
 
-  home-manager.users = builtins.listToAttrs [
-    {
-      inherit name;
-      value = import ./home-manager.nix;
-    }
-  ];
-  home-manager.extraSpecialArgs = {
-    inherit fel nur;
-    system = config;
-    extraConfig = {
-      desktop.useWayland = config.desktop.useWayland;
+    home = {
+      stateVersion = system.system.stateVersion;
+      username = system.global.user.unixname;
+      homeDirectory = "/home/${system.global.user.unixname}";
     };
+
+    programs.home-manager.enable = true;
   };
 }

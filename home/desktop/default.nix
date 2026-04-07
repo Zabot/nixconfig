@@ -1,43 +1,27 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
-    ./i3
-    ./alacritty.nix
-    ./polybar
-    ./wayland
-    ./autorandr.nix
-    ./dunst.nix
-    ./jackrabbit
-    ./firefox
+    ./style
+    ./environment
+    ./browser
   ];
 
-  services.picom = {
-    enable = true;
-    shadow = true;
-    shadowExclude = [ "window_type *= 'menu'" ];
+  colors = (import ./style/solarized.nix).dark;
+  style = {
+    stroke-width = 1;
+  };
+  #programs.rofi.enable = true;
+  #services.imapnotify.enable = true;
 
-    fade = true;
-    fadeDelta = 4;
-    fadeSteps = [
-      5.0e-2
-      5.0e-2
-    ];
-    vSync = true;
-  };
-  services.poweralertd.enable = true;
-  services.redshift = {
-    enable = true;
-    provider = "manual";
-    latitude = 35.0;
-    longitude = -100.0;
-  };
+  #services.random-background.enable = true;
+  #services.random-background.imageDirectory = "${../resources/wallpaper}";
 
-  services.mopidy = {
-    enable = true;
-    extensionPackages = with pkgs; [
-      mopidy-mpd
-      mopidy-somafm
-      mopidy-tunein
-    ];
-  };
+  #services.poweralertd.enable = true;
+  #services.redshift = {
+  #  enable = true;
+  #  provider = "manual";
+  #  latitude = 35.0;
+  #  longitude = -100.0;
+  #};
+
 }

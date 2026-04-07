@@ -2,18 +2,20 @@
   stdenv,
   python3,
   fetchurl,
+  fetchzip,
   fontforge,
 }:
 let
-  font = fetchurl {
-    url = "https://raw.githubusercontent.com/ryanoasis/nerd-fonts/2.1.0/src/glyphs/Symbols-2048-em%20Nerd%20Font%20Complete.ttf";
-    name = "nerd.ttf";
-    sha256 = "078ynwfl92p8pq1n3ic07248whdjm30gcvkq3sy9gas1vlpyg6an";
+  version = "v3.4.0";
+  font = fetchzip {
+    url = "https://github.com/ryanoasis/nerd-fonts/releases/download/${version}/NerdFontsSymbolsOnly.tar.xz";
+    sha256 = "sha256-A0KEuMp96vqL2PCbDL/H7A6yFRDg/xukM9CM8I6NACc=";
+    stripRoot = false;
   };
   css = fetchurl {
-    url = "https://raw.githubusercontent.com/ryanoasis/nerd-fonts/2.1.0/css/nerd-fonts-generated.css";
+    url = "https://raw.githubusercontent.com/ryanoasis/nerd-fonts/${version}/css/nerd-fonts-generated.css";
     name = "nerd.css";
-    sha256 = "1qhgssv28ck12am1hmxld8vwccfxfjzsgjdh6jr9vivgra182y1m";
+    sha256 = "sha256-PwJbobdKoRVqJNAX/+GXMJonGtr7t1d+prSLiOXEAWU=";
   };
 in
 stdenv.mkDerivation {
@@ -27,7 +29,8 @@ stdenv.mkDerivation {
 
   buildPhase = ''
     mkdir -p svg/
-    ${fontforge}/bin/fontforge -quiet -lang=ff -c 'Open($1); SelectWorthOutputting(); foreach Export("svg/%u.svg"); endloop;' ${font}
+    ls -R ${font}
+    ${fontforge}/bin/fontforge -quiet -lang=ff -c 'Open($1); SelectWorthOutputting(); foreach Export("svg/%u.svg"); endloop;' ${font}/SymbolsNerdFontMono-Regular.ttf
   '';
 
   installPhase = ''

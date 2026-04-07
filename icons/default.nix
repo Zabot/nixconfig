@@ -14,7 +14,7 @@ in
       color: icon:
       (pkgs.substitute {
         src = icon.icon;
-        replacements = [
+        substitutions = [
           "--replace"
           "currentColor"
           color

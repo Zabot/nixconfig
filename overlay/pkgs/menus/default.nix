@@ -1,5 +1,5 @@
 {
-  substituteAll,
+  replaceVars,
   writeShellScriptBin,
   rofi,
 }:
@@ -44,15 +44,14 @@ let
       esac
   '';
 
-  layout = substituteAll ({
-    src = ./menu.rasi;
+  layout = replaceVars ./menu.rasi {
     columns = (builtins.length options);
     width = (builtins.length options) * width;
     foreground = colors.foreground;
     background = colors.background;
     background_hl = colors.background-hl;
     emph = colors.secondary;
-  });
+  };
   script = writeShellScriptBin "menu" (print_script);
   display = [
     "${rofi}/bin/rofi"

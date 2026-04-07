@@ -23,10 +23,10 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/1a3f2d47-bf52-403a-a73e-b2b3d43bd8c2";
-      fsType = "btrfs";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/1a3f2d47-bf52-403a-a73e-b2b3d43bd8c2";
+    fsType = "btrfs";
+  };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/9CCC-FF3B";
