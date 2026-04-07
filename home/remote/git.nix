@@ -8,8 +8,8 @@
 
     settings = {
       user = {
-        name = system.global.user.email;
-        email = system.global.user.name;
+        name = system.global.user.name;
+        email = system.global.user.email;
       };
 
       alias = {
