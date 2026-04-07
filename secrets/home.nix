@@ -12,6 +12,7 @@
 
     secrets = {
       fastmail-pass = {file = ./secrets/fastmail.age;};
+      irc-libera-pass = {file = ./secrets/irc-libera-password.age;};
     };
   };
 }

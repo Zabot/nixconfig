@@ -8,4 +8,5 @@ in
   "secrets/home-env.age".publicKeys = keys;
   "secrets/hotspot-env.age".publicKeys = keys;
   "secrets/fastmail.age".publicKeys = keys;
+  "secrets/irc-libera-password.age".publicKeys = keys;
 }

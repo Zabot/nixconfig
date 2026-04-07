@@ -3,6 +3,8 @@
   imports = [
     ./email.nix
     ./vdir.nix
+    ./irc.nix
+    ./rss.nix
   ];
 
   services = {
