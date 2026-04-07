@@ -34,7 +34,7 @@
       defaults = {
         realname = "Zabot";
         nicks = [ "zabot" ];
-        join = [];
+        join = [ ];
         tls = true;
       };
     };

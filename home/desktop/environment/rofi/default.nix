@@ -2,7 +2,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   programs.rofi = {
     enable = true;
 
@@ -12,44 +13,44 @@
       in
       with config.colors;
       with config.style;
-    {
-      "*" = {
-        background-color = mkLiteral background;
-        text-color = mkLiteral foreground;
-      };
+      {
+        "*" = {
+          background-color = mkLiteral background;
+          text-color = mkLiteral foreground;
+        };
 
-      window = {
-        border-color = mkLiteral focus;
-        border =  mkLiteral "${builtins.toString stroke-width}px";
-        padding = mkLiteral "10px";
-      };
+        window = {
+          border-color = mkLiteral focus;
+          border = mkLiteral "${builtins.toString stroke-width}px";
+          padding = mkLiteral "10px";
+        };
 
-      element-text = {
-        background-color = mkLiteral "inherit";
-        text-color = mkLiteral "inherit";
-      };
+        element-text = {
+          background-color = mkLiteral "inherit";
+          text-color = mkLiteral "inherit";
+        };
 
-      "element.selected" = {
-        background-color = mkLiteral background-hl;
-        text-color = mkLiteral foreground;
-      };
+        "element.selected" = {
+          background-color = mkLiteral background-hl;
+          text-color = mkLiteral foreground;
+        };
 
-      "element.normal.normal" =  {
-         background-color = mkLiteral background;
-        text-color = mkLiteral secondary;
-      };
+        "element.normal.normal" = {
+          background-color = mkLiteral background;
+          text-color = mkLiteral secondary;
+        };
 
-      "element.alternate.normal" = {
-        text-color = mkLiteral secondary;
-      };
+        "element.alternate.normal" = {
+          text-color = mkLiteral secondary;
+        };
 
-      "#textbox-prompt-colon" = {
-        expand = false;
-        str = ":";
-        margin = mkLiteral "0px 0.3em 0em 0em";
-        text-color = mkLiteral foreground;
+        "#textbox-prompt-colon" = {
+          expand = false;
+          str = ":";
+          margin = mkLiteral "0px 0.3em 0em 0em";
+          text-color = mkLiteral foreground;
+        };
       };
-    };
 
     extraConfig = {
       combi-modi = "window,drun";
@@ -65,7 +66,8 @@
       "window"
       "drun"
       "calc"
-    ] ++ (builtins.attrValues (
+    ]
+    ++ (builtins.attrValues (
       builtins.mapAttrs (name: type: {
         inherit name;
         path = "${./menus}/${name}";

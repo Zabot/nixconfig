@@ -59,51 +59,50 @@ let
   useCSS = files: builtins.concatStringsSep "\n" (builtins.map (f: "@import url(${f});") files);
 
   # Turn a attrset into a series of css property definitions
-  toCSS = attrs: (
-    builtins.concatStringsSep "\n" (
-      builtins.attrValues (
-        builtins.mapAttrs (k: v: "--${k}: ${builtins.toString v} !important;") attrs
-      )
-    )
-  );
-in {
+  toCSS =
+    attrs:
+    (builtins.concatStringsSep "\n" (
+      builtins.attrValues (builtins.mapAttrs (k: v: "--${k}: ${builtins.toString v} !important;") attrs)
+    ));
+in
+{
   programs.firefox = {
     enable = true;
-      policies = {
-        DefaultDownloadDirectory = "\${home}/Downloads";
+    policies = {
+      DefaultDownloadDirectory = "\${home}/Downloads";
 
-        PasswordManagerEnabled = false;
-        ExtensionSettings = {
-          # Ublock Origin
-          "uBlock0@raymondhill.net" = {
-            default_area = "menupanel";
-            install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-            installation_mode = "force_installed";
-            private_browsing = true;
-          };
-          # Bitwarden
-          "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
-            default_area = "navbar";
-            installation_mode = "force_installed";
-            install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
-          };
+      PasswordManagerEnabled = false;
+      ExtensionSettings = {
+        # Ublock Origin
+        "uBlock0@raymondhill.net" = {
+          default_area = "menupanel";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+          installation_mode = "force_installed";
+          private_browsing = true;
         };
-
-        Containers = {
-          Default = [
-            {
-              name = "General";
-              icon = "pet";
-              color = "blue";
-            }
-            {
-              name = "Banking";
-              icon = "pet";
-              color = "green";
-            }
-          ];
+        # Bitwarden
+        "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
+          default_area = "navbar";
+          installation_mode = "force_installed";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
         };
       };
+
+      Containers = {
+        Default = [
+          {
+            name = "General";
+            icon = "pet";
+            color = "blue";
+          }
+          {
+            name = "Banking";
+            icon = "pet";
+            color = "green";
+          }
+        ];
+      };
+    };
     profiles.zach = {
       name = "zach";
       isDefault = true;
@@ -114,13 +113,13 @@ in {
         "${firefoxCSS}/chrome/urlbar_container_color_border.css"
         ./tweaks.css
 
-        (pkgs.writeText "theme.css" ":root { ${toCSS chromeTheme} }" )
+        (pkgs.writeText "theme.css" ":root { ${toCSS chromeTheme} }")
       ];
 
       userContent = useCSS [
         # Give transparent images a checkerboard background
         "${firefoxCSS}/content/standalone_image_page_mods.css"
-        (pkgs.writeText "theme.css" ":root { ${toCSS contentTheme} }" )
+        (pkgs.writeText "theme.css" ":root { ${toCSS contentTheme} }")
       ];
 
       settings = {
@@ -192,12 +191,18 @@ in {
         default = "Jackrabbit";
         engines = {
           # Setup Jackrabbit
-          Jackrabbit = let server = "http://${config.services.jackrabbit.interface}"; in {
-            icon = "${server}/jackrabbit.png";
-            urls = [{
-              template = "${server}/search?q={searchTerms}";
-            }];
-          };
+          Jackrabbit =
+            let
+              server = "http://${config.services.jackrabbit.interface}";
+            in
+            {
+              icon = "${server}/jackrabbit.png";
+              urls = [
+                {
+                  template = "${server}/search?q={searchTerms}";
+                }
+              ];
+            };
 
           # Hide everything else
           "google".metaData.hidden = true;

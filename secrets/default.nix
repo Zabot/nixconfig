@@ -1,4 +1,9 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   imports = [
     inputs.agenix.nixosModules.default
@@ -34,15 +39,21 @@
     ];
   };
 
-  age = let
-    ageCommon = (import ./common.nix) { inherit pkgs; };
-  in {
-    ageBin = "${ageCommon.package}/bin/age";
-    identityPaths = ageCommon.identityPaths;
+  age =
+    let
+      ageCommon = (import ./common.nix) { inherit pkgs; };
+    in
+    {
+      ageBin = "${ageCommon.package}/bin/age";
+      identityPaths = ageCommon.identityPaths;
 
-    secrets = {
-      home-env = {file = ./secrets/home-env.age;};
-      hotspot-env = {file = ./secrets/hotspot-env.age;};
+      secrets = {
+        home-env = {
+          file = ./secrets/home-env.age;
+        };
+        hotspot-env = {
+          file = ./secrets/hotspot-env.age;
+        };
+      };
     };
-  };
 }

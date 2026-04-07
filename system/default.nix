@@ -21,5 +21,5 @@
   security.polkit.enable = true;
 
   # This can only be configured globally
-  security.pam.services.swaylock = {};
+  security.pam.services.swaylock = { };
 }

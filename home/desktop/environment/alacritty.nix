@@ -20,7 +20,8 @@
           background = config.colors.background;
           foreground = config.colors.foreground;
         };
-      } // config.colors.termcolors;
+      }
+      // config.colors.termcolors;
     };
   };
 }

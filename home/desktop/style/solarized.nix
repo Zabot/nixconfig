@@ -65,7 +65,8 @@ in
     secondary = solarized.base01;
     foreground = solarized.base0;
     emph = solarized.base1;
-  } // common;
+  }
+  // common;
 
   light = {
     background = solarized.base3;
@@ -73,5 +74,6 @@ in
     secondary = solarized.base1;
     foreground = solarized.base00;
     emph = solarized.base01;
-  } // common;
+  }
+  // common;
 }

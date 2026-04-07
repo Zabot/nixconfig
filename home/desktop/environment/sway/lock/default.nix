@@ -20,35 +20,37 @@ in
   config.programs.swaylock = {
     enable = true;
 
-    package = pkgs.swaylock.overrideAttrs (finalAttrs: previousAttrs: {
-      patches = [ ./polygon.patch ];
-    });
+    package = pkgs.swaylock.overrideAttrs (
+      finalAttrs: previousAttrs: {
+        patches = [ ./polygon.patch ];
+      }
+    );
 
     settings = {
       ignore-empty-password = true;
-      color  = colors.background;
-      image  = ../../../../../resources/lock.png;
+      color = colors.background;
+      image = ../../../../../resources/lock.png;
 
       line-uses-inside = true;
       scaling = "center";
-      indicator-radius=143;
-      indicator-thickness=6;
-      indicator-x-position=688;
+      indicator-radius = 143;
+      indicator-thickness = 6;
+      indicator-x-position = 688;
       indicator-idle-visible = true;
 
-      inside-color="00000000";
+      inside-color = "00000000";
       ring-color = colors.background-hl;
       text-color = colors.foreground;
 
-      inside-clear-color= colors.background;
+      inside-clear-color = colors.background;
       ring-clear-color = colors.secondary;
       text-clear-color = colors.foreground;
 
-      inside-ver-color= colors.background;
+      inside-ver-color = colors.background;
       ring-ver-color = colors.focus;
       text-ver-color = colors.focus;
 
-      inside-wrong-color= colors.background;
+      inside-wrong-color = colors.background;
       ring-wrong-color = colors.error;
       text-wrong-color = colors.error;
 

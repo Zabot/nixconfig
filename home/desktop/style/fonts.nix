@@ -8,7 +8,8 @@ let
     variant = "Etoile";
   };
 
-in {
+in
+{
   home.packages = [
     # For the quasi-proportional
     pkgs.iosevka

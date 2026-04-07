@@ -162,30 +162,35 @@ let
         focused = {
           indicator = config.colors.focus-accent;
           childBorder = config.colors.focus;
-        } // common;
+        }
+        // common;
 
         # Windows that have focus not in the active container
         focusedInactive = {
           indicator = config.colors.foreground;
           childBorder = config.colors.foreground;
-        } // common;
+        }
+        // common;
 
         # All other unfocused windows
         unfocused = {
           indicator = config.colors.secondary;
           childBorder = config.colors.secondary;
-        } // common;
+        }
+        // common;
 
         urgent = {
           text = config.colors.urgent;
           indicator = config.colors.urgent;
           childBorder = config.colors.urgent;
-        } // common;
+        }
+        // common;
 
         placeholder = {
           indicator = config.colors.secondary;
           childBorder = config.colors.secondary;
-        } // common;
+        }
+        // common;
 
         background = config.colors.background;
       };
@@ -199,13 +204,13 @@ in
 
   # Auto launch sway on first boot
   #programs.fish.loginShellInit = ''
-    #[[ "$(tty)" == /dev/tty1 ]] && sway
+  #[[ "$(tty)" == /dev/tty1 ]] && sway
   #'';
 
   #xdg.portal = {
-    #enable = true;
-    #wlr.enable = true;
-    #extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  #enable = true;
+  #wlr.enable = true;
+  #extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   #};
   #environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ];
 

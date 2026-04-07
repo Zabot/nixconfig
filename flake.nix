@@ -52,6 +52,7 @@
         packages = with pkgs; [
           git-annex
           nixfmt
+          nixfmt-tree
           yubikey-manager
           age
           age-plugin-tpm
@@ -61,50 +62,59 @@
         ];
       };
 
-      nixosConfigurations = let
-        common = { host, modules ? [] }: nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./configuration.nix
-          ] ++ modules;
-          specialArgs = {
-            inherit inputs;
-            global = {
-              inherit user host;
+      nixosConfigurations =
+        let
+          common =
+            {
+              host,
+              modules ? [ ],
+            }:
+            nixpkgs.lib.nixosSystem {
+              system = "x86_64-linux";
+              modules = [
+                ./configuration.nix
+              ]
+              ++ modules;
+              specialArgs = {
+                inherit inputs;
+                global = {
+                  inherit user host;
+                };
+              };
+            };
+
+          diskoSystems = {
+            zach-replit-framework = common {
+              host = "replit-framework";
+              modules = [
+                nixos-hardware.nixosModules.framework-13-7040-amd
+              ];
             };
           };
-        };
-
-        diskoSystems = {
-          zach-replit-framework = common {
-            host = "replit-framework";
+        in
+        {
+          installer = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
             modules = [
-              nixos-hardware.nixosModules.framework-13-7040-amd
+              ./installer
             ];
+            specialArgs = {
+              configurations = diskoSystems;
+            };
           };
-        };
-      in {
-        installer = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./installer
-          ];
-          specialArgs = {
-            configurations = diskoSystems;
+
+          zach-xps = common {
+            host = "xps";
           };
-        };
 
-        zach-xps = common {
-          host = "xps";
-        };
+          zach-framework = common {
+            host = "framework";
+          };
 
-        zach-framework = common {
-          host = "framework";
-        };
-
-        zach-desktop = common {
-          host = "desktop";
-        };
-      } // diskoSystems;
+          zach-desktop = common {
+            host = "desktop";
+          };
+        }
+        // diskoSystems;
     };
 }

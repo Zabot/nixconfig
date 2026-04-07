@@ -40,7 +40,7 @@ in
 
         imapnotify = {
           enable = true;
-          boxes = [];
+          boxes = [ ];
           onNotifyPost = "${pkgs.dunst}/bin/dunstify 'New mail arrived'";
         };
 

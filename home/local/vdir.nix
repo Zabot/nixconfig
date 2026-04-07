@@ -14,7 +14,7 @@
   programs = {
     khal.enable = true;
     vdirsyncer.enable = true;
-    khard.enable =true;
+    khard.enable = true;
   };
 
   accounts.calendar = {
@@ -57,8 +57,8 @@
         };
         # This is probably uneccassary, I think its just for birthdays
         #khal = {
-          #enable = true;
-          #readOnly = true;
+        #enable = true;
+        #readOnly = true;
         #};
         khard = {
           enable = true;

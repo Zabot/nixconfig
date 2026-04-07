@@ -30,7 +30,7 @@
         '';
       };
 
-      shellInitLast  = ''
+      shellInitLast = ''
         notify_long_tasks
       '';
     };
