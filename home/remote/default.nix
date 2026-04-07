@@ -2,7 +2,6 @@
 {
   imports = [
     ./git.nix
-    ./gpg
     ./shell
     ./ssh
     ./vim
