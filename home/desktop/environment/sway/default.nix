@@ -117,11 +117,11 @@ let
       "${mod}+Shift+w" = "move container to workspace 0:W";
 
       "${mod}+d" = "exec rofi -show combi";
-      "${mod}+Shift+f" = "fullscreen toggle global";
 
       "Mod4+l" = "exec ${config.lock.cmd}";
       "${mod}+Tab" = "workspace back_and_forth";
 
+      # Framework F keys
       XF86AudioMute = "exec --no-startup-id ${config.volume.mute}";
       XF86AudioLowerVolume = "exec --no-startup-id ${config.volume.down}";
       XF86AudioRaiseVolume = "exec --no-startup-id ${config.volume.up}";
@@ -131,14 +131,12 @@ let
       XF86MonBrightnessDown = "exec --no-startup-id ${config.brightness.down}";
       XF86MonBrightnessUp = "exec --no-startup-id ${config.brightness.up}";
       "Mod4+p" = "exec --no-startup-id ${pkgs.mkMenu displayMenu}/bin/display";
-
+      XF86RFKill = "";
       Print = "exec --no-startup-id ${pkgs.maim}/bin/maim -s ~/maim-$(date +%s).png";
+      XF86AudioMedia = "";
 
       XF86Sleep = "exec --no-startup-id ${pkgs.mkMenu powerMenu}/bin/display";
       XF86PowerOff = "exec --no-startup-id ${pkgs.mkMenu powerMenu}/bin/display";
-
-      # This is the framework F12 function key
-      # XF86Back = "";
     };
 
     assigns = {
