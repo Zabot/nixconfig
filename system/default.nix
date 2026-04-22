@@ -9,6 +9,7 @@
     ./services.nix
     ./disks.nix
     ./network.nix
+    ./secureboot.nix
   ];
 
   time.timeZone = "America/Chicago";
