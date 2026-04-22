@@ -14,6 +14,10 @@
         family = builtins.head config.fonts.fontconfig.defaultFonts.monospace;
         style = "Regular";
       };
+      window = {
+        opacity = 0.8;
+        blur = true;
+      };
 
       colors = {
         primary = {

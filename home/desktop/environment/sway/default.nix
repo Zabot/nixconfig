@@ -68,7 +68,7 @@ let
 
     gaps = {
       inner = 10;
-      outer = 10;
+      outer = 5;
     };
 
     focus = {
@@ -161,7 +161,7 @@ let
         # Indicator: The border of the window where a new child will be placed.
         focused = {
           indicator = config.colors.focus-accent;
-          childBorder = config.colors.focus;
+          childBorder = config.colors.foreground;
         }
         // common;
 
@@ -215,6 +215,8 @@ in
   #environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ];
 
   wayland.windowManager.sway = {
+    package = pkgs.swayfx;
+    checkConfig = false;
     enable = true;
     config = wm_config // {
       input = {
@@ -237,6 +239,18 @@ in
     extraConfig = ''
       bindswitch lid:on output eDP-1 disable
       bindswitch lid:off output eDP-1 enable
+      default_dim_inactive 0.1
+      corner_radius 0
+      shadows enable
+      blur enable
+
+      layer_effects "waybar" {
+        blur enable;
+        blur_xray enable;
+        blur_ignore_transparent enable;
+        shadows enable;
+      }
+
       workspace 1
     '';
   };

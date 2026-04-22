@@ -28,19 +28,19 @@
       };
 
       urgency_normal = {
-        background = config.colors.background-hl;
+        background = config.colors.background-hl + "dd";
         foreground = config.colors.foreground;
         frame_color = config.colors.notice;
       };
 
       urgency_low = {
-        background = config.colors.background-hl;
+        background = config.colors.background-hl + "dd";
         foreground = config.colors.foreground;
         frame_color = config.colors.secondary;
       };
 
       urgency_critical = {
-        background = config.colors.background-hl;
+        background = config.colors.background-hl + "dd";
         foreground = config.colors.foreground;
         frame_color = config.colors.urgent;
       };

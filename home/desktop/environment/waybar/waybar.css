@@ -14,7 +14,7 @@ window#waybar {
 
 tooltip {
   color: @foreground@;
-  background-color: @background-hl@;
+  background: @background-hl@;
   text-shadow: none;
 }
 
