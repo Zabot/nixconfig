@@ -17,7 +17,7 @@ in
 
     plugins = with pkgs.vimPlugins; [
       # UI
-      plugins.solarized
+      vim-dim # Use 4 bit terminal colors
       lualine-nvim
 
       # Utilities
@@ -30,6 +30,8 @@ in
       vim-toml
       vim-nix
       vim-terraform
+      go-nvim
+      vim-opencl
 
       # LSP
       nvim-lspconfig
@@ -43,10 +45,7 @@ in
       telescope-nvim
       telescope-ui-select-nvim
 
-      (nvim-treesitter.withAllGrammars)
-      nvim-treesitter-context
-
-      go-nvim
+      nvim-treesitter.withAllGrammars
     ];
     extraLuaConfig = builtins.concatStringsSep " " (
       builtins.map builtins.readFile [
