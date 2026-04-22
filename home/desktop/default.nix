@@ -8,7 +8,7 @@
 
   colors = (import ./style/solarized.nix).dark;
   style = {
-    stroke-width = 1;
+    stroke-width = 0;
   };
   #programs.rofi.enable = true;
   #services.imapnotify.enable = true;

@@ -5,6 +5,17 @@
   system,
   ...
 }:
+let
+  asRGBA =
+    hex: alpha:
+    let
+      int = (pkgs.lib.fromHexString "0x${pkgs.lib.strings.removePrefix "#" hex}");
+      r = c: builtins.bitAnd (c / 255 / 255) 255;
+      g = c: builtins.bitAnd (c / 255) 255;
+      b = c: builtins.bitAnd (c) 255;
+    in
+    "rgba(${builtins.toString (r int)}, ${builtins.toString (g int)}, ${builtins.toString(b int)}, ${builtins.toString alpha})";
+in
 {
   systemd.user.services.waybar.Service.Environment = [
     "PATH=${
@@ -24,14 +35,15 @@
       enable = true;
     };
     style = pkgs.replaceVars ./waybar.css {
-      background = config.colors.background;
-      background-hl = config.colors.background-hl;
+      background = asRGBA config.colors.background 0.7;
+      background-hl = asRGBA config.colors.background-hl 0.7;
       foreground = config.colors.foreground;
       secondary = config.colors.secondary;
       focus = config.colors.focus;
       urgent = config.colors.urgent;
       ok = config.colors.ok;
       font = builtins.head config.fonts.fontconfig.defaultFonts.sansSerif;
+      stroke-width = config.style.stroke-width;
     };
     settings =
       with system.icons.set;

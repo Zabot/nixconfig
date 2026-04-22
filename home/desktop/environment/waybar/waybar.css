@@ -7,9 +7,9 @@
 }
 
 window#waybar {
-    background-color: @background@;
+    background: @background@;
     color: @foreground@;
-    border-top: 2px solid @background-hl@;
+    border-top: @stroke-width@ solid @background-hl@;
 }
 
 tooltip {

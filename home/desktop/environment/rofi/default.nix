@@ -10,12 +10,14 @@
     theme =
       let
         inherit (config.lib.formats.rasi) mkLiteral;
+        alpha = 0.7;
+        alpha-hex = pkgs.lib.toHexString (builtins.floor (255 * alpha));
       in
       with config.colors;
       with config.style;
       {
         "*" = {
-          background-color = mkLiteral background;
+          background-color = mkLiteral "transparent";
           text-color = mkLiteral foreground;
         };
 
@@ -23,32 +25,12 @@
           border-color = mkLiteral focus;
           border = mkLiteral "${builtins.toString stroke-width}px";
           padding = mkLiteral "10px";
-        };
-
-        element-text = {
-          background-color = mkLiteral "inherit";
-          text-color = mkLiteral "inherit";
+          background-color = mkLiteral ("${background}${alpha-hex}");
+          transparency = "real";
         };
 
         "element.selected" = {
-          background-color = mkLiteral background-hl;
-          text-color = mkLiteral foreground;
-        };
-
-        "element.normal.normal" = {
-          background-color = mkLiteral background;
-          text-color = mkLiteral secondary;
-        };
-
-        "element.alternate.normal" = {
-          text-color = mkLiteral secondary;
-        };
-
-        "#textbox-prompt-colon" = {
-          expand = false;
-          str = ":";
-          margin = mkLiteral "0px 0.3em 0em 0em";
-          text-color = mkLiteral foreground;
+          background-color = mkLiteral ("${background-hl}${alpha-hex}");
         };
       };
 

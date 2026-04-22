@@ -239,17 +239,30 @@ in
     extraConfig = ''
       bindswitch lid:on output eDP-1 disable
       bindswitch lid:off output eDP-1 enable
+
       default_dim_inactive 0.1
       corner_radius 0
       shadows enable
       blur enable
+      shadow_blur_radius 10
+      shadow_inactive_color #00000000
 
-      layer_effects "waybar" {
-        blur enable;
-        blur_xray enable;
-        blur_ignore_transparent enable;
-        shadows enable;
-      }
+      ${builtins.concatStringsSep "\n" (
+        builtins.map
+          (layer: ''
+            layer_effects "${layer}" {
+              blur enable;
+              blur_xray disable;
+              blur_ignore_transparent enable;
+              shadows enable;
+            }
+          '')
+          [
+            "notifications"
+            "waybar"
+            "rofi"
+          ]
+      )}
 
       workspace 1
     '';
