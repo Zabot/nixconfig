@@ -16,6 +16,19 @@
       };
     };
 
-    displays = mkOption { };
+    displays = mkOption {
+      type = types.attrs {
+        options = {
+          type = types.submodule {
+            options = {
+              fingerprint = mkOption { type = types.str; };
+              mode = mkOption { type = types.str; };
+              rate = mkOption { type = types.str; };
+              rotate = mkOption { type = types.str; };
+            };
+          };
+        };
+      };
+    };
   };
 }

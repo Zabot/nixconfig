@@ -1,16 +1,8 @@
-{ config, pkgs, ... }:
 {
-  imports = [
-    ./boot.nix
-    ./displays.nix
-    ./hardware-configuration.nix
-  ];
-
-  networking.wireless.interfaces = [ "wlp1s0" ];
-  networking.interfaces.wlp1s0.useDHCP = true;
-
-  # Slight perf boost and save some SSD write cycles by not updating atime
-  # Send TRIM commands to the ssd when blocks are freed
+  ...
+}:
+{
+  hardware.enableRedistributableFirmware = true;
   fileSystems."/".options = [
     "noatime"
     "nodiratime"
@@ -21,7 +13,6 @@
   services.blueman.enable = true;
   services.fwupd.enable = true;
 
-  # Enable fingerprint auth
   hardware.defaultWifi = "wlp1s0";
   hardware.power = {
     battery = "BAT1";
@@ -30,4 +21,23 @@
 
   disko.enable = true;
   disko.rootDisk = "/dev/nvme0n1";
+
+  boot = {
+    kernelParams = [
+      "mem_sleep_default=deep"
+      "amd_pstate=passive"
+    ];
+
+    kernelModules = [ "kvm-amd" ];
+    initrd = {
+      kernelModules = [ "dm-snapshot" ];
+      availableKernelModules = [
+        "nvme"
+        "xhci_pci"
+        "thunderbolt"
+        "usb_storage"
+        "sd_mod"
+      ];
+    };
+  };
 }
