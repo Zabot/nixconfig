@@ -8,6 +8,11 @@
     fel.url = "github:zabot/fel";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nur.url = "github:nix-community/NUR";
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v1.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -46,6 +51,7 @@
           age-plugin-yubikey
           inputs.agenix.packages.x86_64-linux.default
           nil
+          sbctl
         ];
       };
 
