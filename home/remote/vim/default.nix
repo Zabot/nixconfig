@@ -32,6 +32,7 @@ in
       vim-terraform
       go-nvim
       vim-opencl
+      wgsl-vim
 
       # LSP
       nvim-lspconfig
