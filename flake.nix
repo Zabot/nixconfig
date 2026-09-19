@@ -41,6 +41,7 @@
     rec {
       packages.x86_64-linux = {
         offline-installer-iso = nixosConfigurations.installer.config.system.build.isoImage;
+        keyboard = pkgs.callPackage ./keyboard { };
       };
 
       homeConfigurations.default = home-manager.lib.homeManagerConfiguration (import ./home);

@@ -12,7 +12,7 @@
   };
 
   virtualisation.docker.enable = true;
-  hardware.keyboard.zsa.enable = true;
+  hardware.keyboard.qmk.enable = true;
 
   services = {
     # Auto login on the first TTY since we have FDE

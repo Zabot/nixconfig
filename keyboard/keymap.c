@@ -3,7 +3,7 @@
 
 enum layers {
     BASE,
-    MOVE,
+    VIM,
     NUM,
     SYM
 };
@@ -11,18 +11,23 @@ enum layers {
 enum custom_keycodes {
     YANK = SAFE_RANGE,
     CUT,
+    VIM_APP,
+    VIM_INS,
 };
 
 enum {
     TD_YANK,
     TD_CUT,
+    TD_ESC,
+    TD_TAB,
 };
 
 tap_dance_action_t tap_dance_actions[] = {
     [TD_YANK] = ACTION_TAP_DANCE_DOUBLE(C(KC_C), YANK),
     [TD_CUT] = ACTION_TAP_DANCE_DOUBLE(C(KC_X), CUT),
+    [TD_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_TAB, KC_RIGHT),
+    [TD_ESC] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_ESC, VIM),
 };
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*
@@ -35,58 +40,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                              _______,  _______,  _______, _______, _______, _______
     ),
   */
-  // To assign:
-  // open/close brace
-  // tilde/grave
-  // pipe
-  // plus
-  // minus
-  // symbols
-  // F row - fn layer
-  // delete
-  // tab
-  // shift
-  // control
-  //
-  // thumb cluster:
-  // enter
-  // backspace
-  // alt
-  // mod switch
-  // super
-  // the quick brown fox jumps over the lazy dog
-  //
+
     [BASE] = LAYOUT(
-         KC_GRV,    KC_1,     KC_2,    KC_3,    KC_4,     KC_5,  _______, _______,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_EQL,
-         KC_TAB,    KC_Q,     KC_W,    KC_E,    KC_R,     KC_T,  _______, _______,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_MINS,
-         KC_ESC,    KC_A,     KC_S,    KC_D,    KC_F,     KC_G,  _______, _______,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
-        KC_LSFT,    KC_Z,     KC_X,    KC_C,    KC_V,     KC_B,                       KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,
-        KC_LCTL, _______,  _______, _______, KC_LALT,            _______, _______,          KC_BSPC, _______, _______, _______, _______,
-                                              KC_SPC,    MO(MOVE),  MO(NUM), _______, MO(SYM),  KC_ENT
+        KC_GRV,     KC_1,     KC_2,    KC_3,    KC_4,     KC_5,  QK_BOOT, _______,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_EQL,
+        TD(TD_TAB),     KC_Q,     KC_W,    KC_E,    KC_R,     KC_T,  _______, _______,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_MINS,
+        TD(TD_ESC), KC_A,     KC_S,    KC_D,    KC_F,     KC_G,  _______, _______,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
+        OS_LSFT,    KC_Z,     KC_X,    KC_C,    KC_V,     KC_B,                       KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_BSLS,
+        KC_LCTL, _______,  _______, _______, KC_LALT,            _______, _______,          KC_BSPC, _______, KC_LBRC, KC_RBRC, _______,
+                                              KC_SPC,     MO(NUM),  MO(NUM), _______, MO(SYM),  KC_ENT
                                              /*MO(MOVE),  MO(SYM),  MO(NUM), _______, _______, _______*/
     ),
-    [MOVE] = LAYOUT(
+    [VIM] = LAYOUT(
         _______, _______,      _______, _______, _______,    _______,  _______, _______, _______, _______, _______,  _______, _______, _______,
-        _______, _______,  C(KC_RIGHT), _______, _______,    _______,  _______, _______, TD_YANK, _______, _______,  _______, C(KC_V), _______,
-        _______, _______,      _______,  TD_CUT, _______,    _______,  _______, _______, KC_LEFT, KC_DOWN,   KC_UP, KC_RIGHT, _______, _______,
+        _______, _______,  C(KC_RIGHT), _______, _______,    _______,  _______, _______, TD_YANK, _______, VIM_INS,  _______, C(KC_V), _______,
+        _______, VIM_APP,      _______,  TD_CUT, _______,    _______,  _______, _______, KC_LEFT, KC_DOWN,   KC_UP, KC_RIGHT, _______, _______,
         _______, _______,      _______, _______, _______, C(KC_LEFT),                    _______, _______, _______,  _______, _______, _______,
         _______, _______,      _______, _______, _______,              _______, _______,          _______, _______,  _______, _______, _______,
                                                  _______,    _______,  _______, _______, _______, _______
     ),
     [NUM] = LAYOUT(
-        _______, _______,  _______, _______, _______,  _______,  _______, _______, _______,  KC_NUM, KC_PSLS, KC_PAST, KC_PMNS, KC_PMNS,
-        _______, _______,  _______, _______, _______,  _______,  _______, _______, _______, KC_KP_7, KC_KP_8, KC_KP_9, KC_PPLS, KC_PPLS,
-        _______, _______,  _______, _______, _______,  _______,  _______, _______, _______, KC_KP_4, KC_KP_5, KC_KP_6, KC_PPLS, KC_PPLS,
-        _______, _______,  _______, _______, _______,  _______,                    _______, KC_KP_1, KC_KP_2, KC_KP_3, KC_PENT, KC_PENT,
-        _______, _______,  _______, _______, _______,            _______, _______,          KC_KP_0, KC_KP_0, KC_PDOT, KC_PENT, KC_PENT,
-                                             _______,  _______,  _______, _______, _______, _______
-    ),
-    [SYM] = LAYOUT(
-        _______, _______,  _______, _______, _______,  _______,  _______, _______, _______, _______, _______, _______,    _______, _______,
-        _______, _______,  _______, _______, _______,  _______,  _______, _______, _______, _______, _______, S(KC_LBRC), S(KC_RBRC), _______,
-        _______, S(KC_1),  S(KC_2), S(KC_3), S(KC_4),  S(KC_5),  _______, _______, S(KC_6), S(KC_7), S(KC_8), S(KC_9),    S(KC_0), _______,
-        _______, _______,  _______, _______, _______,  _______,                    _______, _______, _______, KC_LBRC,    KC_RBRC, _______,
-        _______, _______,  _______, _______, _______,            _______, _______,          _______, _______, _______,    _______, _______,
+        _______, _______,  _______, _______, _______,  _______,  _______, _______, _______,  _______, KC_PSLS, KC_PAST, KC_MINUS, KC_MINUS,
+        _______, _______,  _______, _______, _______,  _______,  _______, _______, _______, KC_7, KC_8, KC_9, KC_PLUS, KC_PLUS,
+        _______, _______,  _______, _______, _______,  _______,  _______, _______, _______, KC_4, KC_5, KC_6, KC_PLUS, KC_PLUS,
+        _______, _______,  _______, _______, _______,  _______,                    _______, KC_1, KC_2, KC_3, KC_ENT, KC_ENT,
+        _______, _______,  _______, _______, _______,            _______, _______,          KC_0, KC_0, KC_DOT, KC_ENT, KC_ENT,
                                              _______,  _______,  _______, _______, _______, _______
     ),
 
@@ -109,7 +86,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case YANK:
             SEND_STRING(SS_LCTL("ac"));
             break;
+        case VIM_APP:
+            layer_off(VIM);
+            break;
+        case VIM_INS:
+            layer_off(VIM);
+            break;
         }
     }
     return true;
+}
+
+rgb_t layer_colors[] = {
+  {0x65, 0x7b, 0x83},
+  {0xb5, 0x89, 0x00},
+  {0x85, 0x99, 0x00},
+};
+
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    uint8_t layer = get_highest_layer(layer_state);
+
+    for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
+        for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
+            uint8_t index = g_led_config.matrix_co[row][col];
+            if (index < led_min || index >= led_max || index == NO_LED) {
+              continue;
+            }
+
+            keypos_t key = {col, row};
+            for (uint8_t i = 0; i <= layer; i++) {
+              uint8_t l = layer - i;
+              if (keymap_key_to_keycode(l, key) > KC_TRNS) {
+                rgb_t *c = layer_colors + l;
+                rgb_matrix_set_color(index, c->r, c->g, c->b);
+                break;
+              }
+            }
+        }
+    }
+    return false;
 }
