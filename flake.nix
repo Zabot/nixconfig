@@ -6,6 +6,10 @@
     agenix.url = "github:ryantm/agenix";
     disko.url = "github:nix-community/disko/latest";
     fel.url = "github:zabot/fel";
+    mandlebrot = {
+      url = "github:zabot/mandlebrot";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nur.url = "github:nix-community/NUR";
 

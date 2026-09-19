@@ -285,6 +285,26 @@
         "type": "github"
       }
     },
+    "mandlebrot": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1789782960,
+        "narHash": "sha256-Pk/I8zZHRO/LkI+rEwxG4fxxqp6cOFNs8j0K/FuUyTA=",
+        "owner": "zabot",
+        "repo": "mandlebrot",
+        "rev": "28cd7bd4288304be5b9da462e42961ac920c90b3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zabot",
+        "repo": "mandlebrot",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1775203647,
@@ -462,6 +482,7 @@
         "fel": "fel",
         "home-manager": "home-manager_2",
         "lanzaboote": "lanzaboote",
+        "mandlebrot": "mandlebrot",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_6",
         "nur": "nur"
