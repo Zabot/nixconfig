@@ -205,12 +205,21 @@ in
   #[[ "$(tty)" == /dev/tty1 ]] && sway
   #'';
 
-  #xdg.portal = {
-  #enable = true;
-  #wlr.enable = true;
-  #extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  #};
-  #environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ];
+  xdg = {
+    portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-wlr
+        xdg-desktop-portal-gtk
+      ];
+      config.common.default = "wlr";
+    };
+  };
+
+  #environment.pathsToLink = [
+  #"/share/xdg-desktop-portal"
+  #"/share/applications"
+  #];
 
   wayland.windowManager.sway = {
     package = pkgs.swayfx;

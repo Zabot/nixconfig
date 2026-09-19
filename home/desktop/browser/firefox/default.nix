@@ -67,6 +67,8 @@ let
 in
 {
   programs.firefox = {
+    package = (pkgs.wrapFirefox (pkgs.firefox-unwrapped.override { pipewireSupport = true; }) { });
+
     enable = true;
     policies = {
       DefaultDownloadDirectory = "\${home}/Downloads";
