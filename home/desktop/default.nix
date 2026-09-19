@@ -8,7 +8,8 @@
 
   colors = (import ./style/solarized.nix).dark;
   style = {
-    stroke-width = 0;
+    stroke-width = 1;
+    opacity = 1.0;
   };
 
   services.gammastep = {

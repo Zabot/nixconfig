@@ -4,6 +4,9 @@
   pkgs,
   ...
 }:
+let
+  aToHex = alpha: (lib.toHexString (builtins.floor (alpha * 255)));
+in
 {
   services.dunst = {
     enable = true;
@@ -28,19 +31,19 @@
       };
 
       urgency_normal = {
-        background = config.colors.background-hl + "dd";
+        background = config.colors.background-hl + (aToHex config.style.opacity);
         foreground = config.colors.foreground;
         frame_color = config.colors.notice;
       };
 
       urgency_low = {
-        background = config.colors.background-hl + "dd";
+        background = config.colors.background-hl + (aToHex config.style.opacity);
         foreground = config.colors.foreground;
         frame_color = config.colors.secondary;
       };
 
       urgency_critical = {
-        background = config.colors.background-hl + "dd";
+        background = config.colors.background-hl + (aToHex config.style.opacity);
         foreground = config.colors.foreground;
         frame_color = config.colors.urgent;
       };

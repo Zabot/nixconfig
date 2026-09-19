@@ -15,7 +15,7 @@
         style = "Regular";
       };
       window = {
-        opacity = 0.8;
+        opacity = config.style.opacity;
         blur = true;
       };
 

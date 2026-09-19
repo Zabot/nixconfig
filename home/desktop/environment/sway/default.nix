@@ -248,7 +248,7 @@ in
   #];
 
   wayland.windowManager.sway = {
-    package = pkgs.swayfx;
+    package = if config.style.opacity < 1.0 then pkgs.swayfx else pkgs.sway;
     checkConfig = false;
     enable = true;
     config = wm_config // {
@@ -269,35 +269,42 @@ in
         };
       };
     };
-    extraConfig = ''
-      bindswitch lid:on output eDP-1 disable
-      bindswitch lid:off output eDP-1 enable
+    extraConfig =
+      let
+        swayfx_config = ''
+          default_dim_inactive 0.1
+          corner_radius 0
+          shadows enable
+          blur enable
+          shadow_blur_radius 5
+          shadow_inactive_color #00000000
 
-      default_dim_inactive 0.1
-      corner_radius 0
-      shadows enable
-      blur enable
-      shadow_blur_radius 5
-      shadow_inactive_color #00000000
+          ${builtins.concatStringsSep "\n" (
+            builtins.map
+              (layer: ''
+                layer_effects "${layer}" {
+                  blur enable;
+                  blur_xray disable;
+                  blur_ignore_transparent enable;
+                  shadows enable;
+                }
+              '')
+              [
+                "notifications"
+                "waybar"
+                "rofi"
+              ]
+          )}
+        '';
 
-      ${builtins.concatStringsSep "\n" (
-        builtins.map
-          (layer: ''
-            layer_effects "${layer}" {
-              blur enable;
-              blur_xray disable;
-              blur_ignore_transparent enable;
-              shadows enable;
-            }
-          '')
-          [
-            "notifications"
-            "waybar"
-            "rofi"
-          ]
-      )}
+      in
+      ''
+        bindswitch lid:on output eDP-1 disable
+        bindswitch lid:off output eDP-1 enable
 
-      workspace 1
-    '';
+        ${if config.style.opacity < 1 then swayfx_config else ""}
+
+        workspace 1
+      '';
   };
 }

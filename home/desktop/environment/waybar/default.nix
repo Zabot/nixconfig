@@ -35,8 +35,8 @@ in
       enable = true;
     };
     style = pkgs.replaceVars ./waybar.css {
-      background = asRGBA config.colors.background 0.7;
-      background-hl = asRGBA config.colors.background-hl 0.7;
+      background = asRGBA config.colors.background config.style.opacity;
+      background-hl = asRGBA config.colors.background-hl config.style.opacity;
       foreground = config.colors.foreground;
       secondary = config.colors.secondary;
       focus = config.colors.focus;

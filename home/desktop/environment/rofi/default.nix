@@ -10,7 +10,7 @@
     theme =
       let
         inherit (config.lib.formats.rasi) mkLiteral;
-        alpha = 0.7;
+        alpha = config.style.opacity;
         alpha-hex = pkgs.lib.toHexString (builtins.floor (255 * alpha));
       in
       with config.colors;

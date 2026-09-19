@@ -44,6 +44,7 @@
       type = submodule {
         options = {
           stroke-width = mkOption { type = int; };
+          opacity = mkOption { type = float; };
         };
       };
     };
