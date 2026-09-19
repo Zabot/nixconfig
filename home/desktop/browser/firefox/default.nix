@@ -128,9 +128,12 @@ in
         # Handful of privacy settings from https://wiki.archlinux.org/title/Firefox/Privacy
         "privacy.donottrackheader.enabled" = true;
         "privacy.trackingprotection.enabled" = true;
-        "privacy.resistFingerprinting" = false;
         "privacy.fingerprintingProtection" = true;
-        "privacy.fingerprintingProtection.overrides" = "+AllTargets,-CSSPrefersColorScheme";
+        "privacy.resistFingerprinting" = true;
+        "privacy.resistFingerprinting.exemptedDomains" = builtins.concatStringsSep "," [
+          "192.168.*"
+          "10.*"
+        ];
         "media.peerconnection.ice.default_address_only" = true;
         "toolkit.telemetry.enabled" = false;
         "app.normandy.enabled" = false;

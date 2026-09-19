@@ -251,7 +251,7 @@ in
       corner_radius 0
       shadows enable
       blur enable
-      shadow_blur_radius 10
+      shadow_blur_radius 5
       shadow_inactive_color #00000000
 
       ${builtins.concatStringsSep "\n" (
