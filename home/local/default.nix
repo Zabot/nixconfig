@@ -1,7 +1,5 @@
 {
-  config,
   pkgs,
-  inputs,
   ...
 }:
 {
@@ -18,11 +16,7 @@
       automount = true;
     };
 
-    gpg-agent = {
-      enable = true;
-      enableSshSupport = true;
-      pinentry.package = pkgs.pinentry-tty;
-    };
+    gpg-agent.enable = false;
 
     ssh-agent = {
       enable = true;
