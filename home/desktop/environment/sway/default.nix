@@ -61,6 +61,32 @@ let
       }
     ];
   };
+
+  notifyAirplane = pkgs.writeShellScriptBin "notify" ''
+    state=$(rfkill -J | jq -r '.rfkilldevices.[] | select(.type=="wlan") | .soft')
+
+    icon=$ICON_LOW
+    case $state in
+      "blocked")
+        icon=${svg system.icons.set.md-airplane};
+        ;;
+      "unblocked")
+        icon=${svg system.icons.set.md-airplane_off};
+        ;;
+      *)
+        exit
+        ;;
+    esac
+
+    dunstify \
+      -t 2000 \
+      -a "rfkill" \
+      -u low \
+      -i $icon \
+      -r 100001 \
+      "$state"
+  '';
+
   wm_config = {
     modifier = mod;
     terminal = "${pkgs.alacritty}/bin/alacritty";
@@ -131,7 +157,7 @@ let
       XF86MonBrightnessDown = "exec --no-startup-id ${config.brightness.down}";
       XF86MonBrightnessUp = "exec --no-startup-id ${config.brightness.up}";
       "Mod4+p" = "exec --no-startup-id ${pkgs.mkMenu displayMenu}/bin/display";
-      XF86RFKill = "";
+      XF86RFKill = "exec --no-startup-id ${notifyAirplane}/bin/notify";
       Print = "exec --no-startup-id ${pkgs.maim}/bin/maim -s ~/maim-$(date +%s).png";
       XF86AudioMedia = "";
 
