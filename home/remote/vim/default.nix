@@ -57,7 +57,7 @@ in
       rust-analyzer
       lua-language-server
       pyright
-      nodePackages.typescript-language-server
+      typescript-language-server
       gopls
     ];
   };
