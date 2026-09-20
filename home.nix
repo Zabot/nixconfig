@@ -3,6 +3,7 @@
   pkgs,
   nixosVersion,
   inputs,
+  withSecrets,
   ...
 }:
 let
@@ -42,7 +43,7 @@ in
     }
   ];
   home-manager.extraSpecialArgs = {
-    inherit inputs;
+    inherit inputs withSecrets;
     system = config;
   };
 }

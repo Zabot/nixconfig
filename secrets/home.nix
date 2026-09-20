@@ -1,7 +1,8 @@
 {
-  config,
   pkgs,
   inputs,
+  lib,
+  withSecrets,
   ...
 }:
 {
@@ -16,14 +17,6 @@
     {
       package = ageCommon.package;
       identityPaths = ageCommon.identityPaths;
-
-      secrets = {
-        fastmail-pass = {
-          file = ./secrets/fastmail.age;
-        };
-        irc-libera-pass = {
-          file = ./secrets/irc-libera-password.age;
-        };
-      };
+      secrets = lib.mkIf withSecrets inputs.secrets.secrets.user;
     };
 }

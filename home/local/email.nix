@@ -1,12 +1,8 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }:
-let
-  email = import ../secrets/email.nix;
-in
 {
   # We enable the email configs, but that doesn't actually enable the services
   programs = {

@@ -158,7 +158,7 @@ let
       "Mod4+p" = "exec --no-startup-id ${pkgs.mkMenu displayMenu}/bin/display";
       XF86RFKill = "exec --no-startup-id ${notifyAirplane}/bin/notify";
       Print = "exec --no-startup-id ${pkgs.maim}/bin/maim -s ~/maim-$(date +%s).png";
-      XF86AudioMedia = "";
+      #XF86AudioMedia = "";
 
       XF86Sleep = "exec --no-startup-id ${pkgs.mkMenu powerMenu}/bin/display";
       XF86PowerOff = "exec --no-startup-id ${pkgs.mkMenu powerMenu}/bin/display";

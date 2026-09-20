@@ -1,7 +1,8 @@
 {
-  config,
   pkgs,
+  lib,
   inputs,
+  withSecrets,
   ...
 }:
 {
@@ -33,11 +34,12 @@
         echo $joined > /etc/age-yk-identity.txt
       '';
     };
+  } // (if withSecrets then {
     agenixInstall.deps = [
       "ageTpmEnroll"
       "ageYkImport"
     ];
-  };
+  } else {});
 
   age =
     let
@@ -46,14 +48,6 @@
     {
       ageBin = "${ageCommon.package}/bin/age";
       identityPaths = ageCommon.identityPaths;
-
-      secrets = {
-        home-env = {
-          file = ./secrets/home-env.age;
-        };
-        hotspot-env = {
-          file = ./secrets/hotspot-env.age;
-        };
-      };
+      secrets = lib.mkIf withSecrets inputs.secrets.secrets.system;
     };
 }

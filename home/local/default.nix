@@ -1,15 +1,25 @@
 {
   pkgs,
+  withSecrets,
   ...
 }:
 {
   imports = [
-    ./email.nix
-    ./vdir.nix
-    ./irc.nix
     ./rss.nix
     ./ssh.nix
-  ];
+  ]
+  ++ (
+    # We have to pass this through explicity since you can't reference config
+    # in imports. Alternatively this would all need to be lib.mkIf'ed
+    if withSecrets then
+      [
+        ./vdir.nix
+        ./irc.nix
+        ./email.nix
+      ]
+    else
+      [ ]
+  );
 
   services = {
     udiskie = {

@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  withSecrets,
   ...
 }:
 {
@@ -10,7 +11,7 @@
     networkmanager = {
       enable = true;
       wifi.powersave = true;
-      ensureProfiles = {
+      ensureProfiles = lib.mkIf withSecrets {
         environmentFiles = [
           config.age.secrets.hotspot-env.path
           config.age.secrets.home-env.path

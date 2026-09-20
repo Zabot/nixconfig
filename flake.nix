@@ -17,6 +17,12 @@
       url = "github:nix-community/lanzaboote/v1.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixgl.url = "github:nix-community/nixGL";
+
+    secrets = {
+      url = "git+ssh://de4910@de4910.rsync.net/~/secrets?shallow=1";
+    };
   };
 
   outputs =
@@ -44,15 +50,33 @@
         keyboard = pkgs.callPackage ./keyboard { };
       };
 
-      homeConfigurations."zach" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [ ./home ];
-        extraSpecialArgs = {
-          inherit inputs;
-          system = {
-            system.stateVersion = "25.11";
-            global.user = user;
+      homeConfigurations = let
+        config = {withSecrets}: (home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [
+            ./home
+            {
+              home.packages = [
+                # Nix built applications don't get along with non nixos libgl
+                # nixgl is a wrapper for launching them.
+                inputs.nixgl.packages.x86_64-linux.default
+              ];
+            }
+          ];
+          extraSpecialArgs = {
+            inherit inputs withSecrets;
+            system = {
+              system.stateVersion = "25.11";
+              global.user = user;
+            };
           };
+        });
+      in {
+        "zach" = config {
+          withSecrets = true;
+        };
+        "public" = config {
+          withSecrets = false;
         };
       };
 
@@ -76,6 +100,7 @@
           common =
             {
               host,
+              withSecrets ? true,
               modules ? [ ],
             }:
             nixpkgs.lib.nixosSystem {
@@ -85,7 +110,7 @@
               ]
               ++ modules;
               specialArgs = {
-                inherit inputs;
+                inherit inputs withSecrets;
                 global = {
                   inherit user host;
                 };
