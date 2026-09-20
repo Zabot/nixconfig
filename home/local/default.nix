@@ -8,6 +8,7 @@
     ./vdir.nix
     ./irc.nix
     ./rss.nix
+    ./ssh.nix
   ];
 
   services = {
@@ -17,10 +18,6 @@
     };
 
     gpg-agent.enable = false;
-
-    ssh-agent = {
-      enable = true;
-    };
   };
 
   home.packages = with pkgs; [

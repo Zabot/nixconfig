@@ -27,9 +27,11 @@
       notes.rewriteRef = [ "refs/notes/fel" ];
       push.default = "matching";
 
-      gpg.format = "ssh";
       commit.gpgsign = true;
-      user.signingKey = "~/.ssh/id_ed25519_sk.pub";
+      gpg.format = "ssh";
+
+      # TODO Be more selective about what keys we use to sign
+      gpg.ssh.defaultKeyCommand = ''sh -c "ssh-add -L | sed 's/^/key::/'"'';
     };
   };
 }
