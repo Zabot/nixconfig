@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  system,
   ...
 }:
 let
@@ -46,7 +45,7 @@ in
       stroke-width = config.style.stroke-width;
     };
     settings =
-      with system.icons.set;
+      with config.icons.set;
       with config.colors;
       rec {
         "bar/primary" = {
@@ -157,7 +156,7 @@ in
           };
 
           backlight = {
-            format-icons = with system.icons.set; [
+            format-icons = with config.icons.set; [
               md-brightness_5.char
               md-brightness_6.char
               md-brightness_6.char
@@ -189,7 +188,7 @@ in
             format = "{icon} {volume}%";
             format-muted = "${md-volume_mute.char} muted";
             on-click = "${pkgs.rofi}/bin/rofi -show sink_select";
-            format-icons = with system.icons.set; [
+            format-icons = with config.icons.set; [
               md-volume_low.char
               md-volume_medium.char
               md-volume_high.char

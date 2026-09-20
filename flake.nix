@@ -44,7 +44,18 @@
         keyboard = pkgs.callPackage ./keyboard { };
       };
 
-      homeConfigurations.default = home-manager.lib.homeManagerConfiguration (import ./home);
+      homeConfigurations."zach" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [ ./home ];
+        extraSpecialArgs = {
+          inherit inputs;
+          system = {
+            system.stateVersion = "25.11";
+            global.user = user;
+          };
+        };
+      };
+
       devShells.x86_64-linux.default = pkgs.mkShellNoCC {
         packages = with pkgs; [
           git-annex

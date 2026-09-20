@@ -2,15 +2,14 @@
   config,
   lib,
   pkgs,
-  system,
   ...
 }:
 let
-  svg = system.icons.svg config.colors.foreground;
+  svg = config.icons.svg config.colors.foreground;
 
   volume = pkgs.wrap {
     src = ./volume.sh;
-    env = with system.icons.set; {
+    env = with config.icons.set; {
       ICON_MUTED = svg md-volume_mute;
       ICON_LOW = svg md-volume_low;
       ICON_MID = svg md-volume_medium;
@@ -21,7 +20,7 @@ let
 
   brightness = pkgs.wrap {
     src = ./brightness.sh;
-    env = with system.icons.set; {
+    env = with config.icons.set; {
       ICON_LOW = svg md-brightness_5;
       ICON_MID = svg md-brightness_6;
       ICON_HIGH = svg md-brightness_7;

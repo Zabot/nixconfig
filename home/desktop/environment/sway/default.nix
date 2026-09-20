@@ -2,17 +2,16 @@
   config,
   lib,
   pkgs,
-  system,
   ...
 }:
 let
   mod = "Mod1";
 
-  svg = system.icons.svg config.colors.foreground;
+  svg = config.icons.svg config.colors.foreground;
   powerMenu = {
     prompt = "System power menu";
     colors = config.colors;
-    options = with system.icons.set; [
+    options = with config.icons.set; [
       {
         label = "Lock";
         icon = svg md-lock;
@@ -43,7 +42,7 @@ let
   displayMenu = {
     prompt = "External display";
     colors = config.colors;
-    options = with system.icons.set; [
+    options = with config.icons.set; [
       {
         label = "Laptop";
         icon = svg md-laptop;
@@ -68,10 +67,10 @@ let
     icon=$ICON_LOW
     case $state in
       "blocked")
-        icon=${svg system.icons.set.md-airplane};
+        icon=${svg config.icons.set.md-airplane};
         ;;
       "unblocked")
-        icon=${svg system.icons.set.md-airplane_off};
+        icon=${svg config.icons.set.md-airplane_off};
         ;;
       *)
         exit

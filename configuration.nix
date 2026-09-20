@@ -6,8 +6,6 @@
 }:
 {
   imports = [
-    # Import icon set
-    ./icons
     # Import definition of global options
     ./global.nix
     # Import common system configuration

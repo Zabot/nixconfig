@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
+    ./icons
     ./style
     ./environment
     ./browser
