@@ -13,7 +13,7 @@ let
       g = c: builtins.bitAnd (c / 255) 255;
       b = c: builtins.bitAnd (c) 255;
     in
-    "rgba(${builtins.toString (r int)}, ${builtins.toString (g int)}, ${builtins.toString(b int)}, ${builtins.toString alpha})";
+    "rgba(${builtins.toString (r int)}, ${builtins.toString (g int)}, ${builtins.toString (b int)}, ${builtins.toString alpha})";
 in
 {
   systemd.user.services.waybar.Service.Environment = [

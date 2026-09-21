@@ -82,7 +82,6 @@
     config.common.default = "wlr";
   };
 
-
   hardware = {
     # Enable backlight brightness control from userspace
     acpilight.enable = true;

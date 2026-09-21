@@ -34,12 +34,18 @@
         echo $joined > /etc/age-yk-identity.txt
       '';
     };
-  } // (if withSecrets then {
-    agenixInstall.deps = [
-      "ageTpmEnroll"
-      "ageYkImport"
-    ];
-  } else {});
+  }
+  // (
+    if withSecrets then
+      {
+        agenixInstall.deps = [
+          "ageTpmEnroll"
+          "ageYkImport"
+        ];
+      }
+    else
+      { }
+  );
 
   age =
     let
