@@ -68,6 +68,7 @@ in
 {
   programs.firefox = {
     package = (pkgs.wrapFirefox (pkgs.firefox-unwrapped.override { pipewireSupport = true; }) { });
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
 
     enable = true;
     policies = {

@@ -14,6 +14,8 @@ in
     vimAlias = true;
     vimdiffAlias = true;
     defaultEditor = true;
+    withRuby = false;
+    withPython3 = false;
 
     plugins = with pkgs.vimPlugins; [
       # UI
@@ -48,7 +50,7 @@ in
 
       nvim-treesitter.withAllGrammars
     ];
-    extraLuaConfig = builtins.concatStringsSep " " (
+    initLua = builtins.concatStringsSep " " (
       builtins.map builtins.readFile [
         ./init.lua
         ./lsp.lua

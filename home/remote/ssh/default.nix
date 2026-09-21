@@ -3,13 +3,11 @@
   programs.ssh = {
     enableDefaultConfig = false;
     enable = true;
-    matchBlocks = {
+    settings = {
       # Hardcode github key
       "github.com" = {
         user = "git";
-        extraOptions = {
-          UserKnownHostsFile = "${./known_hosts/github.known_hosts}";
-        };
+        UserKnownHostsFile = "${./known_hosts/github.known_hosts}";
       };
 
       "*" = {

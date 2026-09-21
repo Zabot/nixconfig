@@ -1,9 +1,9 @@
 { pkgs }:
 {
-  package = pkgs.age.withPlugins (ps: [
+  package = pkgs.lib.addMetaAttrs { mainProgram = "age"; } (pkgs.age.withPlugins (ps: [
     ps.age-plugin-tpm
     ps.age-plugin-yubikey
-  ]);
+  ]));
 
   identityPaths = [
     "/etc/age-tpm-identity.txt"

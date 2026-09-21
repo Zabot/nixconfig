@@ -55,7 +55,7 @@ let
   '';
 in
 {
-  programs.wpaperd = {
+  services.wpaperd = {
     enable = true;
 
     settings = {
