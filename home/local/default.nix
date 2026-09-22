@@ -7,6 +7,7 @@
   imports = [
     ./rss.nix
     ./ssh.nix
+    ./mpd.nix
   ]
   ++ (
     # We have to pass this through explicity since you can't reference config
@@ -38,22 +39,6 @@
     age-plugin-tpm
     age-plugin-yubikey
   ];
-
-  services.mopidy = {
-    enable = true;
-    extensionPackages = with pkgs; [
-      mopidy-mpd
-      mopidy-somafm
-      mopidy-tunein
-    ];
-    settings = {
-      file = {
-        media_dirs = [
-          "~/music"
-        ];
-      };
-    };
-  };
 
   programs.taskwarrior = {
     enable = true;
