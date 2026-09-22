@@ -247,7 +247,7 @@ in
   #];
 
   wayland.windowManager.sway = {
-    package = if config.style.opacity < 1.0 then pkgs.swayfx else pkgs.sway;
+    package = config.lib.nixGL.wrap (if config.style.opacity < 1.0 then pkgs.swayfx else pkgs.sway);
     checkConfig = false;
     enable = true;
     config = wm_config // {

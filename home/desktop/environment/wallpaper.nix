@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
 let
   mb = inputs.mandlebrot.packages.x86_64-linux.default;
   colorscheme = [
@@ -57,6 +62,7 @@ in
 {
   services.wpaperd = {
     enable = true;
+    package = config.lib.nixGL.wrap pkgs.wpaperd;
 
     settings = {
       default = {

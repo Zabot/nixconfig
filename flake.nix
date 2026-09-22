@@ -59,11 +59,7 @@
               modules = [
                 ./home
                 {
-                  home.packages = [
-                    # Nix built applications don't get along with non nixos libgl
-                    # nixgl is a wrapper for launching them.
-                    inputs.nixgl.packages.x86_64-linux.default
-                  ];
+                  nixGL.packages = inputs.nixgl.packages;
                 }
               ];
               extraSpecialArgs = {
