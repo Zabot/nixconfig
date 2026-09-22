@@ -23,6 +23,10 @@
     jq
   ];
 
+  home.sessionVariables = {
+    GOPATH = "${config.xdg.dataHome}/go";
+  };
+
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
